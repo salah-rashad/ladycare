@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "875927030104",
+    "project_id": "lady-care-ksa",
+    "storage_bucket": "lady-care-ksa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875927030104:android:86e05a7f459164413bfd2d",
+        "android_client_info": {
+          "package_name": "com.ladycare.ladycare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875927030104-e0ijp0594f8vinekrpnjsbr0tsvrfq20.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-tzZbJ3bWrlON4itVqnluvfnAJdfRFrM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "875927030104-0rp6qdpv1c0tpnk1vv4chra7ri8mhg98.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "875927030104-qjafj0v8g8gavrl91g4q3undu1bt0lsr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ladycare.ladycare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

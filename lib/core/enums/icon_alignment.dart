@@ -1,0 +1,4 @@
+enum IconAlignment {
+  right,
+  left,
+}

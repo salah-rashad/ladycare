@@ -1,0 +1,24 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "linux": true,
+        "macos": true,
+        "web": true,
+        "windows": true,
+        ".dart_tool": true,
+        ".idea": true
+    },
+    "hide-files.files": [
+        "linux",
+        "macos",
+        "web",
+        "windows",
+        ".dart_tool",
+        ".idea"
+    ]
+}
