@@ -605,14 +605,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
-  geoflutterfire_updated:
+  geoflutterfire2:
     dependency: "direct main"
     description:
-      name: geoflutterfire_updated
-      sha256: "4e1b6e55a4951d7498d272ac4ec4464178b14bb4f76355869616bc42ad19cd1b"
+      name: geoflutterfire2
+      sha256: "343a3ef87f81f39e64a2b82ee392efa93fa646475564853daca565afc38096bb"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0"
+    version: "2.3.15"
   get_it:
     dependency: "direct main"
     description:

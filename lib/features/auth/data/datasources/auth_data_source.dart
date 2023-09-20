@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -38,6 +40,7 @@ class AuthDataSourceImpl implements AuthDataSource {
       return await getUserProfile();
     } on FirebaseAuthException catch (e) {
       final message = FailureMessages.fromCode(e.code);
+      log(message, error: e);
       throw AuthException(message, code: e.code);
     } catch (e) {
       rethrow;
@@ -75,6 +78,7 @@ class AuthDataSourceImpl implements AuthDataSource {
       return doc.data();
     } on FirebaseAuthException catch (e) {
       final message = FailureMessages.fromCode(e.code);
+      log(message, error: e);
       throw AuthException(message, code: e.code);
     } catch (e) {
       rethrow;
@@ -105,18 +109,15 @@ class AuthDataSourceImpl implements AuthDataSource {
       await auth.signOut();
       return unit;
     } catch (e) {
-      throw const AuthException(FailureMessages.logout_failed);
+      const message = FailureMessages.logout_failed;
+      log(message, error: e);
+      throw const AuthException(message);
     }
   }
 
   @override
   Future<Unit> sendPasswordResetEmail(ResetPasswordParams params) async {
-    try {
-      // TODO: implement this
-      await auth.sendPasswordResetEmail(email: params.email);
-      return unit;
-    } catch (e) {
-      throw const AuthException(FailureMessages.logout_failed);
-    }
+    // TODO: implement this
+    throw UnimplementedError();
   }
 }
