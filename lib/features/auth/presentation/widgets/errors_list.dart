@@ -43,7 +43,7 @@ class ErrorMessageTile extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Assets.solarIcons.boldDuotone.dangerCircle(context.palette.error),
+        Assets.solarIcons.boldDuotone.dangerCircle(color:context.palette.error),
         const SizedBox(width: 16.0),
         Flexible(
           child: Text(

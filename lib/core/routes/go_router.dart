@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import '../../features/auth/presentation/pages/home/home_page.dart';
 import '../../features/auth/presentation/pages/login/login_page.dart';
+import '../../features/auth/presentation/pages/reset_password/reset_password_page.dart';
 import '../../features/auth/presentation/pages/signup/signup_page.dart';
 import '../../injection_container.dart';
 import 'routes.dart';
@@ -15,7 +16,7 @@ class AppRouter {
   static final GoRouter _router = GoRouter(
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
-    initialLocation: Routes.HOME.path,
+    initialLocation: Routes.initial.path,
     redirect: (context, state) {
       final auth = sl<AuthBloc>();
       bool isAuthenticated = auth.isAuthenticated;
@@ -33,13 +34,19 @@ class AppRouter {
         builder: (context, state) => const HomePage(),
       ),
       GoRoute(
-        path: Routes.LOGIN.path,
-        name: Routes.LOGIN.name,
-        builder: (context, state) => const LoginPage(),
-      ),
+          path: Routes.LOGIN.path,
+          name: Routes.LOGIN.name,
+          builder: (context, state) => const LoginPage(),
+          routes: [
+            GoRoute(
+              path: Routes.RESET_PASSWORD.path,
+              name: Routes.RESET_PASSWORD.name,
+              builder: (context, state) => const ResetPasswordPage(),
+            ),
+          ]),
       GoRoute(
-        path: Routes.SIGNUP.path,
-        name: Routes.SIGNUP.name,
+        path: Routes.SIGN_UP.path,
+        name: Routes.SIGN_UP.name,
         builder: (context, state) => const SignupPage(),
       ),
     ],

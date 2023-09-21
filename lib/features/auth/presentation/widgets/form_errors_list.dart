@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../widgets/errors_list.dart';
-import '../cubit/login_cubit.dart';
+import 'errors_list.dart';
 
-class LoginFormErrorsList extends StatelessWidget {
-  const LoginFormErrorsList({super.key});
+class FormErrorsList<B extends BlocBase<S>, S, E extends S>
+    extends StatelessWidget {
+  final List<String> Function(E state) messages;
+  const FormErrorsList({super.key, required this.messages});
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<LoginCubit, LoginState, LoginError?>(
+    return BlocSelector<B, S, E?>(
       selector: (state) {
-        if (state is LoginError) return state;
+        if (state is E) return state;
         return null;
       },
       builder: (context, state) {
         if (state != null) {
           return ErrorsList(
-            messages: [state.message],
+            messages: messages(state),
           );
         } else {
           return const SizedBox.shrink();

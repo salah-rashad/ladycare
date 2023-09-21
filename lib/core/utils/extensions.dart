@@ -12,6 +12,9 @@ extension BuildContextExt on BuildContext {
   // ColorScheme get colorScheme => Theme.of(this).colorScheme;
   Palette get palette => theme.extension<Palette>()!;
   AppTextTheme get textTheme => theme.extension<AppTextTheme>()!;
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackbar(
+          SnackBar snackBar) =>
+      ScaffoldMessenger.of(this).showSnackBar(snackBar);
 }
 
 extension IterableExt on Iterable<Widget> {
@@ -54,7 +57,7 @@ extension WidgetExt on Widget {
 }
 
 extension SvgGenImageExt on SvgGenImage {
-  SvgPicture call([Color? color, Size? size]) {
+  SvgPicture call({Color? color, Size? size}) {
     return this.svg(
       colorFilter:
           color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,

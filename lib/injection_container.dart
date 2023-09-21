@@ -15,8 +15,6 @@ import 'features/auth/domain/usecases/logout_usecase.dart';
 import 'features/auth/domain/usecases/reset_password_usecase.dart';
 import 'features/auth/domain/usecases/signup_usecase.dart';
 import 'features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
-import 'features/auth/presentation/pages/login/cubit/login_cubit.dart';
-import 'features/auth/presentation/pages/signup/cubit/signup_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -37,8 +35,6 @@ Future<void> init() async {
 
   // Blocs
   sl.registerLazySingleton(() => AuthBloc(sl(), sl()));
-  sl.registerLazySingleton(() => LoginCubit(sl()));
-  sl.registerLazySingleton(() => SignupCubit(sl()));
 
   // Usecases
   sl.registerLazySingleton(() => LoginUsecase(sl()));

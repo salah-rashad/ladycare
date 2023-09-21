@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../core/enums/icon_alignment.dart';
 import '../../../core/gen/assets.gen.dart';
 import '../../../core/utils/extensions.dart';
-import '../../../core/utils/helpers.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String text;
@@ -24,7 +23,7 @@ class CustomElevatedButton extends StatelessWidget {
 
   const CustomElevatedButton.icon({
     super.key,
-    required this.icon,
+    required SvgGenImage this.icon,
     required this.text,
     required this.onPressed,
     this.background,
@@ -40,10 +39,8 @@ class CustomElevatedButton extends StatelessWidget {
 
     if (icon != null) {
       widget = ElevatedButton.icon(
-        icon: icon.svg(
-          colorFilter: getSvgColorFilter(
-            foreground ?? context.palette.buttonColorScheme.foreground,
-          ),
+        icon: icon.call(color:
+          foreground ?? context.palette.buttonColorScheme.foreground,
         ),
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(

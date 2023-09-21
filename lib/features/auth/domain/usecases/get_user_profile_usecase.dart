@@ -9,7 +9,7 @@ class GetUserProfileUsecase {
 
   GetUserProfileUsecase(this.repository);
 
-  Future<Either<Failure, UserData?>> call() async {
+  Future<Either<Failure, UserData>> call() async {
     return repository.getUserProfile();
   }
 }

@@ -10,7 +10,7 @@ sealed class AuthState extends Equatable {
 final class AuthInitial extends AuthState {}
 
 final class Authenticated extends AuthState {
-  final UserData? userData;
+  final UserData userData;
 
   const Authenticated({required this.userData});
 

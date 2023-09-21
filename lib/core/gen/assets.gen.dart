@@ -15,6 +15,10 @@ import 'package:lottie/lottie.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/home_banner_background.png
+  AssetGenImage get homeBannerBackground =>
+      const AssetGenImage('assets/images/home_banner_background.png');
+
   /// File path: assets/images/logo_full_dark.png
   AssetGenImage get logoFullDark =>
       const AssetGenImage('assets/images/logo_full_dark.png');
@@ -31,20 +35,35 @@ class $AssetsImagesGen {
   AssetGenImage get logoTpLight =>
       const AssetGenImage('assets/images/logo_tp_light.png');
 
+  $AssetsImagesSvgGen get svg => const $AssetsImagesSvgGen();
+
+  /// File path: assets/images/user_placeholder.png
+  AssetGenImage get userPlaceholder =>
+      const AssetGenImage('assets/images/user_placeholder.png');
+
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [logoFullDark, logoFullLight, logoTpDark, logoTpLight];
+  List<AssetGenImage> get values => [
+        homeBannerBackground,
+        logoFullDark,
+        logoFullLight,
+        logoTpDark,
+        logoTpLight,
+        userPlaceholder
+      ];
 }
 
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
-  /// File path: assets/lottie/lottie_done.json
-  LottieGenImage get lottieDone =>
-      const LottieGenImage('assets/lottie/lottie_done.json');
+  /// File path: assets/lottie/done.json
+  LottieGenImage get done => const LottieGenImage('assets/lottie/done.json');
+
+  /// File path: assets/lottie/email_sent.json
+  LottieGenImage get emailSent =>
+      const LottieGenImage('assets/lottie/email_sent.json');
 
   /// List of all assets
-  List<LottieGenImage> get values => [lottieDone];
+  List<LottieGenImage> get values => [done, emailSent];
 }
 
 class $AssetsSolarIconsGen {
@@ -59,6 +78,20 @@ class $AssetsSolarIconsGen {
   $AssetsSolarIconsLinearGen get linear => const $AssetsSolarIconsLinearGen();
   $AssetsSolarIconsOutlineGen get outline =>
       const $AssetsSolarIconsOutlineGen();
+}
+
+class $AssetsImagesSvgGen {
+  const $AssetsImagesSvgGen();
+
+  /// File path: assets/images/svg/points_icon.svg
+  SvgGenImage get pointsIcon =>
+      const SvgGenImage('assets/images/svg/points_icon.svg');
+
+  $AssetsImagesSvgServiceCategoryIconsGen get serviceCategoryIcons =>
+      const $AssetsImagesSvgServiceCategoryIconsGen();
+
+  /// List of all assets
+  List<SvgGenImage> get values => [pointsIcon];
 }
 
 class $AssetsSolarIconsBoldGen {
@@ -37039,6 +37072,54 @@ class $AssetsSolarIconsOutlineGen {
         xxx,
         zIPFile,
         iPhone
+      ];
+}
+
+class $AssetsImagesSvgServiceCategoryIconsGen {
+  const $AssetsImagesSvgServiceCategoryIconsGen();
+
+  /// File path: assets/images/svg/service_category_icons/Hair Coloring.svg
+  SvgGenImage get hairColoring => const SvgGenImage(
+      'assets/images/svg/service_category_icons/Hair Coloring.svg');
+
+  /// File path: assets/images/svg/service_category_icons/Hair Styling.svg
+  SvgGenImage get hairStyling => const SvgGenImage(
+      'assets/images/svg/service_category_icons/Hair Styling.svg');
+
+  /// File path: assets/images/svg/service_category_icons/Makeup.svg
+  SvgGenImage get makeup =>
+      const SvgGenImage('assets/images/svg/service_category_icons/Makeup.svg');
+
+  /// File path: assets/images/svg/service_category_icons/Massage.svg
+  SvgGenImage get massage =>
+      const SvgGenImage('assets/images/svg/service_category_icons/Massage.svg');
+
+  /// File path: assets/images/svg/service_category_icons/More.svg
+  SvgGenImage get more =>
+      const SvgGenImage('assets/images/svg/service_category_icons/More.svg');
+
+  /// File path: assets/images/svg/service_category_icons/Nails Care.svg
+  SvgGenImage get nailsCare => const SvgGenImage(
+      'assets/images/svg/service_category_icons/Nails Care.svg');
+
+  /// File path: assets/images/svg/service_category_icons/Skin Care.svg
+  SvgGenImage get skinCare => const SvgGenImage(
+      'assets/images/svg/service_category_icons/Skin Care.svg');
+
+  /// File path: assets/images/svg/service_category_icons/Spa.svg
+  SvgGenImage get spa =>
+      const SvgGenImage('assets/images/svg/service_category_icons/Spa.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [
+        hairColoring,
+        hairStyling,
+        makeup,
+        massage,
+        more,
+        nailsCare,
+        skinCare,
+        spa
       ];
 }
 

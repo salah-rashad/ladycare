@@ -95,7 +95,7 @@ class CustomTextField extends StatelessWidget {
             width: 24.0,
             height: 24.0,
             alignment: Alignment.center,
-            child: prefixIcon?.call(
+            child: prefixIcon?.call(color:
                 prefixIconColor ?? decoration.prefixIconColor ?? Colors.grey),
           )
         : null;
@@ -103,13 +103,13 @@ class CustomTextField extends StatelessWidget {
 
   Widget? _suffixIcon() {
     return suffixIcon != null
-        ? InkWell(
+        ? GestureDetector(
             onTap: onSuffixIconPressed,
             child: Container(
               width: 24.0,
               height: 24.0,
               alignment: Alignment.center,
-              child: suffixIcon?.call(
+              child: suffixIcon?.call(color:
                   suffixIconColor ?? decoration.suffixIconColor ?? Colors.grey),
             ),
           )

@@ -11,7 +11,14 @@
         "web": true,
         "windows": true,
         ".dart_tool": true,
-        ".idea": true
+        ".idea": true,
+        "firebase-debug.log": true,
+        "firestore-debug.log": true,
+        "ladycare.iml": true,
+        "pubspec.lock": true,
+        "ui-debug.log": true,
+        ".flutter-plugins": true,
+        ".flutter-plugins-dependencies": true
     },
     "hide-files.files": [
         "linux",
@@ -19,6 +26,13 @@
         "web",
         "windows",
         ".dart_tool",
-        ".idea"
+        ".idea",
+        "firebase-debug.log",
+        "firestore-debug.log",
+        "ladycare.iml",
+        "pubspec.lock",
+        "ui-debug.log",
+        ".flutter-plugins",
+        ".flutter-plugins-dependencies"
     ]
 }

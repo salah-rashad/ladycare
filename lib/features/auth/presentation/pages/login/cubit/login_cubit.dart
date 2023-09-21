@@ -22,7 +22,7 @@ class LoginCubit extends Cubit<LoginState> {
     if (isFormValid) {
       emit(LoginLoading());
       final result = await _loginUsecase((
-        email: emailController.text,
+        email: emailController.text.trim(),
         password: passwordController.text,
       ));
       final state = result.fold(

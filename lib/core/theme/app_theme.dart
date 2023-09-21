@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../gen/fonts.gen.dart';
+import '../utils/extensions.dart';
 import 'colors/palette.dart';
 import 'text_theme/app_text_theme.dart';
 
@@ -12,6 +13,22 @@ class AppTheme extends Cubit<ThemeMode> {
 
   set themeMode(ThemeMode themeMode) {
     emit(themeMode);
+  }
+
+  void toggle(BuildContext context) {
+    switch (themeMode) {
+      case ThemeMode.system:
+        context.theme.brightness == Brightness.light
+            ? emit(ThemeMode.dark)
+            : emit(ThemeMode.light);
+        break;
+      case ThemeMode.light:
+        emit(ThemeMode.dark);
+        break;
+      case ThemeMode.dark:
+        emit(ThemeMode.light);
+        break;
+    }
   }
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
@@ -43,9 +60,12 @@ class AppTheme extends Cubit<ThemeMode> {
 
   static const darkThemeColors = Palette(
     brightness: Brightness.dark,
-    primary: Color(0xFFD44165),
-    primaryDarker: Color(0xFFB81F3C),
-    primaryLighter: Color(0xFFE46B83),
+    // primary: Color(0xFFD44165),
+    // primaryDarker: Color(0xFFB81F3C),
+    // primaryLighter: Color(0xFFE46B83),
+    primary: Color(0xFFF0748D),
+    primaryDarker: Color(0xFFCF5463),
+    primaryLighter: Color(0xFFF59EB0),
     accent1: Color(0xFF233A49),
     accent2: Color(0xFF345D75),
     accent3: Color(0xFF36A991),
@@ -81,6 +101,7 @@ class AppTheme extends Cubit<ThemeMode> {
       appBarTheme: _appBarTheme(colors, textTheme),
       inputDecorationTheme: _inputDecorationTheme(colors, textTheme),
       elevatedButtonTheme: _elevatedButtonTheme(colors, textTheme),
+      filledButtonTheme: _filledButtonTheme(colors, textTheme),
       textButtonTheme: _textButtonTheme(colors, textTheme),
       textSelectionTheme: _textSelectionTheme(colors, textTheme),
     );
@@ -161,6 +182,22 @@ class AppTheme extends Cubit<ThemeMode> {
       Palette colors, AppTextTheme textTheme) {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        alignment: Alignment.center,
+        backgroundColor: colors.buttonColorScheme.background,
+        foregroundColor: colors.buttonColorScheme.foreground,
+        minimumSize: const Size.fromHeight(48.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        textStyle: textTheme.headlineSmall,
+      ),
+    );
+  }
+
+  FilledButtonThemeData _filledButtonTheme(
+      Palette colors, AppTextTheme textTheme) {
+    return FilledButtonThemeData(
+      style: FilledButton.styleFrom(
         alignment: Alignment.center,
         backgroundColor: colors.buttonColorScheme.background,
         foregroundColor: colors.buttonColorScheme.foreground,

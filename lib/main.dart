@@ -44,7 +44,7 @@ class Main extends StatelessWidget {
                 title: Constants.appName,
                 debugShowCheckedModeBanner: false,
                 routerConfig: AppRouter.router,
-                themeMode: /* state */ ThemeMode.light,
+                themeMode: state, // ThemeMode.light,
                 theme: AppTheme().light,
                 darkTheme: AppTheme().dark,
                 locale: Constants.defaultLocale,

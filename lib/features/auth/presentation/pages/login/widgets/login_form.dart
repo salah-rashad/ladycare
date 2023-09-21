@@ -19,19 +19,25 @@ class LoginForm extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomTextField(
-              controller: cubit.emailController,
-              prefixIcon: Assets.solarIcons.broken.mentionCircle,
-              labelText: "البريد الإلكتروني",
-              textDirection: TextDirection.ltr,
-              autofillHints: const [AutofillHints.email],
-              autoCorrect: false,
-              validator: cubit.emailValidator,
-            ),
+            _emailTextField(context),
             _passwordTextField(context),
           ].withGap(height: 16.0),
         ),
       ),
+    );
+  }
+
+  Widget _emailTextField(BuildContext context) {
+    final cubit = context.read<LoginCubit>();
+
+    return CustomTextField(
+      controller: cubit.emailController,
+      prefixIcon: Assets.solarIcons.broken.mentionCircle,
+      labelText: "البريد الإلكتروني",
+      textDirection: TextDirection.ltr,
+      autofillHints: const [AutofillHints.email],
+      autoCorrect: false,
+      validator: cubit.emailValidator,
     );
   }
 

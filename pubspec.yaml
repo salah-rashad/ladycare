@@ -61,6 +61,7 @@ flutter:
     - assets/images/
     - assets/lottie/
     - assets/images/svg/
+    - assets/images/svg/service_category_icons/
     - assets/solar_icons/bold/
     - assets/solar_icons/bold_duotone/
     - assets/solar_icons/broken/

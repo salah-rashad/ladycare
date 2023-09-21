@@ -33,10 +33,10 @@ class SignupCubit extends Cubit<SignupState> {
       final result = await _signupUsecase((
         firstName: firstNameController.text.trim(),
         lastName: lastNameController.text.trim(),
-        email: emailController.text,
+        email: emailController.text.trim(),
         password: passwordController.text,
         phoneCountryCode: phoneCountryCode,
-        phoneNumber: phoneNumberController.text,
+        phoneNumber: phoneNumberController.text.replaceAll(" ", ""),
         dateOfBirth: dateOfBirth,
       ));
 

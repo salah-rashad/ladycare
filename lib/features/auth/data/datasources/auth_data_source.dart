@@ -15,8 +15,8 @@ abstract class AuthDataSource {
   Future<UserDataModel?> login(LoginParams params);
   Future<UserDataModel?> createAccount(SignupParams params);
   Future<Unit> logout();
-  Future<UserDataModel?> getUserProfile();
-  Future<Unit> sendPasswordResetEmail(ResetPasswordParams params);
+  Future<UserDataModel> getUserProfile();
+  Future<String> sendPasswordResetEmail(ResetPasswordParams params);
 }
 
 class AuthDataSourceImpl implements AuthDataSource {
@@ -86,7 +86,7 @@ class AuthDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  Future<UserDataModel?> getUserProfile() async {
+  Future<UserDataModel> getUserProfile() async {
     try {
       final uid = auth.currentUser?.uid;
       final docRef = db.collection("users").doc(uid);
@@ -97,7 +97,7 @@ class AuthDataSourceImpl implements AuthDataSource {
             toFirestore: (value, options) => value.toMap(),
           )
           .get();
-      return doc.data();
+      return doc.data()!;
     } catch (e) {
       throw DatabaseReadException();
     }
@@ -116,8 +116,16 @@ class AuthDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  Future<Unit> sendPasswordResetEmail(ResetPasswordParams params) async {
-    // TODO: implement this
-    throw UnimplementedError();
+  Future<String> sendPasswordResetEmail(ResetPasswordParams params) async {
+    try {
+      await auth.sendPasswordResetEmail(email: params.email);
+      return params.email;
+    } on FirebaseAuthException catch (e) {
+      final message = FailureMessages.fromCode(e.code);
+      log(message, error: e);
+      throw AuthException(message, code: e.code);
+    } catch (e) {
+      rethrow;
+    }
   }
 }

@@ -22,7 +22,7 @@ class Palette extends ThemeExtension<Palette> {
   final Color secondaryText;
   final Color tertiaryText;
 
-  // Background Colors
+  // Background+on Colors
   final Color background;
   final Color surface;
   final Color receiptBackground;
@@ -35,6 +35,7 @@ class Palette extends ThemeExtension<Palette> {
   final Color success;
   final Color error;
   final Color info;
+
 
   const Palette({
     required this.brightness,

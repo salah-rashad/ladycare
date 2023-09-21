@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../core/enums/icon_alignment.dart';
 import '../../../core/gen/assets.gen.dart';
 import '../../../core/utils/extensions.dart';
-import '../../../core/utils/helpers.dart';
 
 class CustomTextButton extends StatelessWidget {
   final String text;
@@ -22,7 +21,7 @@ class CustomTextButton extends StatelessWidget {
 
   const CustomTextButton.icon({
     super.key,
-    required this.icon,
+    required SvgGenImage this.icon,
     required this.text,
     required this.onPressed,
     this.foreground,
@@ -37,10 +36,8 @@ class CustomTextButton extends StatelessWidget {
 
     if (icon != null) {
       widget = TextButton.icon(
-        icon: icon.svg(
-          colorFilter: getSvgColorFilter(
-            foreground ?? context.palette.buttonColorScheme.background,
-          ),
+        icon: icon.call(color:
+          foreground ?? context.palette.buttonColorScheme.background,
         ),
         onPressed: onPressed,
         style: TextButton.styleFrom(

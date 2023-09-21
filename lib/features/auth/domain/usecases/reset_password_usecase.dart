@@ -6,13 +6,13 @@ import '../repositories/auth_repository.dart';
 
 typedef ResetPasswordParams = ({String email});
 
-class ResetPasswordUsecase extends Usecase<Unit, ResetPasswordParams> {
+class ResetPasswordUsecase extends Usecase<String, ResetPasswordParams> {
   final AuthRepository repository;
 
   ResetPasswordUsecase(this.repository);
 
   @override
-  Future<Either<Failure, Unit>> call(ResetPasswordParams params) async {
+  Future<Either<Failure, String>> call(ResetPasswordParams params) async {
     return repository.resetPassword(params);
   }
 }

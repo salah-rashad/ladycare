@@ -66,12 +66,12 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> resetPassword(
+  Future<Either<Failure, String>> resetPassword(
       ResetPasswordParams params) async {
     if (await networkInfo.isConnected) {
       try {
-        await dataSource.sendPasswordResetEmail(params);
-        return const Right(unit);
+        final data = await dataSource.sendPasswordResetEmail(params);
+        return Right(data);
       } on AuthException catch (e) {
         return Left(AuthFailure(e.message));
       } catch (e) {
@@ -83,7 +83,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserData?>> getUserProfile() async {
+  Future<Either<Failure, UserData>> getUserProfile() async {
     if (await networkInfo.isConnected) {
       try {
         final user = await dataSource.getUserProfile();
