@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/messages.dart';
 import '../../../../../core/gen/assets.gen.dart';
+import '../../../../../core/theme/colors/palette.dart';
 import '../../../../../core/utils/extensions.dart';
 import '../../../../../injection_container.dart';
 import '../../../../../shared/widgets/buttons/custom_filled_button.dart';
@@ -82,7 +83,7 @@ class ResetPasswordPage extends StatelessWidget {
             icon: Assets.solarIcons.boldDuotone.closeSquare,
             text: "حسناً",
             background: context.palette.accent2,
-            foreground: context.palette.white,
+            foreground: Palette.white,
           ),
         );
       },

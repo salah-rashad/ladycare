@@ -10,7 +10,7 @@ import '../../bloc/auth_bloc/auth_bloc.dart';
 import '../../widgets/bottom_nav_bar/bottom_nav_bar.dart';
 import '../../widgets/bottom_nav_bar/bottom_nav_bar_item.dart';
 import 'cubit/home_cubit.dart';
-import 'widgets/home_sliver_appbar.dart';
+import 'widgets/app_bar/home_sliver_appbar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

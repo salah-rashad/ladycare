@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../gen/assets.gen.dart';
 import '../theme/colors/palette.dart';
+import '../theme/shadow_themes/box_shadow_theme.dart';
 import '../theme/text_theme/app_text_theme.dart';
 
 extension BuildContextExt on BuildContext {
@@ -12,6 +13,7 @@ extension BuildContextExt on BuildContext {
   // ColorScheme get colorScheme => Theme.of(this).colorScheme;
   Palette get palette => theme.extension<Palette>()!;
   AppTextTheme get textTheme => theme.extension<AppTextTheme>()!;
+  BoxShadowTheme get boxShadowTheme => theme.extension<BoxShadowTheme>()!;
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackbar(
           SnackBar snackBar) =>
       ScaffoldMessenger.of(this).showSnackBar(snackBar);

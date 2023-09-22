@@ -56,41 +56,43 @@ class CustomSliverPersistentHeaderDelegate
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     const overlayColor = Color.fromRGBO(0, 0, 0, 0.15);
 
-    return Container(
-      padding: EdgeInsets.lerp(
-          paddingCollapsed, paddingExpanded, _t(shrinkOffset, 1.0)),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: background,
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Color.lerp(
-                  context.palette.surface,
+    return Align(
+      child: Container(
+        padding: EdgeInsets.lerp(
+            paddingCollapsed, paddingExpanded, _t(shrinkOffset, 1.0)),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: background,
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Color.lerp(
+                    context.palette.surface,
+                    overlayColor,
+                    _t(shrinkOffset, 0.7),
+                  ) ??
                   overlayColor,
-                  _t(shrinkOffset, 0.7),
-                ) ??
-                overlayColor,
-            BlendMode.srcATop,
-          ),
-        ),
-      ),
-      // height: shrinkOffset,
-      // width: double.infinity,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Opacity(
-              opacity: _t(shrinkOffset, 0.3),
-              child: bottomPanel((time) => _t(shrinkOffset, time)),
+              BlendMode.srcATop,
             ),
           ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: topPanel((time) => _t(shrinkOffset, time)),
-          ),
-        ],
+        ),
+        // height: shrinkOffset,
+        // width: double.infinity,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Opacity(
+                opacity: _t(shrinkOffset, 0.3),
+                child: bottomPanel((time) => _t(shrinkOffset, time)),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: topPanel((time) => _t(shrinkOffset, time)),
+            ),
+          ],
+        ),
       ),
     );
   }

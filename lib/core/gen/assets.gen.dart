@@ -35,6 +35,10 @@ class $AssetsImagesGen {
   AssetGenImage get logoTpLight =>
       const AssetGenImage('assets/images/logo_tp_light.png');
 
+  /// File path: assets/images/points_icon.png
+  AssetGenImage get pointsIcon =>
+      const AssetGenImage('assets/images/points_icon.png');
+
   $AssetsImagesSvgGen get svg => const $AssetsImagesSvgGen();
 
   /// File path: assets/images/user_placeholder.png
@@ -48,6 +52,7 @@ class $AssetsImagesGen {
         logoFullLight,
         logoTpDark,
         logoTpLight,
+        pointsIcon,
         userPlaceholder
       ];
 }

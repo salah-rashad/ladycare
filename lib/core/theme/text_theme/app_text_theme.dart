@@ -6,7 +6,6 @@ import '../colors/palette.dart';
 
 class AppTextTheme extends ThemeExtension<AppTextTheme> {
   final Palette? colors;
-
   const AppTextTheme({this.colors});
 
   /// fontSize: 57 | fontWeight: w400

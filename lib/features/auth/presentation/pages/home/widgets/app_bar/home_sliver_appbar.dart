@@ -1,10 +1,13 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../../../../../../core/gen/assets.gen.dart';
-import '../../../../../../core/utils/extensions.dart';
-import '../../../../../../shared/widgets/custom_sliver_persistent_header_delegate.dart';
-import '../../../../domain/entities/user_data.dart';
+import '../../../../../../../core/gen/assets.gen.dart';
+import '../../../../../../../core/utils/extensions.dart';
+import '../../../../../../../shared/widgets/custom_sliver_persistent_header_delegate.dart';
+import '../../../../../domain/entities/user_data.dart';
+import 'home_app_bar_bottom_panel.dart';
 import 'home_app_bar_top_panel.dart';
 
 class HomeSliverAppbar extends StatefulWidget {
@@ -29,7 +32,7 @@ class _HomeSliverAppbarState extends State<HomeSliverAppbar>
   @override
   Widget build(BuildContext context) {
     return SliverPersistentHeader(
-      floating: true,
+      floating: false,
       pinned: true,
       delegate: CustomSliverPersistentHeaderDelegate.snap(
         vsync: this,
@@ -47,23 +50,21 @@ class _HomeSliverAppbarState extends State<HomeSliverAppbar>
         ),
         // background: _backgroundImage(),
         background: Assets.images.homeBannerBackground.provider(),
-        topPanel: (t) => HomeAppBarTopPanel(
-          minExtent: minExtent,
-          userData: userdata,
-          context: context,
-          t: t,
-        ),
-        bottomPanel: (t) => _bottomPanel(context, t),
+        topPanel: (t) => _topPanel(t),
+        bottomPanel: (t) => HomeAppBarBottomPanel(t: t),
         minExtent: minExtent,
         maxExtent: maxExtent,
       ),
     );
   }
 
-  Widget _bottomPanel(BuildContext context, ExtrapolationFactor t) {
-    return Container(
-      height: 64.0,
-      color: Colors.blue,
-    );
+  SizedBox _topPanel(ExtrapolationFactor t) {
+    return SizedBox(
+        height: lerpDouble(minExtent, 60, t(0.3)),
+        child: HomeAppBarTopPanel(
+          userData: userdata,
+          t: t,
+        ),
+      );
   }
 }

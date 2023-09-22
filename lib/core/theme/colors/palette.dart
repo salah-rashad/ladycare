@@ -36,7 +36,6 @@ class Palette extends ThemeExtension<Palette> {
   final Color error;
   final Color info;
 
-
   const Palette({
     required this.brightness,
     required this.primary,
@@ -59,14 +58,14 @@ class Palette extends ThemeExtension<Palette> {
     required this.info,
   });
 
-  bool get _isDark => brightness == Brightness.dark;
+  bool get isDark => brightness == Brightness.dark;
 
-  Color get white => const Color(0xFFFFFFFF);
-  Color get black => const Color(0xFF000000);
+  static Color white = const Color(0xFFFFFFFF);
+  static Color black = const Color(0xFF000000);
 
   InputColorScheme get inputColorScheme => InputColorScheme(
-        enabledOutline: (_isDark ? white : black).withOpacity(0.1),
-        disabledOutline: (_isDark ? white : black).withOpacity(0.1),
+        enabledOutline: (isDark ? white : black).withOpacity(0.1),
+        disabledOutline: (isDark ? white : black).withOpacity(0.1),
         focusedOutline: primary.withOpacity(0.7),
         errorOutline: error,
         fill: primary.withOpacity(0.1),
@@ -75,7 +74,7 @@ class Palette extends ThemeExtension<Palette> {
         background: primary,
         foreground: white,
       );
-
+  
   @override
   Palette lerp(covariant Palette? other, double t) {
     if (other is! Palette) {

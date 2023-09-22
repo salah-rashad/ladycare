@@ -3,39 +3,31 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/gen/assets.gen.dart';
-import '../../../../../../core/theme/app_theme.dart';
-import '../../../../../../core/utils/extensions.dart';
-import '../../../../../../injection_container.dart';
-import '../../../../../../shared/widgets/custom_sliver_persistent_header_delegate.dart';
-import '../../../../domain/entities/user_data.dart';
+import '../../../../../../../core/gen/assets.gen.dart';
+import '../../../../../../../core/theme/app_theme.dart';
+import '../../../../../../../core/utils/extensions.dart';
+import '../../../../../../../injection_container.dart';
+import '../../../../../../../shared/widgets/custom_sliver_persistent_header_delegate.dart';
+import '../../../../../domain/entities/user_data.dart';
 
 class HomeAppBarTopPanel extends StatelessWidget {
-  final double minExtent;
-
   final UserData userData;
-  final BuildContext context;
   final ExtrapolationFactor t;
   const HomeAppBarTopPanel({
     super.key,
-    required this.minExtent,
     required this.userData,
-    required this.context,
     required this.t,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: lerpDouble(minExtent, 60, t(0.3)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _profileImage(),
-          _nameText(context),
-          _actionButton(context),
-        ].withGap(width: 16.0),
-      ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        _profileImage(),
+        _nameText(context),
+        _actionButton(context),
+      ].withGap(width: 16.0),
     );
   }
 
@@ -45,16 +37,17 @@ class HomeAppBarTopPanel extends StatelessWidget {
       child: Container(
         width: 45.0,
         height: 45.0,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
             BoxShadow(
               blurRadius: 10,
-              offset: Offset(0, 4),
-              color: Colors.black26,
+              offset: const Offset(0, 4),
+              color: Color.lerp(Colors.transparent, Colors.black26, t(1.0)) ??
+                  Colors.transparent,
             )
           ],
-          borderRadius: BorderRadius.all(Radius.circular(200)),
+          borderRadius: const BorderRadius.all(Radius.circular(200)),
         ),
         child: CachedNetworkImage(
           imageUrl: userData.profilePictureUrl ?? "",
