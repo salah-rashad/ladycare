@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/utils/extensions.dart';
-import '../../../../../../shared/widgets/buttons/custom_elevated_button.dart';
+import '../../../../../../global/widgets/buttons/custom_elevated_button.dart';
 import '../cubit/login_cubit.dart';
 
 class LoginButton extends StatelessWidget {
@@ -14,7 +14,7 @@ class LoginButton extends StatelessWidget {
       builder: (context, state) {
         if (state is LoginLoading) {
           return CircularProgressIndicator(
-            color: context.palette.primary,
+            color: context.colors.primary,
           );
         } else {
           return CustomElevatedButton(

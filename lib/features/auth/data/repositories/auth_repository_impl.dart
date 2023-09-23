@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/constants/failure_messages.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../../../../core/network/network_info.dart';
+import '../../../../core/network/network_helper.dart';
 import '../../domain/entities/user_data.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../domain/usecases/login_usecase.dart';
@@ -13,7 +13,7 @@ import '../datasources/auth_data_source.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   final AuthDataSource dataSource;
-  final NetworkInfo networkInfo;
+  final NetworkHelper networkInfo;
 
   AuthRepositoryImpl(this.dataSource, this.networkInfo);
 
@@ -91,7 +91,7 @@ class AuthRepositoryImpl extends AuthRepository {
       } on DatabaseReadException {
         return const Left(DatabaseReadFailure());
       } catch (e) {
-        return const Left(DatabaseReadFailure(FailureMessages.unknown_error));
+        return const Left(UnknownFailure());
       }
     } else {
       return const Left(OfflineFailure());

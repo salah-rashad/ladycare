@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
-import '../../features/auth/presentation/pages/home/home_page.dart';
+import '../../features/auth/presentation/pages/auth/auth_cubit/auth_cubit.dart';
 import '../../features/auth/presentation/pages/login/login_page.dart';
 import '../../features/auth/presentation/pages/reset_password/reset_password_page.dart';
 import '../../features/auth/presentation/pages/signup/signup_page.dart';
+import '../../features/home/presentation/pages/home_page.dart';
 import '../../injection_container.dart';
 import 'routes.dart';
 
@@ -18,7 +18,7 @@ class AppRouter {
     navigatorKey: rootNavigatorKey,
     initialLocation: Routes.initial.path,
     redirect: (context, state) {
-      final auth = sl<AuthBloc>();
+      final auth = sl<AuthCubit>();
       bool isAuthenticated = auth.isAuthenticated;
       bool isAuthRoute = (state.fullPath ?? "").contains("auth/");
       if (!isAuthenticated && !isAuthRoute) {

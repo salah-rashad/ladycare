@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../colors/palette.dart';
-import '../text_theme/app_text_theme.dart';
+import '../theme_extensions/color_theme_extension.dart';
+import '../theme_extensions/text_theme_extension.dart';
 
 TextSelectionThemeData textSelectionTheme(
-    Palette colors, AppTextTheme textTheme) {
+    ColorThemeExtension colors, TextThemeExtension textTheme) {
   return TextSelectionThemeData(
     cursorColor: colors.accent1,
     selectionColor: colors.accent1.withOpacity(0.3),

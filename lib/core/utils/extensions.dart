@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../constants/failure_messages.dart';
+import '../error/failures.dart';
 import '../gen/assets.gen.dart';
-import '../theme/colors/palette.dart';
-import '../theme/shadow_themes/box_shadow_theme.dart';
-import '../theme/text_theme/app_text_theme.dart';
+import '../theme/theme_extensions/box_shadow_theme_extension.dart';
+import '../theme/theme_extensions/color_theme_extension.dart';
+import '../theme/theme_extensions/images_theme_extension.dart';
+import '../theme/theme_extensions/text_theme_extension.dart';
 
 extension BuildContextExt on BuildContext {
   MediaQueryData get mediaQuery => MediaQuery.of(this);
   ThemeData get theme => Theme.of(this);
   bool get isDarkMode => theme.brightness == Brightness.dark;
   // ColorScheme get colorScheme => Theme.of(this).colorScheme;
-  Palette get palette => theme.extension<Palette>()!;
-  AppTextTheme get textTheme => theme.extension<AppTextTheme>()!;
-  BoxShadowTheme get boxShadowTheme => theme.extension<BoxShadowTheme>()!;
+  
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackbar(
           SnackBar snackBar) =>
       ScaffoldMessenger.of(this).showSnackBar(snackBar);
+
+  // ~ Theme Extensions ~ //
+  ColorThemeExtension get colors => theme.extension<ColorThemeExtension>()!;
+  TextThemeExtension get textTheme => theme.extension<TextThemeExtension>()!;
+  BoxShadowThemeExtension get boxShadowTheme =>
+      theme.extension<BoxShadowThemeExtension>()!;
+  ImagesThemeExtension get images => theme.extension<ImagesThemeExtension>()!;
 }
 
 extension IterableExt on Iterable<Widget> {
@@ -67,4 +75,8 @@ extension SvgGenImageExt on SvgGenImage {
       height: size?.height ?? 24.0,
     );
   }
+}
+
+extension FailureExt on Failure {
+  String get message => FailureMessages.from(this);
 }

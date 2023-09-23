@@ -1,44 +1,48 @@
 import 'package:equatable/equatable.dart';
 
-import '../constants/failure_messages.dart';
+sealed class Failure extends Equatable {
+  const Failure();
 
-abstract class Failure extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
+
+// ~ Authentication Failures ~ //
+
+final class AuthFailure extends Failure {
   final String message;
-  const Failure(this.message);
+  const AuthFailure(this.message);
 
   @override
   List<Object?> get props => [message];
 }
 
-class OfflineFailure extends Failure {
-  const OfflineFailure(
-      [super.message = FailureMessages.no_internet_connection]);
+// ~ Network Failures ~ //
+
+final class OfflineFailure extends Failure {
+  const OfflineFailure();
 }
 
-class AuthFailure extends Failure {
-  const AuthFailure(super.message);
+// ~ Database Failures ~ //
+
+final class DatabaseReadFailure extends Failure {
+  const DatabaseReadFailure();
 }
 
-class DatabaseReadFailure extends Failure {
-  const DatabaseReadFailure([super.message = FailureMessages.read_failed]);
+final class DatabaseWriteFailure extends Failure {
+  const DatabaseWriteFailure();
 }
 
-class DatabaseWriteFailure extends Failure {
-  const DatabaseWriteFailure([super.message = FailureMessages.write_failed]);
+final class DatabaseUpdateFailure extends Failure {
+  const DatabaseUpdateFailure();
 }
 
-class DatabaseUpdateFailure extends Failure {
-  const DatabaseUpdateFailure([super.message = FailureMessages.update_failed]);
+final class DatabaseDeleteFailure extends Failure {
+  const DatabaseDeleteFailure();
 }
 
-class DatabaseDeleteFailure extends Failure {
-  const DatabaseDeleteFailure([super.message = FailureMessages.delete_failed]);
-}
+// ~ Other Failures ~ //
 
-/* class EmptyCacheFailure extends Failure {
-  const EmptyCacheFailure(super.message);
-
-  @override
-  List<Object?> get props => [];
+final class UnknownFailure extends Failure {
+  const UnknownFailure();
 }
- */

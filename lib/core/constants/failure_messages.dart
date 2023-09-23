@@ -1,5 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
+import '../error/failures.dart';
+
 class FailureMessages {
   // ~ Custom ~ //
   static const String unknown_error =
@@ -53,7 +55,21 @@ class FailureMessages {
         return unknown_error;
     }
   }
+
+  static String from(Failure failure) {
+    return switch (failure) {
+      OfflineFailure() => no_internet_connection,
+      AuthFailure() => failure.message,
+      DatabaseReadFailure() => read_failed,
+      DatabaseWriteFailure() => write_failed,
+      DatabaseUpdateFailure() => update_failed,
+      DatabaseDeleteFailure() => delete_failed,
+      UnknownFailure() => unknown_error,
+    };
+  }
 }
+
+
 
 /* class ArabicExceptionMessages extends ExceptionMessages {
   @override

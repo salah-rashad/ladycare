@@ -17,7 +17,7 @@ class ErrorsList extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: context.palette.error.withOpacity(0.2),
+        color: context.colors.error.withOpacity(0.2),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(
@@ -43,13 +43,13 @@ class ErrorMessageTile extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Assets.solarIcons.boldDuotone.dangerCircle(color:context.palette.error),
+        Assets.solarIcons.boldDuotone.dangerCircle(color: context.colors.error),
         const SizedBox(width: 16.0),
         Flexible(
           child: Text(
             message,
             style: context.textTheme.bodyMedium
-                ?.apply(color: context.palette.error),
+                ?.apply(color: context.colors.error),
           ),
         ),
       ],

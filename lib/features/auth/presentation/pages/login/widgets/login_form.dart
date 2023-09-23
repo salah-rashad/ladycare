@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/gen/assets.gen.dart';
 import '../../../../../../core/utils/extensions.dart';
-import '../../../../../../shared/widgets/custom_text_field.dart';
+import '../../../../../../global/widgets/custom_text_field.dart';
 import '../../../bloc/password_visibility_cubit/passowrd_visibility_cubit.dart';
 import '../cubit/login_cubit.dart';
 

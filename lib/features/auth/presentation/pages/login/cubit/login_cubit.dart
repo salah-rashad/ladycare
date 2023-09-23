@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../core/utils/extensions.dart';
 import '../../../../../../core/utils/value_validators.dart';
 import '../../../../domain/entities/user_data.dart';
 import '../../../../domain/usecases/login_usecase.dart';

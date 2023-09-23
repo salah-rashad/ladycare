@@ -67,8 +67,21 @@ class $AssetsLottieGen {
   LottieGenImage get emailSent =>
       const LottieGenImage('assets/lottie/email_sent.json');
 
+  /// File path: assets/lottie/no_internet_error.json
+  LottieGenImage get noInternetError =>
+      const LottieGenImage('assets/lottie/no_internet_error.json');
+
+  /// File path: assets/lottie/no_internet_error_2.json
+  LottieGenImage get noInternetError2 =>
+      const LottieGenImage('assets/lottie/no_internet_error_2.json');
+
+  /// File path: assets/lottie/no_internet_error_3.json
+  LottieGenImage get noInternetError3 =>
+      const LottieGenImage('assets/lottie/no_internet_error_3.json');
+
   /// List of all assets
-  List<LottieGenImage> get values => [done, emailSent];
+  List<LottieGenImage> get values =>
+      [done, emailSent, noInternetError, noInternetError2, noInternetError3];
 }
 
 class $AssetsSolarIconsGen {

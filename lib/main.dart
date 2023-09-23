@@ -4,13 +4,20 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'app_bloc_observer.dart';
 import 'core/constants/constants.dart';
 import 'core/routes/go_router.dart';
+import 'core/routes/routes.dart';
 import 'core/theme/app_theme.dart';
+import 'core/theme/light_app_theme.dart';
+import 'core/utils/extensions.dart';
+import 'features/auth/presentation/pages/auth/auth_cubit/auth_cubit.dart';
+import 'features/internet_connection/bloc/network_cubit.dart';
 import 'firebase_options.dart';
+import 'global/widgets/no_internet_view.dart';
 import 'injection_container.dart' as di;
 import 'providers.dart';
 
@@ -48,6 +55,7 @@ class Main extends StatelessWidget {
                 theme: AppTheme().light,
                 darkTheme: AppTheme().dark,
                 locale: Constants.defaultLocale,
+                color: LightAppThemeExtensions().colors.primary,
                 localizationsDelegates: const [
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
@@ -57,15 +65,49 @@ class Main extends StatelessWidget {
                   Locale('ar'),
                   // Locale('en'),
                 ],
-                builder: (context, child) {
-                  return Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: child ?? const SizedBox.shrink(),
-                  );
-                },
+                builder: _routeBuilder,
               );
             },
           ),
         ));
+  }
+
+  Widget _routeBuilder(context, child) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: BlocListener<AuthCubit, AuthState>(
+        bloc: di.sl<AuthCubit>(),
+        listener: (context, state) {
+          if (state is Unauthenticated) {
+            context.replaceNamed(Routes.LOGIN.name);
+          }
+        },
+        child: BlocBuilder<NetworkCubit, NetworkState>(
+          bloc: di.sl<NetworkCubit>(),
+          builder: (context, state) {
+            switch (state) {
+              case NetworkInitial():
+                return _networkInitialView(context);
+              case NetworkDisconnected():
+                return const NoInternetView();
+              case NetworkConnected():
+                return child ?? const SizedBox.shrink();
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Material _networkInitialView(BuildContext context) {
+    return Material(
+      color: context.colors.surface,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints.loose(const Size.square(120.0)),
+          child: context.images.logo.image(),
+        ),
+      ),
+    );
   }
 }

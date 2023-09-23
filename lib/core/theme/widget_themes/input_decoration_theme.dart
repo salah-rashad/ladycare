@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../colors/palette.dart';
-import '../text_theme/app_text_theme.dart';
+import '../theme_extensions/color_theme_extension.dart';
+import '../theme_extensions/text_theme_extension.dart';
 
 InputDecorationTheme inputDecorationTheme(
-    Palette colors, AppTextTheme textTheme) {
+    ColorThemeExtension colors, TextThemeExtension textTheme) {
   return InputDecorationTheme(
     filled: true,
     fillColor: colors.inputColorScheme.fill,

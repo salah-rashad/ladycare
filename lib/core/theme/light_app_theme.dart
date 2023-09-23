@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'app_theme_extensions.dart';
-import 'colors/palette.dart';
+import '../gen/assets.gen.dart';
+import 'theme_extensions/app_theme_extensions.dart';
+import 'theme_extensions/color_theme_extension.dart';
+import 'theme_extensions/images_theme_extension.dart';
 
 class LightAppThemeExtensions extends AppThemeExtensions {
   @override
-  Palette get palette => const Palette(
+  ColorThemeExtension get colors => const ColorThemeExtension(
         brightness: Brightness.light,
         primary: Color(0xFFF0748D),
         primaryDarker: Color(0xFFCF5463),
@@ -25,5 +27,11 @@ class LightAppThemeExtensions extends AppThemeExtensions {
         success: Color(0xFF2FD55D),
         error: Color(0xFFCD4949),
         info: Color(0xFF697F9E),
+      );
+      
+  @override
+  ImagesThemeExtension get images => ImagesThemeExtension(
+        logo: Assets.images.logoTpLight,
+        logoFull: Assets.images.logoFullLight,
       );
 }

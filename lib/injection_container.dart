@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/network/network_info.dart';
+import 'core/network/network_helper.dart';
 import 'core/theme/app_theme.dart';
 import 'features/auth/data/datasources/auth_data_source.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
@@ -14,14 +14,15 @@ import 'features/auth/domain/usecases/login_usecase.dart';
 import 'features/auth/domain/usecases/logout_usecase.dart';
 import 'features/auth/domain/usecases/reset_password_usecase.dart';
 import 'features/auth/domain/usecases/signup_usecase.dart';
-import 'features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'features/auth/presentation/pages/auth/auth_cubit/auth_cubit.dart';
+import 'features/internet_connection/bloc/network_cubit.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
   // ~~~~~~~~ Core ~~~~~~~~ //
   sl.registerSingleton(AppTheme());
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton<NetworkHelper>(() => NetworkInfoImpl(sl()));
 
   // ~~~~~~~~ Services ~~~~~~~~ //
 
@@ -31,10 +32,14 @@ Future<void> init() async {
   sl.registerLazySingleton(() => sharedPrefs);
   sl.registerLazySingleton(() => InternetConnection());
 
+  // ~~~~~~~~ Features - Internet Connection ~~~~~~~~ //
+
+  sl.registerLazySingleton(() => NetworkCubit(sl()));
+
   // ~~~~~~~~ Features - Authentication ~~~~~~~~ //
 
   // Blocs
-  sl.registerLazySingleton(() => AuthBloc(sl(), sl()));
+  sl.registerLazySingleton(() => AuthCubit(sl(), sl()));
 
   // Usecases
   sl.registerLazySingleton(() => LoginUsecase(sl()));

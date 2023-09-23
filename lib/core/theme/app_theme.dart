@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../gen/fonts.gen.dart';
 import '../utils/extensions.dart';
-import 'app_theme_extensions.dart';
-import 'colors/palette.dart';
+import 'theme_extensions/app_theme_extensions.dart';
+import 'theme_extensions/color_theme_extension.dart';
 import 'dark_app_theme.dart';
 import 'light_app_theme.dart';
-import 'text_theme/app_text_theme.dart';
+import 'theme_extensions/text_theme_extension.dart';
 import 'widget_themes/button_themes.dart';
 import 'widget_themes/input_decoration_theme.dart';
 import 'widget_themes/text_selection_theme.dart';
@@ -43,7 +43,7 @@ class AppTheme extends Cubit<ThemeMode> {
     required Brightness brightness,
     required AppThemeExtensions themeExtensions,
   }) {
-    final palette = themeExtensions.palette;
+    final palette = themeExtensions.colors;
     final textTheme = themeExtensions.textTheme;
 
     return ThemeData(
@@ -79,7 +79,8 @@ class AppTheme extends Cubit<ThemeMode> {
 
   // ~ Widget Themes ~ //
 
-  AppBarTheme _appBarTheme(Palette colors, AppTextTheme textTheme) {
+  AppBarTheme _appBarTheme(
+      ColorThemeExtension colors, TextThemeExtension textTheme) {
     return AppBarTheme(
       foregroundColor: colors.headingText,
       titleTextStyle:

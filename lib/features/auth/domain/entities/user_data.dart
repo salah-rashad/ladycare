@@ -21,6 +21,17 @@ class UserData extends Equatable {
     required this.dateOfBirth,
   });
 
+  factory UserData.empty() => const UserData(
+        id: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneCountryCode: "",
+        phoneNumber: "",
+        profilePictureUrl: "",
+        dateOfBirth: null,
+      );
+
   @override
   List<Object?> get props => [
         id,

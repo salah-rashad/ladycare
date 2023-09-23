@@ -60,9 +60,9 @@ class BottonNavBarItemWidget extends StatelessWidget {
                     Center(
                       child: item.icon.call(
                         color: isSelected
-                            ? iconSelectedColor ?? context.palette.primaryDarker
+                            ? iconSelectedColor ?? context.colors.primaryDarker
                             : iconUnselectedColor ??
-                                context.palette.tertiaryText,
+                                context.colors.tertiaryText,
                         size: const Size.square(32.0),
                       ),
                     ),
@@ -74,11 +74,11 @@ class BottonNavBarItemWidget extends StatelessWidget {
                           height: 12,
                           clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
-                            color: context.palette.error,
+                            color: context.colors.error,
                             borderRadius: BorderRadius.circular(50.0),
                             border: Border.all(
                               width: 2,
-                              color: context.palette.surface,
+                              color: context.colors.surface,
                               strokeAlign: BorderSide.strokeAlignCenter,
                             ),
                           ),
@@ -91,8 +91,8 @@ class BottonNavBarItemWidget extends StatelessWidget {
                 item.label,
                 style: context.textTheme.labelMedium?.apply(
                   color: isSelected
-                      ? iconSelectedColor ?? context.palette.primaryText
-                      : iconUnselectedColor ?? context.palette.tertiaryText,
+                      ? iconSelectedColor ?? context.colors.primaryText
+                      : iconUnselectedColor ?? context.colors.tertiaryText,
                 ),
               ),
             ],

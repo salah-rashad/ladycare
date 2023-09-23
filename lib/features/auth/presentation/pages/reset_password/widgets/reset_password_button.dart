@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/enums/icon_alignment.dart';
 import '../../../../../../core/gen/assets.gen.dart';
 import '../../../../../../core/utils/extensions.dart';
-import '../../../../../../shared/widgets/buttons/custom_elevated_button.dart';
+import '../../../../../../global/widgets/buttons/custom_elevated_button.dart';
 import '../cubit/reset_password_cubit.dart';
 
 class ResetPasswordButton extends StatelessWidget {
@@ -16,7 +16,7 @@ class ResetPasswordButton extends StatelessWidget {
       builder: (context, state) {
         if (state is ResetPasswordLoading) {
           return CircularProgressIndicator(
-            color: context.palette.primary,
+            color: context.colors.primary,
           );
         } else {
           return CustomElevatedButton.icon(
