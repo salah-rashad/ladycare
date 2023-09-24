@@ -15,6 +15,13 @@ import 'features/auth/domain/usecases/logout_usecase.dart';
 import 'features/auth/domain/usecases/reset_password_usecase.dart';
 import 'features/auth/domain/usecases/signup_usecase.dart';
 import 'features/auth/presentation/pages/auth/auth_cubit/auth_cubit.dart';
+import 'features/home/data/datasources/home_data_source.dart';
+import 'features/home/data/repositories/home_repository_impl.dart';
+import 'features/home/domain/repositories/home_repository.dart';
+import 'features/home/domain/usecases/get_highlights_usecase.dart';
+import 'features/home/domain/usecases/get_service_categories_usecase.dart';
+import 'features/home/presentation/bloc/home_highlights_cubit/home_highlights_cubit.dart';
+import 'features/home/presentation/bloc/home_service_categories_cubit/home_service_categories_cubit.dart';
 import 'features/internet_connection/bloc/network_cubit.dart';
 
 final sl = GetIt.instance;
@@ -55,4 +62,20 @@ Future<void> init() async {
   // Data Sources
   sl.registerLazySingleton<AuthDataSource>(
       () => AuthDataSourceImpl(sl(), sl()));
+
+  // ~~~~~~~~ Features - Home ~~~~~~~~ //
+
+  // Blocs
+  sl.registerLazySingleton(() => HomeHighlightsCubit(sl()));
+  sl.registerLazySingleton(() => HomeServiceCategoriesCubit(sl()));
+
+  // Usecases
+  sl.registerLazySingleton(() => GetHighlightsUsecase(sl()));
+  sl.registerLazySingleton(() => GetServiceCategoriesUsecase(sl()));
+
+  // Repositories
+  sl.registerLazySingleton<HomeRepository>(
+      () => HomeRepositoryImpl(sl(), sl()));
+  // Data Sources
+  sl.registerLazySingleton<HomeDataSource>(() => HomeDataSourceImpl(sl()));
 }

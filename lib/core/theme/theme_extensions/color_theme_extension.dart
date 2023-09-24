@@ -60,8 +60,8 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
 
   bool get isDark => brightness == Brightness.dark;
 
-  static Color white = const Color(0xFFFFFFFF);
-  static Color black = const Color(0xFF000000);
+  Color get white => const Color(0xFFFFFFFF);
+  Color get black => const Color(0xFF000000);
 
   InputColorScheme get inputColorScheme => InputColorScheme(
         enabledOutline: (isDark ? white : black).withOpacity(0.1),

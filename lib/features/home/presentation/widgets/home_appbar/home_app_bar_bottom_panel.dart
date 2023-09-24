@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../../core/gen/assets.gen.dart';
 import '../../../../../../../core/utils/extensions.dart';
-import '../../../../global/widgets/custom_sliver_persistent_header_delegate.dart';
+import '../../../../../global/widgets/custom_sliver_persistent_header_delegate.dart';
 
 class HomeAppBarBottomPanel extends StatelessWidget {
   final ExtrapolationFactor t;

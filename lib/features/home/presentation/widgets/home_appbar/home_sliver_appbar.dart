@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 
 import '../../../../../../../core/gen/assets.gen.dart';
 import '../../../../../../../core/utils/extensions.dart';
-import '../../../../global/widgets/custom_sliver_persistent_header_delegate.dart';
+import '../../../../../global/widgets/custom_sliver_persistent_header_delegate.dart';
 import 'home_app_bar_bottom_panel.dart';
 import 'home_app_bar_top_panel.dart';
 
@@ -42,18 +42,18 @@ class _HomeSliverAppbarState extends State<HomeSliverAppbar>
         ),
         // background: _backgroundImage(),
         background: Assets.images.homeBannerBackground.provider(),
-        topPanel: (t) => _topPanel(t),
-        bottomPanel: (t) => HomeAppBarBottomPanel(t: t),
+        topPanel: (t) {
+          return SizedBox(
+            height: lerpDouble(minExtent, 60, t(0.3)),
+            child: HomeAppBarTopPanel(t: t),
+          );
+        },
+        bottomPanel: (t) {
+          return HomeAppBarBottomPanel(t: t);
+        },
         minExtent: minExtent,
         maxExtent: maxExtent,
       ),
-    );
-  }
-
-  SizedBox _topPanel(ExtrapolationFactor t) {
-    return SizedBox(
-      height: lerpDouble(minExtent, 60, t(0.3)),
-      child: HomeAppBarTopPanel(t: t),
     );
   }
 }

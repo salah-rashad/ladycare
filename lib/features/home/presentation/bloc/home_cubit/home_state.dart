@@ -6,8 +6,8 @@ class HomeState extends Equatable {
   final bool hasUnreadAppointments;
 
   const HomeState({
-    this.hasUnreadNotifications = true,
-    this.hasUnreadInboxItems = false,
+    this.hasUnreadNotifications = false,
+    this.hasUnreadInboxItems = true,
     this.hasUnreadAppointments = false,
   });
 

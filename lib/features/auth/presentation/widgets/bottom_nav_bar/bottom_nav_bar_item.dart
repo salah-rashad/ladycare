@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/gen/assets.gen.dart';
 import '../../../../../core/utils/extensions.dart';
+import '../../../../../global/widgets/red_dot_indicator.dart';
 
 class BottomNavBarItem {
   final VoidCallback? onTap;
@@ -66,24 +67,7 @@ class BottonNavBarItemWidget extends StatelessWidget {
                         size: const Size.square(32.0),
                       ),
                     ),
-                    if (item.showRedDot)
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Container(
-                          width: 12,
-                          height: 12,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            color: context.colors.error,
-                            borderRadius: BorderRadius.circular(50.0),
-                            border: Border.all(
-                              width: 2,
-                              color: context.colors.surface,
-                              strokeAlign: BorderSide.strokeAlignCenter,
-                            ),
-                          ),
-                        ),
-                      )
+                    if (item.showRedDot) const RedDotIndicator()
                   ],
                 ),
               ),

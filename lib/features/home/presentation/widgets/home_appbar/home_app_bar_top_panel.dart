@@ -6,9 +6,11 @@ import '../../../../../../../core/gen/assets.gen.dart';
 import '../../../../../../../core/theme/app_theme.dart';
 import '../../../../../../../core/utils/extensions.dart';
 import '../../../../../../../injection_container.dart';
-import '../../../../global/widgets/custom_sliver_persistent_header_delegate.dart';
-import '../../../auth/domain/entities/user_data.dart';
-import '../../../auth/presentation/pages/auth/auth_cubit/auth_cubit.dart';
+import '../../../../../global/widgets/custom_sliver_persistent_header_delegate.dart';
+import '../../../../../global/widgets/red_dot_indicator.dart';
+import '../../../../auth/domain/entities/user_data.dart';
+import '../../../../auth/presentation/pages/auth/auth_cubit/auth_cubit.dart';
+import '../../bloc/home_cubit/home_cubit.dart';
 
 class HomeAppBarTopPanel extends StatelessWidget {
   final ExtrapolationFactor t;
@@ -106,16 +108,25 @@ class HomeAppBarTopPanel extends StatelessWidget {
     );
   }
 
-  IconButton _actionButton(BuildContext context) {
-    return IconButton.filledTonal(
-      onPressed: () {
-        final theme = sl<AppTheme>();
-        theme.toggle(context);
+  Widget _actionButton(BuildContext context) {
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        return IconButton.filledTonal(
+          onPressed: () {
+            final theme = sl<AppTheme>();
+            theme.toggle(context);
+          },
+          icon: Stack(
+            children: [
+              Assets.solarIcons.bold.bell(color: context.colors.primaryText),
+              if (state.hasUnreadNotifications) const RedDotIndicator(),
+            ],
+          ),
+          style: IconButton.styleFrom(
+              backgroundColor: Color.lerp(
+                  Colors.transparent, context.colors.surface, t(0.3))),
+        );
       },
-      icon: Assets.solarIcons.bold.bell(color: context.colors.primaryText),
-      style: IconButton.styleFrom(
-          backgroundColor:
-              Color.lerp(Colors.transparent, context.colors.surface, t(0.3))),
     );
   }
 }

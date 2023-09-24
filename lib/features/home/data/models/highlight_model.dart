@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../domain/entities/highlight.dart';
 
 class HighlightModel extends Highlight {
@@ -26,4 +28,14 @@ class HighlightModel extends Highlight {
 
   factory HighlightModel.fromJson(String source) =>
       HighlightModel.fromMap(json.decode(source));
+}
+
+extension HighlightModelColRefExt on CollectionReference<Map<String, dynamic>> {
+  CollectionReference<HighlightModel> withHighlightModelConverter() {
+    return withConverter(
+      fromFirestore: (snapshot, options) =>
+          HighlightModel.fromMap(snapshot.data()!),
+      toFirestore: (value, options) => value.toMap(),
+    );
+  }
 }

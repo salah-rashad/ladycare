@@ -4,17 +4,16 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/messages.dart';
 import '../../../../../core/gen/assets.gen.dart';
-import '../../../../../core/theme/theme_extensions/color_theme_extension.dart';
 import '../../../../../core/utils/extensions.dart';
-import '../../../../../injection_container.dart';
 import '../../../../../global/widgets/buttons/custom_filled_button.dart';
 import '../../../../../global/widgets/buttons/custom_text_button.dart';
+import '../../../../../global/widgets/custom_alert_dialog.dart';
 import '../../../../../global/widgets/flexible_page.dart';
+import '../../../../../injection_container.dart';
 import '../../widgets/form_errors_list.dart';
 import 'cubit/reset_password_cubit.dart';
 import 'widgets/reset_password_button.dart';
 import 'widgets/reset_password_form.dart';
-import '../../../../../global/widgets/custom_alert_dialog.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   const ResetPasswordPage({super.key});
@@ -83,7 +82,7 @@ class ResetPasswordPage extends StatelessWidget {
             icon: Assets.solarIcons.boldDuotone.closeSquare,
             text: "حسناً",
             background: context.colors.accent2,
-            foreground: ColorThemeExtension.white,
+            foreground: context.colors.white,
           ),
         );
       },

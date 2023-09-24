@@ -17,7 +17,6 @@ import 'core/utils/extensions.dart';
 import 'features/auth/presentation/pages/auth/auth_cubit/auth_cubit.dart';
 import 'features/internet_connection/bloc/network_cubit.dart';
 import 'firebase_options.dart';
-import 'global/widgets/no_internet_view.dart';
 import 'injection_container.dart' as di;
 import 'providers.dart';
 
@@ -89,7 +88,7 @@ class Main extends StatelessWidget {
               case NetworkInitial():
                 return _networkInitialView(context);
               case NetworkDisconnected():
-                return const NoInternetView();
+              // return const NoInternetView();
               case NetworkConnected():
                 return child ?? const SizedBox.shrink();
             }
