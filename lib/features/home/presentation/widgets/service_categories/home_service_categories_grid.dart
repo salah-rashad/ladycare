@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../injection_container.dart';
 import '../../../domain/entities/service_category.dart';
 import '../../bloc/home_service_categories_cubit/home_service_categories_cubit.dart';
+import 'service_category_button.dart';
+import 'service_category_shimmer.dart';
 
 class HomeServiceCategoriesGrid extends StatelessWidget {
   const HomeServiceCategoriesGrid({super.key});
@@ -21,13 +23,12 @@ class HomeServiceCategoriesGrid extends StatelessWidget {
       builder: (context, state) {
         switch (state) {
           case HomeServiceCategoriesInitial():
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          case GetServiceCategoriesSucceed():
+          case HomeServiceCategoriesLoading():
+            return _gridView(context, null);
+          case HomeServiceCategoriesLoaded():
             final serviceCategories = state.serviceCategories;
-            return _succeedView(context, serviceCategories);
-          case GetServiceCategoriesFailed():
+            return _gridView(context, serviceCategories);
+          case HomeServiceCategoriesError():
             return Center(
               child: Text(state.message),
             );
@@ -36,13 +37,28 @@ class HomeServiceCategoriesGrid extends StatelessWidget {
     );
   }
 
-  Widget _succeedView(
-      BuildContext context, List<ServiceCategory> serviceCategories) {
-
-
-        //TODO: Stopped here
-
-
-    return const Placeholder();
+  Widget _gridView(
+      BuildContext context, List<ServiceCategory>? serviceCategories) {
+    return GridView.builder(
+      shrinkWrap: true,
+      itemCount: serviceCategories?.length ?? 8,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 80,
+        crossAxisSpacing: 8.0,
+        mainAxisSpacing: 16.0,
+        // mainAxisExtent: 120,
+        childAspectRatio: 3 / 5,
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 32.0),
+      itemBuilder: (context, index) {
+        if (serviceCategories != null) {
+          final item = serviceCategories[index];
+          return ServiceCategoryButton(serviceCategory: item);
+        } else {
+          return const ServiceCategoryShimmer();
+        }
+      },
+    );
   }
 }

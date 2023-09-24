@@ -12,7 +12,11 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    log('onChange $change', name: bloc.runtimeType.toString());
+    log(
+      'onChange '
+      "( ${change.currentState.runtimeType} ) ==> ( ${change.nextState.runtimeType} )",
+      name: bloc.runtimeType.toString(),
+    );
   }
 
   @override

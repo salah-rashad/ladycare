@@ -11,14 +11,15 @@ class HomeHighlightsCubit extends Cubit<HomeHighlightsState> {
   final GetHighlightsUsecase _getHighlightsUsecase;
   HomeHighlightsCubit(this._getHighlightsUsecase)
       : super(HomeHighlightsInitial()) {
-    getHighlights();
+    fetchHighlights();
   }
 
-  void getHighlights() async {
+  Future<void> fetchHighlights() async {
+    emit(HomeHighlightsLoading());
     final result = await _getHighlightsUsecase();
     final state = result.fold(
-      (failure) => GetHighlightsFailed(message: failure.message),
-      (highlights) => GetHighlightsSucceed(highlights: highlights),
+      (failure) => HomeHighlightsError(message: failure.message),
+      (highlights) => HomeHighlightsLoaded(highlights: highlights),
     );
     emit(state);
   }

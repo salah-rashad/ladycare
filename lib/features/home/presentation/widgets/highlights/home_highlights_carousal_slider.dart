@@ -6,6 +6,7 @@ import '../../../../../injection_container.dart';
 import '../../../domain/entities/highlight.dart';
 import '../../bloc/home_highlights_cubit/home_highlights_cubit.dart';
 import 'highlight_card.dart';
+import 'highlights_shimmer.dart';
 
 class HomeHighlightsCarousalSlider extends StatelessWidget {
   const HomeHighlightsCarousalSlider({super.key});
@@ -19,17 +20,20 @@ class HomeHighlightsCarousalSlider extends StatelessWidget {
   }
 
   Widget _build(BuildContext context) {
+    const sliderSize = Size.fromHeight(160);
+
     return BlocBuilder<HomeHighlightsCubit, HomeHighlightsState>(
       builder: (context, state) {
         switch (state) {
           case HomeHighlightsInitial():
-            return const Center(
-              child: CircularProgressIndicator(),
+          case HomeHighlightsLoading():
+            return const HighlightsShimmer(
+              size: sliderSize,
             );
-          case GetHighlightsSucceed():
+          case HomeHighlightsLoaded():
             final highlights = state.highlights;
-            return _succeedView(context, highlights);
-          case GetHighlightsFailed():
+            return _succeedView(context, highlights, sliderSize);
+          case HomeHighlightsError():
             return Center(
               child: Text(state.message),
             );
@@ -38,16 +42,21 @@ class HomeHighlightsCarousalSlider extends StatelessWidget {
     );
   }
 
-  Widget _succeedView(BuildContext context, List<Highlight> highlights) {
+  Widget _succeedView(
+    BuildContext context,
+    List<Highlight> highlights,
+    Size size,
+  ) {
     // final screenSize = context.mediaQuery.size;
     final bool autoplay = highlights.length >= 2;
     final bool enableInfiniteScroll = highlights.length >= 2;
     return CarouselSlider(
       options: CarouselOptions(
+        clipBehavior: Clip.none,
         autoPlay: autoplay,
         // aspectRatio: 16 / 9,
         enableInfiniteScroll: enableInfiniteScroll,
-        height: 160,
+        height: size.height,
         enlargeCenterPage: true,
         pauseAutoPlayOnManualNavigate: true,
         pauseAutoPlayOnTouch: true,

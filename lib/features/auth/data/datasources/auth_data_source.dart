@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../../core/constants/constants.dart';
 import '../../../../core/constants/failure_messages.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../domain/usecases/login_usecase.dart';
@@ -25,12 +26,9 @@ class AuthDataSourceImpl implements AuthDataSource {
 
   AuthDataSourceImpl(this.auth, this.db);
 
-  CollectionReference<UserDataModel> get usersCollectionRef =>
-      db.collection("users").withConverter(
-            fromFirestore: (snapshot, _) =>
-                UserDataModel.fromMap(snapshot.data()!),
-            toFirestore: (value, options) => value.toMap(),
-          );
+  CollectionReference<UserDataModel> get usersCollectionRef => db
+      .collection(FirebaseConstants.usersCollection)
+      .withUserDataModelConverter();
 
   @override
   Future<UserDataModel?> login(LoginParams params) async {
@@ -89,14 +87,8 @@ class AuthDataSourceImpl implements AuthDataSource {
   Future<UserDataModel> getUserProfile() async {
     try {
       final uid = auth.currentUser?.uid;
-      final docRef = db.collection("users").doc(uid);
-      final doc = await docRef
-          .withConverter(
-            fromFirestore: (snapshot, _) =>
-                UserDataModel.fromMap(snapshot.data()!),
-            toFirestore: (value, options) => value.toMap(),
-          )
-          .get();
+      final docRef = usersCollectionRef.doc(uid);
+      final doc = await docRef.get();
       return doc.data()!;
     } catch (e) {
       throw DatabaseReadException();

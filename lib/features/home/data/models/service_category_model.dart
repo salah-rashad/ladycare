@@ -11,6 +11,18 @@ class ServiceCategoryModel extends ServiceCategory {
     required super.name,
   });
 
+  ServiceCategoryModel copyWith({
+    int? id,
+    String? iconUrl,
+    String? name,
+  }) {
+    return ServiceCategoryModel(
+      id: id ?? this.id,
+      iconUrl: iconUrl ?? this.iconUrl,
+      name: name ?? this.name,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -31,11 +43,29 @@ class ServiceCategoryModel extends ServiceCategory {
 
   factory ServiceCategoryModel.fromJson(String source) =>
       ServiceCategoryModel.fromMap(json.decode(source));
+
+  @override
+  String toString() =>
+      'ServiceCategory(id: $id, iconUrl: $iconUrl, name: $name)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is ServiceCategory &&
+        other.id == id &&
+        other.iconUrl == iconUrl &&
+        other.name == name;
+  }
+
+  @override
+  int get hashCode => id.hashCode ^ iconUrl.hashCode ^ name.hashCode;
 }
 
 extension ServiceCategoryModelColRefExt
     on CollectionReference<Map<String, dynamic>> {
-  CollectionReference<ServiceCategoryModel> withServiceCategoryModelConverter() {
+  CollectionReference<ServiceCategoryModel>
+      withServiceCategoryModelConverter() {
     return withConverter(
       fromFirestore: (snapshot, options) =>
           ServiceCategoryModel.fromMap(snapshot.data()!),

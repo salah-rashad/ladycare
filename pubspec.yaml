@@ -31,6 +31,7 @@ dependencies:
   lottie: ^2.6.0
   flutter_multi_formatter: ^2.11.10
   carousel_slider: ^4.2.1
+  fade_shimmer: ^2.2.0
 
   # Firebase
   firebase_core: ^2.15.1

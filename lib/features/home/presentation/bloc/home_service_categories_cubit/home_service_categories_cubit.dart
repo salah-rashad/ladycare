@@ -11,14 +11,15 @@ class HomeServiceCategoriesCubit extends Cubit<HomeServiceCategoriesState> {
   final GetServiceCategoriesUsecase _getServiceCategoriesUsecase;
   HomeServiceCategoriesCubit(this._getServiceCategoriesUsecase)
       : super(HomeServiceCategoriesInitial()) {
-    getServiceCategories();
+    fetchServiceCategories();
   }
 
-  void getServiceCategories() async {
+  Future<void> fetchServiceCategories() async {
+    emit(HomeServiceCategoriesLoading());
     final result = await _getServiceCategoriesUsecase();
     final state = result.fold(
-      (failure) => GetServiceCategoriesFailed(message: failure.message),
-      (data) => GetServiceCategoriesSucceed(serviceCategories: data),
+      (failure) => HomeServiceCategoriesError(message: failure.message),
+      (data) => HomeServiceCategoriesLoaded(serviceCategories: data),
     );
     emit(state);
   }

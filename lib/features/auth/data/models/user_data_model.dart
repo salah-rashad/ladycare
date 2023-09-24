@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../domain/entities/user_data.dart';
 
 class UserDataModel extends UserData {
@@ -46,4 +48,15 @@ class UserDataModel extends UserData {
 
   factory UserDataModel.fromJson(String source) =>
       UserDataModel.fromMap(json.decode(source));
+
+  
+}
+
+extension UserDataModelColRefExt on CollectionReference<Map<String, dynamic>> {
+  CollectionReference<UserDataModel> withUserDataModelConverter() {
+    return withConverter(
+      fromFirestore: (snapshot, options) => UserDataModel.fromMap(snapshot.data()!),
+      toFirestore: (value, options) => value.toMap(),
+    );
+  }
 }

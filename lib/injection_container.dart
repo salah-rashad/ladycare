@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,6 +36,7 @@ Future<void> init() async {
 
   sl.registerLazySingleton(() => FirebaseAuth.instance);
   sl.registerLazySingleton(() => FirebaseFirestore.instance);
+  sl.registerLazySingleton(() => FirebaseStorage.instance);
   final sharedPrefs = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPrefs);
   sl.registerLazySingleton(() => InternetConnection());
@@ -76,6 +78,8 @@ Future<void> init() async {
   // Repositories
   sl.registerLazySingleton<HomeRepository>(
       () => HomeRepositoryImpl(sl(), sl()));
+
   // Data Sources
-  sl.registerLazySingleton<HomeDataSource>(() => HomeDataSourceImpl(sl()));
+  sl.registerLazySingleton<HomeDataSource>(
+      () => HomeDataSourceImpl(sl(), sl()));
 }

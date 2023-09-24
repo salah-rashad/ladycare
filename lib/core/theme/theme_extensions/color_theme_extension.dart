@@ -75,6 +75,9 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
         foreground: white,
       );
 
+  Color get shimmerBase => primaryText.withAlpha(5);
+  Color get shimmerHighlight => primaryText.withAlpha(25);
+
   @override
   ColorThemeExtension lerp(covariant ColorThemeExtension? other, double t) {
     if (other is! ColorThemeExtension) {

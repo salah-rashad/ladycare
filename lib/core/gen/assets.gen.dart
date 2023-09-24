@@ -41,6 +41,10 @@ class $AssetsImagesGen {
 
   $AssetsImagesSvgGen get svg => const $AssetsImagesSvgGen();
 
+  /// File path: assets/images/top_salons_icon.png
+  AssetGenImage get topSalonsIcon =>
+      const AssetGenImage('assets/images/top_salons_icon.png');
+
   /// File path: assets/images/user_placeholder.png
   AssetGenImage get userPlaceholder =>
       const AssetGenImage('assets/images/user_placeholder.png');
@@ -53,6 +57,7 @@ class $AssetsImagesGen {
         logoTpDark,
         logoTpLight,
         pointsIcon,
+        topSalonsIcon,
         userPlaceholder
       ];
 }
