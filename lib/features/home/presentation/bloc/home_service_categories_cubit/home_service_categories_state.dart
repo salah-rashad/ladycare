@@ -8,19 +8,25 @@ sealed class HomeServiceCategoriesState extends Equatable {
 }
 
 final class HomeServiceCategoriesInitial extends HomeServiceCategoriesState {}
+
 final class HomeServiceCategoriesLoading extends HomeServiceCategoriesState {}
 
-final class HomeServiceCategoriesLoaded extends HomeServiceCategoriesState {
-  final List<ServiceCategory> serviceCategories;
-  const HomeServiceCategoriesLoaded({required this.serviceCategories});
+final class HomeServiceCategoriesSucceed extends HomeServiceCategoriesState {
+  final List<ServicesCategory> serviceCategories;
+  const HomeServiceCategoriesSucceed({required this.serviceCategories});
 
   @override
   List<Object> get props => [serviceCategories];
+
+  @override
+  String toString() {
+    return "$runtimeType([${serviceCategories.length}])";
+  }
 }
 
-final class HomeServiceCategoriesError extends HomeServiceCategoriesState {
+final class HomeServiceCategoriesFailed extends HomeServiceCategoriesState {
   final String message;
-  const HomeServiceCategoriesError({required this.message});
+  const HomeServiceCategoriesFailed({required this.message});
 
   @override
   List<Object> get props => [message];

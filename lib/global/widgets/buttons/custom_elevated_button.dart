@@ -11,6 +11,7 @@ class CustomElevatedButton extends StatelessWidget {
   final Color? foreground;
   final SvgGenImage? icon;
   final IconAlignment iconAlignment;
+  final bool wide;
 
   const CustomElevatedButton({
     super.key,
@@ -18,22 +19,29 @@ class CustomElevatedButton extends StatelessWidget {
     required this.onPressed,
     this.background,
     this.foreground,
+    this.wide = true,
   })  : icon = null,
         iconAlignment = IconAlignment.right;
 
   const CustomElevatedButton.icon({
     super.key,
-    required SvgGenImage this.icon,
     required this.text,
+    required SvgGenImage this.icon,
     required this.onPressed,
+    this.iconAlignment = IconAlignment.right,
     this.background,
     this.foreground,
-    this.iconAlignment = IconAlignment.right,
+    this.wide = true,
   });
 
   @override
   Widget build(BuildContext context) {
     final icon = this.icon;
+    final buttonStyle = ElevatedButton.styleFrom(
+      backgroundColor: background,
+      foregroundColor: foreground,
+      minimumSize: wide ? const Size(double.infinity, 48.0) : null,
+    );
 
     final Widget widget;
 
@@ -43,19 +51,13 @@ class CustomElevatedButton extends StatelessWidget {
           color: foreground ?? context.colors.buttonColorScheme.foreground,
         ),
         onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: background,
-          foregroundColor: foreground,
-        ),
+        style: buttonStyle,
         label: Text(text),
       );
     } else {
       widget = ElevatedButton(
         onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: background,
-          foregroundColor: foreground,
-        ),
+        style: buttonStyle,
         child: Text(text),
       );
     }

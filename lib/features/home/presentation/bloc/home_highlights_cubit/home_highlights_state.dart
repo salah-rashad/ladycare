@@ -11,17 +11,17 @@ final class HomeHighlightsInitial extends HomeHighlightsState {}
 
 final class HomeHighlightsLoading extends HomeHighlightsState {}
 
-final class HomeHighlightsLoaded extends HomeHighlightsState {
+final class HomeHighlightsSucceed extends HomeHighlightsState {
   final List<Highlight> highlights;
-  const HomeHighlightsLoaded({required this.highlights});
+  const HomeHighlightsSucceed({required this.highlights});
 
   @override
   List<Object> get props => [highlights];
 }
 
-final class HomeHighlightsError extends HomeHighlightsState {
+final class HomeHighlightsFailed extends HomeHighlightsState {
   final String message;
-  const HomeHighlightsError({required this.message});
+  const HomeHighlightsFailed({required this.message});
 
   @override
   List<Object> get props => [message];

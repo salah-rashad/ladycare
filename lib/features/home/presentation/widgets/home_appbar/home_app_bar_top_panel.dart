@@ -1,19 +1,22 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../core/gen/assets.gen.dart';
-import '../../../../../../../core/theme/app_theme.dart';
 import '../../../../../../../core/utils/extensions.dart';
 import '../../../../../../../injection_container.dart';
+import '../../../../../global/blocs/theme_mode_cubit/theme_mode_cubit.dart';
 import '../../../../../global/widgets/custom_sliver_persistent_header_delegate.dart';
 import '../../../../../global/widgets/red_dot_indicator.dart';
 import '../../../../auth/domain/entities/user_data.dart';
-import '../../../../auth/presentation/pages/auth/auth_cubit/auth_cubit.dart';
+import '../../../../auth/presentation/bloc/auth_cubit/auth_cubit.dart';
 import '../../bloc/home_cubit/home_cubit.dart';
 
 class HomeAppBarTopPanel extends StatelessWidget {
   final ExtrapolationFactor t;
+
   const HomeAppBarTopPanel({
     super.key,
     required this.t,
@@ -31,7 +34,7 @@ class HomeAppBarTopPanel extends StatelessWidget {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _profileImage(userData),
+            _profileImage(context, userData),
             _nameText(context, userData),
             _actionButton(context),
           ].withGap(width: 16.0),
@@ -40,29 +43,46 @@ class HomeAppBarTopPanel extends StatelessWidget {
     );
   }
 
-  Widget _profileImage(UserData userData) {
+  Widget _profileImage(BuildContext context, UserData userData) {
     return SizedBox.square(
       dimension: 45.0,
-      child: Container(
-        width: 45.0,
-        height: 45.0,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-              color: Color.lerp(Colors.transparent, Colors.black26, t(1.0)) ??
-                  Colors.transparent,
-            )
-          ],
-          borderRadius: const BorderRadius.all(Radius.circular(200)),
-        ),
-        child: CachedNetworkImage(
-          imageUrl: userData.profilePictureUrl ?? "",
-          errorWidget: (context, url, error) {
-            return Assets.images.userPlaceholder.image();
+      child: Material(
+        clipBehavior: Clip.hardEdge,
+        type: MaterialType.circle,
+        color: context.colors.surface,
+        elevation: lerpDouble(6, 0, t(0.5)) ?? 0,
+        // decoration: BoxDecoration(
+        //   color: Colors.white,
+        //   boxShadow: [
+        //     BoxShadow(
+        //       blurRadius: 10,
+        //       offset: const Offset(0, 4),
+        //       color: Color.lerp(Colors.black26, Colors.transparent, t(1.0)) ??
+        //           Colors.transparent,
+        //     )
+        //   ],
+        //   borderRadius: const BorderRadius.all(Radius.circular(200)),
+        // ),
+        child: InkWell(
+          onTap: () {
+            context.showSnackbar(
+              SnackBar(
+                content: const Text("تسجيل الخروج؟"),
+                action: SnackBarAction(
+                  label: "نعم",
+                  onPressed: sl<AuthCubit>().logout,
+                ),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
           },
+          child: CachedNetworkImage(
+            imageUrl: userData.profilePictureUrl ?? "",
+            fit: BoxFit.cover,
+            errorWidget: (context, url, error) {
+              return Assets.images.userPlaceholder.image(fit: BoxFit.cover);
+            },
+          ),
         ),
       ),
     );
@@ -86,9 +106,9 @@ class HomeAppBarTopPanel extends StatelessWidget {
         children: [
           Align(
             alignment: AlignmentDirectional.topStart,
-            heightFactor: t(0.3),
+            heightFactor: 1 - t(0.2),
             child: Opacity(
-              opacity: t(0.3),
+              opacity: 1 - t(0.2),
               child: Text(
                 "أهــلاً",
                 style: context.textTheme.labelLarge?.apply(
@@ -101,7 +121,7 @@ class HomeAppBarTopPanel extends StatelessWidget {
           Text(
             "${userData.firstName} ${userData.lastName}",
             style: TextStyle.lerp(
-                nameTextStyleCollapsed, nameTextStyleExpanded, t(0.5)),
+                nameTextStyleExpanded, nameTextStyleCollapsed, t(0.5)),
           ),
         ],
       ),
@@ -110,11 +130,12 @@ class HomeAppBarTopPanel extends StatelessWidget {
 
   Widget _actionButton(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
+      bloc: sl<HomeCubit>(),
       builder: (context, state) {
         return IconButton.filledTonal(
           onPressed: () {
-            final theme = sl<AppTheme>();
-            theme.toggle(context);
+            final theme = sl<ThemeModeCubit>();
+            theme.toggle();
           },
           icon: Stack(
             children: [
@@ -123,8 +144,13 @@ class HomeAppBarTopPanel extends StatelessWidget {
             ],
           ),
           style: IconButton.styleFrom(
-              backgroundColor: Color.lerp(
-                  Colors.transparent, context.colors.surface, t(0.3))),
+            padding: const EdgeInsets.all(4.0),
+            backgroundColor: Color.lerp(
+              context.colors.surface,
+              Colors.transparent,
+              t(0.3),
+            ),
+          ),
         );
       },
     );

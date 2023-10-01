@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../core/constants/failure_messages.dart';
 import '../../../../core/error/exceptions.dart';
@@ -11,22 +12,22 @@ import '../../domain/usecases/reset_password_usecase.dart';
 import '../../domain/usecases/signup_usecase.dart';
 import '../datasources/auth_data_source.dart';
 
-class AuthRepositoryImpl extends AuthRepository {
+class AuthRepositoryImpl implements AuthRepository {
   final AuthDataSource dataSource;
-  final NetworkHelper networkInfo;
+  final NetworkHelper networkHelper;
 
-  AuthRepositoryImpl(this.dataSource, this.networkInfo);
+  AuthRepositoryImpl(this.dataSource, this.networkHelper);
 
   @override
-  Future<Either<Failure, UserData?>> login(LoginParams params) async {
-    if (await networkInfo.isConnected) {
+  Future<Either<Failure, UserCredential>> login(LoginParams params) async {
+    if (await networkHelper.isConnected) {
       try {
         final data = await dataSource.login(params);
         return Right(data);
       } on AuthException catch (e) {
-        return Left(AuthFailure(e.message));
+        return Left(AuthFailure(message: e.message));
       } catch (e) {
-        return const Left(AuthFailure(FailureMessages.unknown_error));
+        return const Left(UnknownFailure());
       }
     } else {
       return const Left(OfflineFailure());
@@ -34,15 +35,16 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserData?>> createAccount(SignupParams params) async {
-    if (await networkInfo.isConnected) {
+  Future<Either<Failure, UserCredential>> createAccount(
+      SignupParams params) async {
+    if (await networkHelper.isConnected) {
       try {
         final data = await dataSource.createAccount(params);
         return Right(data);
       } on AuthException catch (e) {
-        return Left(AuthFailure(e.message));
+        return Left(AuthFailure(message: e.message));
       } catch (e) {
-        return const Left(AuthFailure(FailureMessages.unknown_error));
+        return const Left(UnknownFailure());
       }
     } else {
       return const Left(OfflineFailure());
@@ -51,14 +53,14 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<Either<Failure, Unit>> logout() async {
-    if (await networkInfo.isConnected) {
+    if (await networkHelper.isConnected) {
       try {
-        await dataSource.logout();
-        return const Right(unit);
+        final data = await dataSource.logout();
+        return Right(data);
       } on AuthException catch (e) {
-        return Left(AuthFailure(e.message));
+        return Left(AuthFailure(message: e.message));
       } catch (e) {
-        return const Left(AuthFailure(FailureMessages.unknown_error));
+        return const Left(UnknownFailure());
       }
     } else {
       return const Left(OfflineFailure());
@@ -68,14 +70,14 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Either<Failure, String>> resetPassword(
       ResetPasswordParams params) async {
-    if (await networkInfo.isConnected) {
+    if (await networkHelper.isConnected) {
       try {
         final data = await dataSource.sendPasswordResetEmail(params);
         return Right(data);
       } on AuthException catch (e) {
-        return Left(AuthFailure(e.message));
+        return Left(AuthFailure(message: e.message));
       } catch (e) {
-        return const Left(AuthFailure(FailureMessages.unknown_error));
+        return const Left(UnknownFailure());
       }
     } else {
       return const Left(OfflineFailure());
@@ -84,12 +86,13 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<Either<Failure, UserData>> getUserProfile() async {
-    if (await networkInfo.isConnected) {
+    if (await networkHelper.isConnected) {
       try {
-        final user = await dataSource.getUserProfile();
-        return Right(user);
-      } on DatabaseReadException {
-        return const Left(DatabaseReadFailure());
+        final data = await dataSource.getUserProfile();
+        return Right(data);
+      } on FirebaseException catch (e) {
+        final message = FailureMessages.fromCode(e.code);
+        return Left(DatabaseReadFailure(message: message));
       } catch (e) {
         return const Left(UnknownFailure());
       }

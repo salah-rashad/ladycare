@@ -11,6 +11,7 @@ class CustomFilledButton extends StatelessWidget {
   final Color? foreground;
   final SvgGenImage? icon;
   final IconAlignment iconAlignment;
+  final bool wide;
 
   const CustomFilledButton({
     super.key,
@@ -18,6 +19,7 @@ class CustomFilledButton extends StatelessWidget {
     required this.onPressed,
     this.background,
     this.foreground,
+    this.wide = true,
   })  : icon = null,
         iconAlignment = IconAlignment.right;
 
@@ -29,11 +31,17 @@ class CustomFilledButton extends StatelessWidget {
     this.background,
     this.foreground,
     this.iconAlignment = IconAlignment.right,
+    this.wide = true,
   });
 
   @override
   Widget build(BuildContext context) {
     final icon = this.icon;
+    final buttonStyle = FilledButton.styleFrom(
+      backgroundColor: background,
+      foregroundColor: foreground,
+      minimumSize: wide ? const Size(double.infinity, 48.0) : null,
+    );
 
     final Widget widget;
 
@@ -43,19 +51,13 @@ class CustomFilledButton extends StatelessWidget {
           color: foreground ?? context.colors.buttonColorScheme.foreground,
         ),
         onPressed: onPressed,
-        style: FilledButton.styleFrom(
-          backgroundColor: background,
-          foregroundColor: foreground,
-        ),
+        style: buttonStyle,
         label: Text(text),
       );
     } else {
       widget = FilledButton(
         onPressed: onPressed,
-        style: FilledButton.styleFrom(
-          backgroundColor: background,
-          foregroundColor: foreground,
-        ),
+        style: buttonStyle,
         child: Text(text),
       );
     }

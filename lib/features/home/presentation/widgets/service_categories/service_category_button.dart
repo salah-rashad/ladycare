@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/extensions.dart';
-import '../../../domain/entities/service_category.dart';
+import '../../../../salon/data/models/services_category.dart';
 
 class ServiceCategoryButton extends StatelessWidget {
-  final ServiceCategory serviceCategory;
+  final ServicesCategory serviceCategory;
 
   const ServiceCategoryButton({
     super.key,
@@ -18,7 +18,7 @@ class ServiceCategoryButton extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          clipBehavior: Clip.antiAlias,
+          clipBehavior: Clip.hardEdge,
           width: 60,
           height: 75,
           decoration: const ShapeDecoration(

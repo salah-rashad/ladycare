@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../global/widgets/errors_list.dart';
 import '../../../../../injection_container.dart';
-import '../../../domain/entities/service_category.dart';
+import '../../../../salon/data/models/services_category.dart';
 import '../../bloc/home_service_categories_cubit/home_service_categories_cubit.dart';
 import 'service_category_button.dart';
 import 'service_category_shimmer.dart';
@@ -25,12 +26,13 @@ class HomeServiceCategoriesGrid extends StatelessWidget {
           case HomeServiceCategoriesInitial():
           case HomeServiceCategoriesLoading():
             return _gridView(context, null);
-          case HomeServiceCategoriesLoaded():
+          case HomeServiceCategoriesSucceed():
             final serviceCategories = state.serviceCategories;
             return _gridView(context, serviceCategories);
-          case HomeServiceCategoriesError():
-            return Center(
-              child: Text(state.message),
+          case HomeServiceCategoriesFailed():
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: ErrorsList(messages: [state.message]),
             );
         }
       },
@@ -38,7 +40,7 @@ class HomeServiceCategoriesGrid extends StatelessWidget {
   }
 
   Widget _gridView(
-      BuildContext context, List<ServiceCategory>? serviceCategories) {
+      BuildContext context, List<ServicesCategory>? serviceCategories) {
     return GridView.builder(
       shrinkWrap: true,
       itemCount: serviceCategories?.length ?? 8,

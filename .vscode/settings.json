@@ -18,21 +18,19 @@
         "pubspec.lock": true,
         "ui-debug.log": true,
         ".flutter-plugins": true,
-        ".flutter-plugins-dependencies": true
+        ".flutter-plugins-dependencies": true,
+        ".metadata": true,
+        /********************************
+         * BUILD RUNNER GENERATED FILES *
+         ********************************/
+        "**/*.g.dart": true,
+        "**/*.freezed.dart": true,
     },
-    "hide-files.files": [
-        "linux",
-        "macos",
-        "web",
-        "windows",
-        ".dart_tool",
-        ".idea",
-        "firebase-debug.log",
-        "firestore-debug.log",
-        "ladycare.iml",
-        "pubspec.lock",
-        "ui-debug.log",
-        ".flutter-plugins",
-        ".flutter-plugins-dependencies"
-    ]
+    "LineCount.includes": [
+        "lib/**/*.dart"
+    ],
+    "LineCount.excludes": [
+        "lib/core/gen",
+        "lib/**/*.g.dart"
+    ],
 }

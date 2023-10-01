@@ -28,7 +28,9 @@ class _HomeSliverAppbarState extends State<HomeSliverAppbar>
       pinned: true,
       delegate: CustomSliverPersistentHeaderDelegate.snap(
         vsync: this,
-        snapConfiguration: FloatingHeaderSnapConfiguration(),
+        snapConfiguration: FloatingHeaderSnapConfiguration(
+          curve: Curves.easeInOutCubic,
+        ),
         paddingExpanded: const EdgeInsets.only(
           top: 60,
           bottom: 16.0,
@@ -44,7 +46,7 @@ class _HomeSliverAppbarState extends State<HomeSliverAppbar>
         background: Assets.images.homeBannerBackground.provider(),
         topPanel: (t) {
           return SizedBox(
-            height: lerpDouble(minExtent, 60, t(0.3)),
+            height: lerpDouble(60, minExtent, t(0.3)),
             child: HomeAppBarTopPanel(t: t),
           );
         },

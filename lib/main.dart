@@ -4,19 +4,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'app_bloc_observer.dart';
 import 'core/constants/constants.dart';
 import 'core/routes/go_router.dart';
-import 'core/routes/routes.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/light_app_theme.dart';
 import 'core/utils/extensions.dart';
-import 'features/auth/presentation/pages/auth/auth_cubit/auth_cubit.dart';
-import 'features/internet_connection/bloc/network_cubit.dart';
 import 'firebase_options.dart';
+import 'global/blocs/theme_mode_cubit/theme_mode_cubit.dart';
 import 'injection_container.dart' as di;
 import 'providers.dart';
 
@@ -27,9 +24,11 @@ void main() async {
   Bloc.observer = AppBlocObserver();
 
   await initializeDateFormatting(Constants.defaultLocaleString);
-  await _initFirebase();
   await di.init();
+
+  await _initFirebase();
   _setTransparentStatusbarColor();
+  _setPreferredOrientations();
 
   runApp(const Main());
 }
@@ -43,14 +42,14 @@ class Main extends StatelessWidget {
         providers: providers,
         child: ScreenUtilInit(
           designSize: Constants.designSize,
-          child: BlocBuilder<AppTheme, ThemeMode>(
-            bloc: di.sl<AppTheme>(),
+          child: BlocBuilder<ThemeModeCubit, ThemeModeState>(
+            bloc: di.sl<ThemeModeCubit>(),
             builder: (context, state) {
               return MaterialApp.router(
                 title: Constants.appName,
                 debugShowCheckedModeBanner: false,
                 routerConfig: AppRouter.router,
-                themeMode: state, // ThemeMode.light,
+                themeMode: state.mode, // ThemeMode.light,
                 theme: AppTheme().light,
                 darkTheme: AppTheme().dark,
                 locale: Constants.defaultLocale,
@@ -71,34 +70,14 @@ class Main extends StatelessWidget {
         ));
   }
 
-  Widget _routeBuilder(context, child) {
+  Widget _routeBuilder(BuildContext context, Widget? child) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: BlocListener<AuthCubit, AuthState>(
-        bloc: di.sl<AuthCubit>(),
-        listener: (context, state) {
-          if (state is Unauthenticated) {
-            context.replaceNamed(Routes.LOGIN.name);
-          }
-        },
-        child: BlocBuilder<NetworkCubit, NetworkState>(
-          bloc: di.sl<NetworkCubit>(),
-          builder: (context, state) {
-            switch (state) {
-              case NetworkInitial():
-                return _networkInitialView(context);
-              case NetworkDisconnected():
-              // return const NoInternetView();
-              case NetworkConnected():
-                return child ?? const SizedBox.shrink();
-            }
-          },
-        ),
-      ),
+      child: child ?? _initialView(context),
     );
   }
 
-  Material _networkInitialView(BuildContext context) {
+  Material _initialView(BuildContext context) {
     return Material(
       color: context.colors.surface,
       child: Center(

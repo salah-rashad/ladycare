@@ -15,7 +15,7 @@ class RedDotIndicator extends StatelessWidget {
       child: Container(
         width: 12,
         height: 12,
-        clipBehavior: Clip.antiAlias,
+        clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           color: context.colors.error,
           borderRadius: BorderRadius.circular(50.0),

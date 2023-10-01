@@ -13,3 +13,10 @@ void _setTransparentStatusbarColor() {
     ),
   );
 }
+
+void _setPreferredOrientations() {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+}

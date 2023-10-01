@@ -1,7 +1,5 @@
 // ignore_for_file: constant_identifier_names
 
-import '../error/failures.dart';
-
 class FailureMessages {
   // ~ Custom ~ //
   static const String unknown_error =
@@ -34,6 +32,8 @@ class FailureMessages {
   static const String delete_failed = "فشلت عملية الحذف.";
   static const String database_error =
       "حدث خطأ في قاعدة البيانات. الرجاء الاتصال بالدعم للمزيد من المساعدة.";
+  static const String permission_denied =
+      "ليس لديك الصلاحية. الرجاء المحاولة مرة أخرى.";
 
   static String fromCode(String code) {
     switch (code) {
@@ -51,22 +51,24 @@ class FailureMessages {
         return operation_not_allowed;
       case "weak-password":
         return weak_password;
+      case "permission-denied":
+        return permission_denied;
       default:
         return unknown_error;
     }
   }
 
-  static String from(Failure failure) {
-    return switch (failure) {
-      OfflineFailure() => no_internet_connection,
-      AuthFailure() => failure.message,
-      DatabaseReadFailure() => read_failed,
-      DatabaseWriteFailure() => write_failed,
-      DatabaseUpdateFailure() => update_failed,
-      DatabaseDeleteFailure() => delete_failed,
-      UnknownFailure() => unknown_error,
-    };
-  }
+  // static String from(Failure failure) {
+  //   return switch (failure) {
+  //     OfflineFailure() => no_internet_connection,
+  //     AuthFailure() => failure.message,
+  //     DatabaseReadFailure() => read_failed,
+  //     DatabaseWriteFailure() => write_failed,
+  //     DatabaseUpdateFailure() => update_failed,
+  //     DatabaseDeleteFailure() => delete_failed,
+  //     UnknownFailure() => unknown_error,
+  //   };
+  // }
 }
 
 

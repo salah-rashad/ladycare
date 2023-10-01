@@ -30,7 +30,7 @@ class HomeAppBarBottomPanel extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: context.colors.primaryLighter,
+          color: context.colors.tertiary,
           boxShadow: [context.boxShadowTheme.surfaceShadow],
           borderRadius: BorderRadius.circular(12.0),
         ),

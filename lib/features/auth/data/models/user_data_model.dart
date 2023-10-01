@@ -1,9 +1,11 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import '../../domain/entities/user_data.dart';
 
+part 'user_data_model.g.dart';
+
+@JsonSerializable()
 class UserDataModel extends UserData {
   const UserDataModel({
     required super.id,
@@ -11,52 +13,26 @@ class UserDataModel extends UserData {
     required super.lastName,
     required super.email,
     required super.profilePictureUrl,
-    required super.phoneCountryCode,
     required super.phoneNumber,
     required super.dateOfBirth,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'firstName': firstName,
-      'lastName': lastName,
-      'email': email,
-      'phoneCountryCode': phoneCountryCode,
-      'phoneNumber': phoneNumber,
-      'profilePictureUrl': profilePictureUrl,
-      'dateOfBirth': dateOfBirth?.millisecondsSinceEpoch,
-    };
-  }
+  Map<String, dynamic> toJson() => _$UserDataModelToJson(this);
 
-  factory UserDataModel.fromMap(Map<String, dynamic> map) {
-    return UserDataModel(
-      id: map['id'] ?? '',
-      firstName: map['firstName'] ?? '',
-      lastName: map['lastName'] ?? '',
-      email: map['email'] ?? '',
-      phoneCountryCode: map['phoneCountryCode'] ?? '',
-      phoneNumber: map['phoneNumber'] ?? '',
-      profilePictureUrl: map['profilePictureUrl'],
-      dateOfBirth: map['dateOfBirth'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['dateOfBirth'])
-          : null,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory UserDataModel.fromJson(String source) =>
-      UserDataModel.fromMap(json.decode(source));
-
-  
+  factory UserDataModel.fromJson(Map<String, dynamic> json) =>
+      _$UserDataModelFromJson(json);
 }
 
 extension UserDataModelColRefExt on CollectionReference<Map<String, dynamic>> {
   CollectionReference<UserDataModel> withUserDataModelConverter() {
     return withConverter(
-      fromFirestore: (snapshot, options) => UserDataModel.fromMap(snapshot.data()!),
-      toFirestore: (value, options) => value.toMap(),
+      fromFirestore: (snapshot, options) {
+        final data = snapshot.data()!;
+        data.update("id", (value) => snapshot.id);
+        final model = UserDataModel.fromJson(data);
+        return model;
+      },
+      toFirestore: (value, options) => value.toJson(),
     );
   }
 }

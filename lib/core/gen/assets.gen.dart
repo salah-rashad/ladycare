@@ -113,8 +113,25 @@ class $AssetsImagesSvgGen {
   $AssetsImagesSvgServiceCategoryIconsGen get serviceCategoryIcons =>
       const $AssetsImagesSvgServiceCategoryIconsGen();
 
+  /// File path: assets/images/svg/undraw_booking.svg
+  SvgGenImage get undrawBooking =>
+      const SvgGenImage('assets/images/svg/undraw_booking.svg');
+
+  /// File path: assets/images/svg/undraw_gift_box.svg
+  SvgGenImage get undrawGiftBox =>
+      const SvgGenImage('assets/images/svg/undraw_gift_box.svg');
+
+  /// File path: assets/images/svg/undraw_people.svg
+  SvgGenImage get undrawPeople =>
+      const SvgGenImage('assets/images/svg/undraw_people.svg');
+
+  /// File path: assets/images/svg/undraw_welcome.svg
+  SvgGenImage get undrawWelcome =>
+      const SvgGenImage('assets/images/svg/undraw_welcome.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [pointsIcon];
+  List<SvgGenImage> get values =>
+      [pointsIcon, undrawBooking, undrawGiftBox, undrawPeople, undrawWelcome];
 }
 
 class $AssetsSolarIconsBoldGen {

@@ -1,33 +1,40 @@
-import 'dart:developer';
+import 'dart:developer' as dev;
 
 import 'package:bloc/bloc.dart';
+import 'package:logger/logger.dart';
 
 class AppBlocObserver extends BlocObserver {
+  final logger = Logger(printer: PrettyPrinter());
+
   @override
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
-    log('onEvent $event', name: bloc.runtimeType.toString());
+    dev.log('EVENT: (${bloc.runtimeType}) $event');
   }
 
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    log(
-      'onChange '
-      "( ${change.currentState.runtimeType} ) ==> ( ${change.nextState.runtimeType} )",
-      name: bloc.runtimeType.toString(),
+    logger.t(
+      "CHANGE: (${bloc.runtimeType}) "
+      "${change.currentState.runtimeType} ==> ${change.nextState}",
+      stackTrace: StackTrace.fromString(""),
     );
   }
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    log('onTransition $transition', name: bloc.runtimeType.toString());
+    dev.log('TRANSITION: (${bloc.runtimeType}) $transition');
   }
 
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    log('onError $error', name: bloc.runtimeType.toString());
     super.onError(bloc, error, stackTrace);
+    logger.e(
+      "ERROR: (${bloc.runtimeType})",
+      error: error,
+      stackTrace: stackTrace,
+    );
   }
 }

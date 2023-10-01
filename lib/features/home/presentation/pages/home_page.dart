@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/gen/assets.gen.dart';
 import '../../../../core/utils/extensions.dart';
-import '../../../auth/presentation/widgets/bottom_nav_bar/bottom_nav_bar.dart';
-import '../../../auth/presentation/widgets/bottom_nav_bar/bottom_nav_bar_item.dart';
+import '../../../../injection_container.dart';
 import '../bloc/home_cubit/home_cubit.dart';
+import '../widgets/bottom_nav_bar/bottom_nav_bar.dart';
+import '../widgets/bottom_nav_bar/bottom_nav_bar_item.dart';
 import '../widgets/highlights/home_highlights_carousal_slider.dart';
 import '../widgets/home_appbar/home_sliver_appbar.dart';
 import '../widgets/service_categories/home_service_categories_grid.dart';
@@ -14,21 +15,24 @@ import '../widgets/top_salons/top_salons_list_view.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  HomeCubit get homeCubit => sl<HomeCubit>();
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => HomeCubit(),
+    return BlocProvider.value(
+      value: homeCubit,
       child: _build(context),
     );
   }
 
   Widget _build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
+      bloc: homeCubit,
       builder: (context, state) {
         return Scaffold(
           body: RefreshIndicator(
             onRefresh: () {
-              return context.read<HomeCubit>().reloadPage();
+              return homeCubit.fetchAllData();
             },
             child: CustomScrollView(
               slivers: [

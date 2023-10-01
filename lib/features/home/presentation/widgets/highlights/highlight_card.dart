@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/extensions.dart';
-import '../../../domain/entities/highlight.dart';
+import '../../../data/models/highlight.dart';
 
 class HighlightCard extends StatelessWidget {
   final Highlight highlight;
@@ -14,7 +14,7 @@ class HighlightCard extends StatelessWidget {
       // width: 260,
       // height: 160,
       alignment: Alignment.center,
-      clipBehavior: Clip.antiAlias,
+      clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         boxShadow: [context.boxShadowTheme.surfaceShadow],
         borderRadius: BorderRadius.circular(12),

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/failures.dart';
-import '../entities/highlight.dart';
+import '../../data/models/highlight.dart';
 import '../repositories/home_repository.dart';
 
 class GetHighlightsUsecase {

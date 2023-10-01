@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../constants/failure_messages.dart';
-import '../error/failures.dart';
 import '../gen/assets.gen.dart';
 import '../theme/theme_extensions/box_shadow_theme_extension.dart';
 import '../theme/theme_extensions/color_theme_extension.dart';
@@ -14,10 +12,15 @@ extension BuildContextExt on BuildContext {
   ThemeData get theme => Theme.of(this);
   bool get isDarkMode => theme.brightness == Brightness.dark;
   // ColorScheme get colorScheme => Theme.of(this).colorScheme;
-  
-  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackbar(
-          SnackBar snackBar) =>
-      ScaffoldMessenger.of(this).showSnackBar(snackBar);
+
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason>? showSnackbar(
+      SnackBar snackBar,
+      {bool clearSnackBars = true}) {
+    if (clearSnackBars) {
+      ScaffoldMessenger.maybeOf(this)?.clearSnackBars();
+    }
+    return ScaffoldMessenger.maybeOf(this)?.showSnackBar(snackBar);
+  }
 
   // ~ Theme Extensions ~ //
   ColorThemeExtension get colors => theme.extension<ColorThemeExtension>()!;
@@ -77,6 +80,6 @@ extension SvgGenImageExt on SvgGenImage {
   }
 }
 
-extension FailureExt on Failure {
-  String get message => FailureMessages.from(this);
-}
+// extension FailureExt on Failure {
+//   String get message => FailureMessages.from(this);
+// }

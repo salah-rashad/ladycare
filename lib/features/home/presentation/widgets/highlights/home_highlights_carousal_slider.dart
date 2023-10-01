@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../injection_container.dart';
-import '../../../domain/entities/highlight.dart';
+import '../../../../../global/widgets/errors_list.dart';
+import '../../../data/models/highlight.dart';
 import '../../bloc/home_highlights_cubit/home_highlights_cubit.dart';
 import 'highlight_card.dart';
 import 'highlights_shimmer.dart';
@@ -30,12 +31,13 @@ class HomeHighlightsCarousalSlider extends StatelessWidget {
             return const HighlightsShimmer(
               size: sliderSize,
             );
-          case HomeHighlightsLoaded():
+          case HomeHighlightsSucceed():
             final highlights = state.highlights;
             return _succeedView(context, highlights, sliderSize);
-          case HomeHighlightsError():
-            return Center(
-              child: Text(state.message),
+          case HomeHighlightsFailed():
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: ErrorsList(messages: [state.message]),
             );
         }
       },

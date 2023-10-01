@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -59,15 +57,15 @@ class CustomSliverPersistentHeaderDelegate
     return Align(
       child: Container(
         padding: EdgeInsets.lerp(
-            paddingCollapsed, paddingExpanded, _t(shrinkOffset, 1.0)),
+            paddingExpanded, paddingCollapsed, _t(shrinkOffset, 1.0)),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: background,
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
               Color.lerp(
-                    context.colors.surface,
                     overlayColor,
+                    context.colors.surface,
                     _t(shrinkOffset, 0.7),
                   ) ??
                   overlayColor,
@@ -80,13 +78,15 @@ class CustomSliverPersistentHeaderDelegate
         child: Stack(
           fit: StackFit.expand,
           children: [
+            //~ bottom panel ~ //
             Align(
               alignment: Alignment.bottomCenter,
               child: Opacity(
-                opacity: _t(shrinkOffset, 0.3),
+                opacity: 1 - _t(shrinkOffset, 0.3),
                 child: bottomPanel((time) => _t(shrinkOffset, time)),
               ),
             ),
+            // ~ top panel ~ //
             Align(
               alignment: Alignment.topCenter,
               child: topPanel((time) => _t(shrinkOffset, time)),
@@ -98,8 +98,8 @@ class CustomSliverPersistentHeaderDelegate
   }
 
   double _t(double shrinkOffset, double time) {
-    final x = 1.0 - shrinkOffset / (maxExtent * time);
-    return clampDouble(x, 0.0, 1.0);
+    final x = (shrinkOffset / (maxExtent * time));
+    return x.clamp(0.0, 1.0);
   }
 
   @override

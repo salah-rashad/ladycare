@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'errors_list.dart';
+import '../../../../global/widgets/errors_list.dart';
 
 class FormErrorsList<B extends BlocBase<S>, S, E extends S>
     extends StatelessWidget {

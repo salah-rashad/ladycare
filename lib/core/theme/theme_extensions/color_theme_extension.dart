@@ -8,8 +8,8 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
 
   // General Colors
   final Color primary;
-  final Color primaryDarker;
-  final Color primaryLighter;
+  final Color secondary;
+  final Color tertiary;
 
   // Accent Colors
   final Color accent1;
@@ -26,6 +26,7 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
   final Color background;
   final Color surface;
   final Color receiptBackground;
+  final Color container;
 
   // Outline Colors
   final Color outline;
@@ -39,8 +40,8 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
   const ColorThemeExtension({
     required this.brightness,
     required this.primary,
-    required this.primaryDarker,
-    required this.primaryLighter,
+    required this.secondary,
+    required this.tertiary,
     required this.accent1,
     required this.accent2,
     required this.accent3,
@@ -51,6 +52,7 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
     required this.background,
     required this.surface,
     required this.receiptBackground,
+    required this.container,
     required this.outline,
     required this.outlineVariant,
     required this.success,
@@ -89,8 +91,8 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
     return ColorThemeExtension(
       brightness: other.brightness,
       primary: l(primary, other.primary),
-      primaryDarker: l(primaryDarker, other.primaryDarker),
-      primaryLighter: l(primaryLighter, other.primaryLighter),
+      secondary: l(secondary, other.secondary),
+      tertiary: l(tertiary, other.tertiary),
       accent1: l(accent1, other.accent1),
       accent2: l(accent2, other.accent2),
       accent3: l(accent3, other.accent3),
@@ -101,6 +103,7 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
       background: l(background, other.background),
       surface: l(surface, other.surface),
       receiptBackground: l(receiptBackground, other.receiptBackground),
+      container: l(container, other.container),
       outline: l(outline, other.outline),
       outlineVariant: l(outlineVariant, other.outlineVariant),
       success: l(success, other.success),
@@ -113,8 +116,8 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
   ColorThemeExtension copyWith({
     Brightness? brightness,
     Color? primary,
-    Color? primaryDarker,
-    Color? primaryLighter,
+    Color? secondary,
+    Color? tertiary,
     Color? accent1,
     Color? accent2,
     Color? accent3,
@@ -125,6 +128,7 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
     Color? background,
     Color? surface,
     Color? receiptBackground,
+    Color? container,
     Color? outline,
     Color? outlineVariant,
     Color? success,
@@ -134,8 +138,8 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
     return ColorThemeExtension(
       brightness: brightness ?? this.brightness,
       primary: primary ?? this.primary,
-      primaryDarker: primaryDarker ?? this.primaryDarker,
-      primaryLighter: primaryLighter ?? this.primaryLighter,
+      secondary: secondary ?? this.secondary,
+      tertiary: tertiary ?? this.tertiary,
       accent1: accent1 ?? this.accent1,
       accent2: accent2 ?? this.accent2,
       accent3: accent3 ?? this.accent3,
@@ -146,6 +150,7 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
       background: background ?? this.background,
       surface: surface ?? this.surface,
       receiptBackground: receiptBackground ?? this.receiptBackground,
+      container: container ?? this.container,
       outline: outline ?? this.outline,
       outlineVariant: outlineVariant ?? this.outlineVariant,
       success: success ?? this.success,

@@ -1,26 +1,31 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-import '../../../../core/error/exceptions.dart';
+import '../../../../core/constants/failure_messages.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/network/network_helper.dart';
-import '../../domain/entities/highlight.dart';
-import '../../domain/entities/service_category.dart';
+import '../../../salon/data/models/salon_service.dart';
+import '../../../salon/data/models/services_category.dart';
 import '../../domain/repositories/home_repository.dart';
 import '../datasources/home_data_source.dart';
+import '../models/highlight.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
   final HomeDataSource dataSource;
-  final NetworkHelper networkInfo;
-  HomeRepositoryImpl(this.dataSource, this.networkInfo);
+  final NetworkHelper networkHelper;
+  HomeRepositoryImpl(this.dataSource, this.networkHelper);
 
   @override
   Future<Either<Failure, List<Highlight>>> getHighlights() async {
-    if (await networkInfo.isConnected) {
+    if (await networkHelper.isConnected) {
       try {
         final data = await dataSource.getHighlights();
         return Right(data);
-      } on DatabaseReadException {
-        return const Left(DatabaseReadFailure());
+      } on FirebaseException catch (e) {
+        final message = FailureMessages.fromCode(e.code);
+        return Left(DatabaseReadFailure(message: message));
+      } catch (e) {
+        return const Left(UnknownFailure());
       }
     } else {
       return const Left(OfflineFailure());
@@ -28,13 +33,34 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<Either<Failure, List<ServiceCategory>>> getServiceCategories() async {
-    if (await networkInfo.isConnected) {
+  Future<Either<Failure, List<ServicesCategory>>> getServiceCategories() async {
+    if (await networkHelper.isConnected) {
       try {
-        final data = await dataSource.getServiceCategories();
+        final data = await dataSource.getTPLServiceCategories();
         return Right(data);
-      } on DatabaseReadException {
-        return const Left(DatabaseReadFailure());
+      } on FirebaseException catch (e) {
+        final message = FailureMessages.fromCode(e.code);
+        return Left(DatabaseReadFailure(message: message));
+      } catch (e) {
+        return const Left(UnknownFailure());
+      }
+    } else {
+      return const Left(OfflineFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<SalonService>>> getTPLServices(
+      String categoryId) async {
+    if (await networkHelper.isConnected) {
+      try {
+        final data = await dataSource.getTPLServices(categoryId);
+        return Right(data);
+      } on FirebaseException catch (e) {
+        final message = FailureMessages.fromCode(e.code);
+        return Left(DatabaseReadFailure(message: message));
+      } catch (e) {
+        return const Left(UnknownFailure());
       }
     } else {
       return const Left(OfflineFailure());

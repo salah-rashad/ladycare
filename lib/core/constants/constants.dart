@@ -11,11 +11,22 @@ class Constants {
   static const String defaultLocaleString = "ar_SA";
 }
 
-class FirebaseConstants {
-  FirebaseConstants._();
+class FC {
+  FC._();
+  // TPL = Template
+  static const String cTPLServiceCategories = "TPL_service_categories";
+  static const String cTPLServices = "TPL_services";
+  static const String cTPLAmenities = "TPL_amenities";
 
-  static const String usersCollection = "users";
-  static const String highlightsCollection = "highlights";
-  static const String serviceCategoriesCollection = "service_categories";
-  
+  static const String cUsers = "users";
+  static const String cHighlights = "highlights";
+  static const String cSalons = "salons";
+  static const String cAmenities = "amenities";
+  static const String cCustomerReviews = "customer_reviews";
+  static const String cServiceCategories = "service_categories";
+  static const String cServices = "services";
+
+  static const String fImages = "images";
+  static const String fSalons = "salons";
+  static const String fShots = "shots";
 }

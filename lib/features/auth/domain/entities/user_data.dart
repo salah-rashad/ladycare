@@ -5,7 +5,6 @@ class UserData extends Equatable {
   final String firstName;
   final String lastName;
   final String email;
-  final String phoneCountryCode;
   final String phoneNumber;
   final String? profilePictureUrl;
   final DateTime? dateOfBirth;
@@ -15,7 +14,6 @@ class UserData extends Equatable {
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.phoneCountryCode,
     required this.phoneNumber,
     required this.profilePictureUrl,
     required this.dateOfBirth,
@@ -26,7 +24,6 @@ class UserData extends Equatable {
         firstName: "",
         lastName: "",
         email: "",
-        phoneCountryCode: "",
         phoneNumber: "",
         profilePictureUrl: "",
         dateOfBirth: null,
@@ -38,31 +35,8 @@ class UserData extends Equatable {
         firstName,
         lastName,
         email,
-        phoneCountryCode,
         phoneNumber,
         profilePictureUrl,
-        dateOfBirth,
+        dateOfBirth
       ];
-
-  UserData copyWith({
-    String? id,
-    String? firstName,
-    String? lastName,
-    String? email,
-    String? phoneCountryCode,
-    String? phoneNumber,
-    String? profilePictureUrl,
-    DateTime? dateOfBirth,
-  }) {
-    return UserData(
-      id: id ?? this.id,
-      firstName: firstName ?? this.firstName,
-      lastName: lastName ?? this.lastName,
-      email: email ?? this.email,
-      phoneCountryCode: phoneCountryCode ?? this.phoneCountryCode,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      profilePictureUrl: profilePictureUrl ?? this.profilePictureUrl,
-      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
-    );
-  }
 }

@@ -10,12 +10,14 @@ class CustomTextButton extends StatelessWidget {
   final Color? foreground;
   final SvgGenImage? icon;
   final IconAlignment iconAlignment;
+  final bool wide;
 
   const CustomTextButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.foreground,
+    this.wide = true,
   })  : icon = null,
         iconAlignment = IconAlignment.right;
 
@@ -26,11 +28,16 @@ class CustomTextButton extends StatelessWidget {
     required this.onPressed,
     this.foreground,
     this.iconAlignment = IconAlignment.right,
+    this.wide = true,
   });
 
   @override
   Widget build(BuildContext context) {
     final icon = this.icon;
+    final buttonStyle = TextButton.styleFrom(
+      foregroundColor: foreground,
+      minimumSize: wide ? const Size(double.infinity, 48.0) : null,
+    );
 
     final Widget widget;
 
@@ -40,17 +47,13 @@ class CustomTextButton extends StatelessWidget {
           color: foreground ?? context.colors.buttonColorScheme.background,
         ),
         onPressed: onPressed,
-        style: TextButton.styleFrom(
-          foregroundColor: foreground,
-        ),
+        style: buttonStyle,
         label: Text(text),
       );
     } else {
       widget = TextButton(
         onPressed: onPressed,
-        style: TextButton.styleFrom(
-          foregroundColor: foreground,
-        ),
+        style: buttonStyle,
         child: Text(text),
       );
     }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,8 +11,8 @@ import '../../domain/usecases/signup_usecase.dart';
 import '../models/user_data_model.dart';
 
 abstract class AuthDataSource {
-  Future<UserDataModel?> login(LoginParams params);
-  Future<UserDataModel?> createAccount(SignupParams params);
+  Future<UserCredential> login(LoginParams params);
+  Future<UserCredential> createAccount(SignupParams params);
   Future<Unit> logout();
   Future<UserDataModel> getUserProfile();
   Future<String> sendPasswordResetEmail(ResetPasswordParams params);
@@ -26,19 +24,17 @@ class AuthDataSourceImpl implements AuthDataSource {
 
   AuthDataSourceImpl(this.auth, this.db);
 
-  CollectionReference<UserDataModel> get usersCollectionRef => db
-      .collection(FirebaseConstants.usersCollection)
-      .withUserDataModelConverter();
+  CollectionReference<UserDataModel> get usersCollectionRef =>
+      db.collection(FC.cUsers).withUserDataModelConverter();
 
   @override
-  Future<UserDataModel?> login(LoginParams params) async {
+  Future<UserCredential> login(LoginParams params) async {
     try {
-      await auth.signInWithEmailAndPassword(
+      final credentials = await auth.signInWithEmailAndPassword(
           email: params.email, password: params.password);
-      return await getUserProfile();
+      return credentials;
     } on FirebaseAuthException catch (e) {
       final message = FailureMessages.fromCode(e.code);
-      log(message, error: e);
       throw AuthException(message, code: e.code);
     } catch (e) {
       rethrow;
@@ -46,7 +42,7 @@ class AuthDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  Future<UserDataModel?> createAccount(SignupParams params) async {
+  Future<UserCredential> createAccount(SignupParams params) async {
     try {
       // creating user account
       final credentials = await auth.createUserWithEmailAndPassword(
@@ -65,18 +61,14 @@ class AuthDataSourceImpl implements AuthDataSource {
         lastName: params.lastName,
         email: params.email,
         profilePictureUrl: null,
-        phoneCountryCode: params.phoneCountryCode,
         phoneNumber: params.phoneNumber,
         dateOfBirth: params.dateOfBirth,
       );
       await docRef.set(user);
 
-      // get user data from cloud firestore
-      final doc = await docRef.get();
-      return doc.data();
-    } on FirebaseAuthException catch (e) {
+      return credentials;
+    } on FirebaseException catch (e) {
       final message = FailureMessages.fromCode(e.code);
-      log(message, error: e);
       throw AuthException(message, code: e.code);
     } catch (e) {
       rethrow;
@@ -90,8 +82,11 @@ class AuthDataSourceImpl implements AuthDataSource {
       final docRef = usersCollectionRef.doc(uid);
       final doc = await docRef.get();
       return doc.data()!;
+    } on FirebaseException catch (e) {
+      final message = FailureMessages.fromCode(e.code);
+      throw AuthException(message, code: e.code);
     } catch (e) {
-      throw DatabaseReadException();
+      rethrow;
     }
   }
 
@@ -100,9 +95,11 @@ class AuthDataSourceImpl implements AuthDataSource {
     try {
       await auth.signOut();
       return unit;
+    } on FirebaseException catch (e) {
+      final message = FailureMessages.fromCode(e.code);
+      throw AuthException(message, code: e.code);
     } catch (e) {
       const message = FailureMessages.logout_failed;
-      log(message, error: e);
       throw const AuthException(message);
     }
   }
@@ -112,9 +109,8 @@ class AuthDataSourceImpl implements AuthDataSource {
     try {
       await auth.sendPasswordResetEmail(email: params.email);
       return params.email;
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseException catch (e) {
       final message = FailureMessages.fromCode(e.code);
-      log(message, error: e);
       throw AuthException(message, code: e.code);
     } catch (e) {
       rethrow;
