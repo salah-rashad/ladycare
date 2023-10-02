@@ -62,16 +62,20 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
 
   bool get isDark => brightness == Brightness.dark;
 
-  Color get white => const Color(0xFFFFFFFF);
-  Color get black => const Color(0xFF000000);
+  final Color white = const Color(0xFFFFFFFF);
+  final Color black = const Color(0xFF000000);
 
-  InputColorScheme get inputColorScheme => InputColorScheme(
-        enabledOutline: (isDark ? white : black).withOpacity(0.1),
-        disabledOutline: (isDark ? white : black).withOpacity(0.1),
-        focusedOutline: primary.withOpacity(0.7),
-        errorOutline: error,
-        fill: primary.withOpacity(0.1),
-      );
+  InputColorScheme inputColorScheme({Color? tintColor}) {
+    tintColor = tintColor ?? primary;
+    return InputColorScheme(
+      enabledOutline: (isDark ? white : black).withOpacity(0.1),
+      disabledOutline: (isDark ? white : black).withOpacity(0.1),
+      focusedOutline: tintColor.withOpacity(0.7),
+      errorOutline: error,
+      fill: tintColor.withOpacity(0.1),
+    );
+  }
+
   ButtonColorScheme get buttonColorScheme => ButtonColorScheme(
         background: primary,
         foreground: white,

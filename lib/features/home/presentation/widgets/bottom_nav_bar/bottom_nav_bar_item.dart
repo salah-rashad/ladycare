@@ -5,7 +5,7 @@ import '../../../../../core/utils/extensions.dart';
 import '../../../../../global/widgets/red_dot_indicator.dart';
 
 class BottomNavBarItem {
-  final VoidCallback? onTap;
+  final VoidCallback? onSelected;
   final String label;
   final SvgGenImage icon;
   final Color? iconColor;
@@ -13,7 +13,7 @@ class BottomNavBarItem {
   final bool showRedDot;
 
   const BottomNavBarItem({
-    this.onTap,
+    this.onSelected,
     required this.label,
     required this.icon,
     this.iconColor,
@@ -45,7 +45,7 @@ class BottonNavBarItemWidget extends StatelessWidget {
       child: InkWell(
         onTap: () {
           onPressed?.call();
-          item.onTap?.call();
+          item.onSelected?.call();
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),

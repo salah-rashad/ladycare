@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/gen/assets.gen.dart';
 import '../../../../../../core/utils/extensions.dart';
-import '../../../../../../global/widgets/custom_text_field.dart';
+import '../../../../../core/utils/custom_input_decoration.dart';
 import '../../bloc/login_cubit/login_cubit.dart';
 import '../../bloc/password_visibility_cubit/passowrd_visibility_cubit.dart';
 
@@ -15,6 +15,7 @@ class LoginForm extends StatelessWidget {
     final cubit = context.read<LoginCubit>();
     return Form(
       key: cubit.formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: AutofillGroup(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -30,18 +31,24 @@ class LoginForm extends StatelessWidget {
   Widget _emailTextField(BuildContext context) {
     final cubit = context.read<LoginCubit>();
 
-    return CustomTextField(
+    return TextFormField(
+      decoration: CustomInputDecoration(
+        labelText: "البريد الإلكتروني",
+        prefixIcon: Assets.solarIcons.broken.mentionCircle,
+        // fillColor: Colors.white,
+      ),
+      autocorrect: false,
       controller: cubit.emailController,
-      prefixIcon: Assets.solarIcons.broken.mentionCircle,
-      labelText: "البريد الإلكتروني",
       textDirection: TextDirection.ltr,
       autofillHints: const [AutofillHints.email],
-      autoCorrect: false,
+      keyboardType: TextInputType.emailAddress,
       validator: cubit.emailValidator,
+      textInputAction: TextInputAction.next,
     );
   }
 
   Widget _passwordTextField(BuildContext context) {
+    final cubit = context.read<LoginCubit>();
     return BlocProvider(
       create: (context) => PassowrdVisibilityCubit(),
       child: BlocBuilder<PassowrdVisibilityCubit, PassowrdVisibilityState>(
@@ -51,18 +58,25 @@ class LoginForm extends StatelessWidget {
 
           bool isObsecure = state is PasswordInvisible;
 
-          return CustomTextField(
+          return TextFormField(
+            decoration: CustomInputDecoration(
+              labelText: "كلمة المرور",
+              prefixIcon: Assets.solarIcons.broken.lockPassword,
+              suffixIcon: isObsecure
+                  ? Assets.solarIcons.lineDuotone.eye
+                  : Assets.solarIcons.lineDuotone.eyeClosed,
+              onSuffixIconPressed: visibility.toggle,
+            ),
             controller: signupCubit.passwordController,
-            obsecureText: isObsecure,
-            prefixIcon: Assets.solarIcons.broken.lockPassword,
-            labelText: "كلمة المرور",
+            obscureText: isObsecure,
+            keyboardType: TextInputType.visiblePassword,
             textDirection: TextDirection.ltr,
             autofillHints: const [AutofillHints.password],
             validator: signupCubit.passwordValidator,
-            suffixIcon: isObsecure
-                ? Assets.solarIcons.bold.eye
-                : Assets.solarIcons.bold.eyeClosed,
-            onSuffixIconPressed: visibility.toggle,
+            textInputAction: TextInputAction.done,
+            onFieldSubmitted: (value) {
+              cubit.login();
+            },
           );
         },
       ),

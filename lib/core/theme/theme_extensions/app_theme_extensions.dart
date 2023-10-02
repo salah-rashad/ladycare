@@ -11,7 +11,7 @@ abstract class AppThemeExtensions {
   BoxShadowThemeExtension get boxShadowTheme =>
       BoxShadowThemeExtension(colors: colors);
   ImagesThemeExtension get images;
-
   List<ThemeExtension> get values =>
       [colors, textTheme, boxShadowTheme, images];
+  
 }

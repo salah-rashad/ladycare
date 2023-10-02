@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/gen/assets.gen.dart';
-import '../../../../../../global/widgets/custom_text_field.dart';
+import '../../../../../core/utils/custom_input_decoration.dart';
 import '../../bloc/reset_password_cubit/reset_password_cubit.dart';
 
 class ResetPasswordForm extends StatelessWidget {
@@ -17,15 +17,17 @@ class ResetPasswordForm extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          CustomTextField(
-            autoCorrect: false,
-            labelText: "البريد الإلكتروني",
+          TextFormField(decoration: CustomInputDecoration(
+              labelText: "البريد الإلكتروني",
+              prefixIcon: Assets.solarIcons.broken.mentionCircle,
+            ),
+            autocorrect: false,
             controller: cubit.emailController,
             validator: cubit.emailValidator,
-            prefixIcon: Assets.solarIcons.broken.mentionCircle,
             textDirection: TextDirection.ltr,
             autofillHints: const [AutofillHints.email],
             keyboardType: TextInputType.emailAddress,
+            
           ),
         ],
       ),

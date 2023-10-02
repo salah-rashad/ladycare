@@ -43,16 +43,17 @@ class AppRouter {
             const HomePage()._wrapWithNetworkCheckerSnackBar(),
       ),
       GoRoute(
-          path: Routes.LOGIN.path,
-          name: Routes.LOGIN.name,
-          builder: (context, state) => const LoginPage(),
-          routes: [
-            GoRoute(
-              path: Routes.RESET_PASSWORD.path,
-              name: Routes.RESET_PASSWORD.name,
-              builder: (context, state) => const ResetPasswordPage(),
-            ),
-          ]),
+        path: Routes.LOGIN.path,
+        name: Routes.LOGIN.name,
+        builder: (context, state) => const LoginPage(),
+        routes: [
+          GoRoute(
+            path: Routes.RESET_PASSWORD.path,
+            name: Routes.RESET_PASSWORD.name,
+            builder: (context, state) => const ResetPasswordPage(),
+          ),
+        ],
+      ),
       GoRoute(
         path: Routes.SIGN_UP.path,
         name: Routes.SIGN_UP.name,
@@ -94,8 +95,7 @@ extension RoutePageExt on Widget {
         };
       },
     );
-  }
- */
+  } */
 
   Widget _wrapWithNetworkCheckerSnackBar() {
     return BlocListener<NetworkCubit, NetworkState>(

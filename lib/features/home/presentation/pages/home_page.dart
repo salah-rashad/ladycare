@@ -2,64 +2,55 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/gen/assets.gen.dart';
-import '../../../../core/utils/extensions.dart';
 import '../../../../injection_container.dart';
+import '../../../salon_search/presentation/pages/salon_search_page.dart';
+import '../../../settings/presentation/pages/settings_page.dart';
 import '../bloc/home_cubit/home_cubit.dart';
 import '../widgets/bottom_nav_bar/bottom_nav_bar.dart';
 import '../widgets/bottom_nav_bar/bottom_nav_bar_item.dart';
-import '../widgets/highlights/home_highlights_carousal_slider.dart';
-import '../widgets/home_appbar/home_sliver_appbar.dart';
-import '../widgets/service_categories/home_service_categories_grid.dart';
-import '../widgets/top_salons/top_salons_list_view.dart';
+import 'views/home_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  HomeCubit get homeCubit => sl<HomeCubit>();
-
   @override
   Widget build(BuildContext context) {
+    final homeCubit = sl<HomeCubit>();
     return BlocProvider.value(
       value: homeCubit,
-      child: _build(context),
+      child: _build(context, homeCubit),
     );
   }
 
-  Widget _build(BuildContext context) {
+  Widget _build(BuildContext context, HomeCubit homeCubit) {
     return BlocBuilder<HomeCubit, HomeState>(
       bloc: homeCubit,
       builder: (context, state) {
         return Scaffold(
-          body: RefreshIndicator(
-            onRefresh: () {
-              return homeCubit.fetchAllData();
-            },
-            child: CustomScrollView(
-              slivers: [
-                const HomeSliverAppbar(),
-                SliverPadding(
-                  padding: const EdgeInsets.symmetric(vertical: 32.0),
-                  sliver: SliverList.list(
-                    children: const [
-                      HomeHighlightsCarousalSlider(),
-                      HomeServiceCategoriesGrid(),
-                      TopSalonsListView(),
-                    ].withGap(height: 32.0),
-                  ),
-                ),
-              ],
-            ),
+          body: PageView(
+            controller: homeCubit.pageController,
+            onPageChanged: homeCubit.onPageChanged,
+            children: const [
+              HomeView(),
+              SalonSearchPage(),
+              Placeholder(),
+              Placeholder(),
+              SettingsPage(),
+            ],
           ),
-          bottomNavigationBar: _bottomNavBar(),
+          bottomNavigationBar: _bottomNavBar(context, homeCubit),
         );
       },
     );
   }
 
-  Widget _bottomNavBar() {
+  Widget _bottomNavBar(BuildContext context, HomeCubit homeCubit) {
     return BlocBuilder<HomeCubit, HomeState>(
+      bloc: homeCubit,
       builder: (context, state) {
         return BottomNavBar(
+          selectedIndex: state.selectedIndex,
+          onItemPressed: homeCubit.setSelected,
           items: [
             BottomNavBarItem(
               label: "الرئيسية",

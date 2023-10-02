@@ -11,7 +11,7 @@ class AppTheme {
     required Brightness brightness,
     required AppThemeExtensions themeExtensions,
   }) {
-    final palette = themeExtensions.colors;
+    final colors = themeExtensions.colors;
     final textTheme = themeExtensions.textTheme;
 
     return ThemeData(
@@ -21,15 +21,19 @@ class AppTheme {
       fontFamily: FontFamily.cairo,
       colorScheme: ColorScheme.fromSeed(
         brightness: brightness,
-        seedColor: palette.primary,
+        seedColor: colors.primary,
       ),
-      scaffoldBackgroundColor: palette.background,
+      textTheme: TextTheme(
+        bodyLarge: themeExtensions.textTheme.titleSmall,
+      ),
+      scaffoldBackgroundColor: colors.background,
       // appBarTheme: _appBarTheme(palette, textTheme),
-      inputDecorationTheme: inputDecorationTheme(palette, textTheme),
-      elevatedButtonTheme: elevatedButtonTheme(palette, textTheme),
-      filledButtonTheme: filledButtonTheme(palette, textTheme),
-      textButtonTheme: textButtonTheme(palette, textTheme),
-      textSelectionTheme: textSelectionTheme(palette, textTheme),
+      inputDecorationTheme:
+          CustomInputDecorationTheme(colors: colors, textTheme: textTheme),
+      elevatedButtonTheme: elevatedButtonTheme(colors, textTheme),
+      filledButtonTheme: filledButtonTheme(colors, textTheme),
+      textButtonTheme: textButtonTheme(colors, textTheme),
+      textSelectionTheme: textSelectionTheme(colors, textTheme),
     );
   }
 

@@ -107,7 +107,6 @@ Future<void> init() async {
   // ~~~~~~~~ Features - Salon ~~~~~~~~ //
 
   // Blocs
-  
 
   // Usecases
   sl.registerLazySingleton(() => GetSalonsUsecase(sl()));

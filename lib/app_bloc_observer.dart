@@ -15,9 +15,18 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
+    String emoji = "";
+    final nextStateType = change.nextState.runtimeType;
+    if (nextStateType.toString().contains("Succeed")) {
+      emoji = "✅";
+    } else if (nextStateType.toString().contains("Failed")) {
+      emoji = "❌";
+    } else if (nextStateType.toString().contains("Loading")) {
+      emoji = "⏰";
+    }
     logger.t(
       "CHANGE: (${bloc.runtimeType}) "
-      "${change.currentState.runtimeType} ==> ${change.nextState}",
+      "${change.currentState.runtimeType} ==> $emoji ${change.nextState}",
       stackTrace: StackTrace.fromString(""),
     );
   }

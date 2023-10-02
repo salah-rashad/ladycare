@@ -20,6 +20,12 @@ class ThemeModeCubit extends Cubit<ThemeModeState> {
 
   bool get isDarkMode => state.mode == ThemeMode.dark;
 
+  String get currentModeName => switch (state.mode) {
+        ThemeMode.system => "النظام",
+        ThemeMode.light => "فاتح",
+        ThemeMode.dark => "داكن",
+      };
+
   void setThemeMode(ThemeMode themeMode) {
     emit(ThemeModeState(mode: themeMode));
   }

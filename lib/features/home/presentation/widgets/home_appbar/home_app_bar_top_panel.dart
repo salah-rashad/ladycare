@@ -44,6 +44,7 @@ class HomeAppBarTopPanel extends StatelessWidget {
   }
 
   Widget _profileImage(BuildContext context, UserData userData) {
+    final homeCubit = context.read<HomeCubit>();
     return SizedBox.square(
       dimension: 45.0,
       child: Material(
@@ -64,18 +65,7 @@ class HomeAppBarTopPanel extends StatelessWidget {
         //   borderRadius: const BorderRadius.all(Radius.circular(200)),
         // ),
         child: InkWell(
-          onTap: () {
-            context.showSnackbar(
-              SnackBar(
-                content: const Text("تسجيل الخروج؟"),
-                action: SnackBarAction(
-                  label: "نعم",
-                  onPressed: sl<AuthCubit>().logout,
-                ),
-                behavior: SnackBarBehavior.floating,
-              ),
-            );
-          },
+          onTap: homeCubit.goToSettings,
           child: CachedNetworkImage(
             imageUrl: userData.profilePictureUrl ?? "",
             fit: BoxFit.cover,
@@ -129,30 +119,26 @@ class HomeAppBarTopPanel extends StatelessWidget {
   }
 
   Widget _actionButton(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
-      bloc: sl<HomeCubit>(),
-      builder: (context, state) {
-        return IconButton.filledTonal(
-          onPressed: () {
-            final theme = sl<ThemeModeCubit>();
-            theme.toggle();
-          },
-          icon: Stack(
-            children: [
-              Assets.solarIcons.bold.bell(color: context.colors.primaryText),
-              if (state.hasUnreadNotifications) const RedDotIndicator(),
-            ],
-          ),
-          style: IconButton.styleFrom(
-            padding: const EdgeInsets.all(4.0),
-            backgroundColor: Color.lerp(
-              context.colors.surface,
-              Colors.transparent,
-              t(0.3),
-            ),
-          ),
-        );
+    final homeCubit = context.read<HomeCubit>();
+    return IconButton.filledTonal(
+      onPressed: () {
+        final theme = sl<ThemeModeCubit>();
+        theme.toggle();
       },
+      icon: Stack(
+        children: [
+          Assets.solarIcons.bold.bell(color: context.colors.primaryText),
+          if (homeCubit.state.hasUnreadNotifications) const RedDotIndicator(),
+        ],
+      ),
+      style: IconButton.styleFrom(
+        padding: const EdgeInsets.all(4.0),
+        backgroundColor: Color.lerp(
+          context.colors.surface,
+          Colors.transparent,
+          t(0.3),
+        ),
+      ),
     );
   }
 }

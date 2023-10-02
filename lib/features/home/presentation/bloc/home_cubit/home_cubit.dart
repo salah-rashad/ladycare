@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../../injection_container.dart';
 import '../home_highlights_cubit/home_highlights_cubit.dart';
@@ -13,6 +14,8 @@ class HomeCubit extends Cubit<HomeState> {
     fetchAllData();
   }
 
+  final pageController = PageController(keepPage: false);
+
   Future<void> fetchAllData() async {
     await Future.wait(
       [
@@ -21,5 +24,27 @@ class HomeCubit extends Cubit<HomeState> {
         sl<TopSalonsCubit>().fetchTopSalons(),
       ],
     );
+  }
+
+  int get selectedIndex => state.selectedIndex;
+
+  void onPageChanged(int index) {
+    emit(state.copyWith(selectedIndex: index));
+  }
+
+  void setSelected(int index) {
+    pageController.jumpToPage(index);
+  }
+
+  void goToHome() => setSelected(0);
+  void goToSearch() => setSelected(1);
+  void goToAppointments() => setSelected(2);
+  void goToInbox() => setSelected(3);
+  void goToSettings() => setSelected(4);
+
+  @override
+  Future<void> close() {
+    pageController.dispose();
+    return super.close();
   }
 }

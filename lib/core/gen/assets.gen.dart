@@ -1961,6 +1961,10 @@ class $AssetsSolarIconsBoldGen {
   /// File path: assets/solar_icons/bold/Golf.svg
   SvgGenImage get golf => const SvgGenImage('assets/solar_icons/bold/Golf.svg');
 
+  /// File path: assets/solar_icons/bold/Google.svg
+  SvgGenImage get google =>
+      const SvgGenImage('assets/solar_icons/bold/Google.svg');
+
   /// File path: assets/solar_icons/bold/Graph Down New.svg
   SvgGenImage get graphDownNew =>
       const SvgGenImage('assets/solar_icons/bold/Graph Down New.svg');
@@ -5473,6 +5477,7 @@ class $AssetsSolarIconsBoldGen {
         global,
         globus,
         golf,
+        google,
         graphDownNew,
         graphDown,
         graphNewUp,
@@ -8108,6 +8113,10 @@ class $AssetsSolarIconsBoldDuotoneGen {
   /// File path: assets/solar_icons/bold_duotone/Golf.svg
   SvgGenImage get golf =>
       const SvgGenImage('assets/solar_icons/bold_duotone/Golf.svg');
+
+  /// File path: assets/solar_icons/bold_duotone/Google.svg
+  SvgGenImage get google =>
+      const SvgGenImage('assets/solar_icons/bold_duotone/Google.svg');
 
   /// File path: assets/solar_icons/bold_duotone/Graph Down New.svg
   SvgGenImage get graphDownNew =>
@@ -11656,6 +11665,7 @@ class $AssetsSolarIconsBoldDuotoneGen {
         global,
         globus,
         golf,
+        google,
         graphDownNew,
         graphDown,
         graphNewUp,
@@ -14279,6 +14289,10 @@ class $AssetsSolarIconsBrokenGen {
   /// File path: assets/solar_icons/broken/Golf.svg
   SvgGenImage get golf =>
       const SvgGenImage('assets/solar_icons/broken/Golf.svg');
+
+  /// File path: assets/solar_icons/broken/Google.svg
+  SvgGenImage get google =>
+      const SvgGenImage('assets/solar_icons/broken/Google.svg');
 
   /// File path: assets/solar_icons/broken/Graph Down New.svg
   SvgGenImage get graphDownNew =>
@@ -17814,6 +17828,7 @@ class $AssetsSolarIconsBrokenGen {
         global,
         globus,
         golf,
+        google,
         graphDownNew,
         graphDown,
         graphNewUp,
@@ -20449,6 +20464,10 @@ class $AssetsSolarIconsLineDuotoneGen {
   /// File path: assets/solar_icons/line_duotone/Golf.svg
   SvgGenImage get golf =>
       const SvgGenImage('assets/solar_icons/line_duotone/Golf.svg');
+
+  /// File path: assets/solar_icons/line_duotone/Google.svg
+  SvgGenImage get google =>
+      const SvgGenImage('assets/solar_icons/line_duotone/Google.svg');
 
   /// File path: assets/solar_icons/line_duotone/Graph Down New.svg
   SvgGenImage get graphDownNew =>
@@ -23997,6 +24016,7 @@ class $AssetsSolarIconsLineDuotoneGen {
         global,
         globus,
         golf,
+        google,
         graphDownNew,
         graphDown,
         graphNewUp,
@@ -26620,6 +26640,10 @@ class $AssetsSolarIconsLinearGen {
   /// File path: assets/solar_icons/linear/Golf.svg
   SvgGenImage get golf =>
       const SvgGenImage('assets/solar_icons/linear/Golf.svg');
+
+  /// File path: assets/solar_icons/linear/Google.svg
+  SvgGenImage get google =>
+      const SvgGenImage('assets/solar_icons/linear/Google.svg');
 
   /// File path: assets/solar_icons/linear/Graph Down New.svg
   SvgGenImage get graphDownNew =>
@@ -30155,6 +30179,7 @@ class $AssetsSolarIconsLinearGen {
         global,
         globus,
         golf,
+        google,
         graphDownNew,
         graphDown,
         graphNewUp,
@@ -32794,6 +32819,10 @@ class $AssetsSolarIconsOutlineGen {
   /// File path: assets/solar_icons/outline/Golf.svg
   SvgGenImage get golf =>
       const SvgGenImage('assets/solar_icons/outline/Golf.svg');
+
+  /// File path: assets/solar_icons/outline/Google.svg
+  SvgGenImage get google =>
+      const SvgGenImage('assets/solar_icons/outline/Google.svg');
 
   /// File path: assets/solar_icons/outline/Graph Down New.svg
   SvgGenImage get graphDownNew =>
@@ -36342,6 +36371,7 @@ class $AssetsSolarIconsOutlineGen {
         global,
         globus,
         golf,
+        google,
         graphDownNew,
         graphDown,
         graphNewUp,
