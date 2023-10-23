@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/gen/assets.gen.dart';
 import '../../../../core/utils/extensions.dart';
@@ -30,7 +31,8 @@ class ThemeModeSettingDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              onTap: () => themeModeCubit.setThemeMode(ThemeMode.system),
+              onTap: () =>
+                  applyTheme(context, themeModeCubit, ThemeMode.system),
               selected: systemSelected,
               leading: Assets.solarIcons.boldDuotone.starsMinimalistic(
                 color: systemSelected ? selectedIconColor : iconColor,
@@ -38,7 +40,7 @@ class ThemeModeSettingDialog extends StatelessWidget {
               title: const Text("النظام"),
             ),
             ListTile(
-              onTap: () => themeModeCubit.setThemeMode(ThemeMode.light),
+              onTap: () => applyTheme(context, themeModeCubit, ThemeMode.light),
               selected: lightSelected,
               leading: Assets.solarIcons.bold.sun(
                 color: lightSelected ? selectedIconColor : iconColor,
@@ -46,7 +48,7 @@ class ThemeModeSettingDialog extends StatelessWidget {
               title: const Text("فاتح"),
             ),
             ListTile(
-              onTap: () => themeModeCubit.setThemeMode(ThemeMode.dark),
+              onTap: () => applyTheme(context, themeModeCubit, ThemeMode.dark),
               selected: darkSelected,
               leading: Assets.solarIcons.bold.moon(
                 color: darkSelected ? selectedIconColor : iconColor,
@@ -57,5 +59,15 @@ class ThemeModeSettingDialog extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void applyTheme(
+    BuildContext context,
+    ThemeModeCubit cubit,
+    ThemeMode mode,
+  ) async {
+    context.pop();
+    await Future.delayed(const Duration(milliseconds: 150));
+    cubit.setThemeMode(mode);
   }
 }

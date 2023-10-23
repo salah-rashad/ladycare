@@ -48,8 +48,8 @@ class ErrorMessageTile extends StatelessWidget {
         Flexible(
           child: Text(
             message,
-            style: context.textTheme.bodyMedium
-                ?.apply(color: context.colors.error),
+            style:
+                context.textTheme.bodyMedium.apply(color: context.colors.error),
           ),
         ),
       ],

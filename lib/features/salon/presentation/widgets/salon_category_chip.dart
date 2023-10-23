@@ -23,7 +23,7 @@ class SalonCategoryChip extends StatelessWidget {
       ),
       child: Text(label,
           style: context.textTheme.labelSmall
-              ?.apply(color: context.colors.secondaryText)),
+              .apply(color: context.colors.secondaryText)),
     );
   }
 }

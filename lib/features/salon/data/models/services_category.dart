@@ -8,17 +8,29 @@ part 'services_category.g.dart';
 class ServicesCategory with _$ServicesCategory {
   const factory ServicesCategory({
     required String id,
-    required String name,
-    required String iconUrl,
+    @Default("") String name,
+    @Default("") String iconUrl,
   }) = _ServicesCategory;
 
   factory ServicesCategory.fromJson(Map<String, dynamic> json) =>
       _$ServicesCategoryFromJson(json);
 }
 
-extension ServicesCategoryColRefExt
-    on CollectionReference<Map<String, dynamic>> {
+extension ServicesCategoryColRefExt on CollectionReference {
   CollectionReference<ServicesCategory> withServicesCategoryConverter() {
+    return withConverter(
+      fromFirestore: (snapshot, options) {
+        final data = snapshot.data()!;
+        data['id'] = snapshot.id;
+        return ServicesCategory.fromJson(data);
+      },
+      toFirestore: (value, options) => value.toJson(),
+    );
+  }
+}
+
+extension ServicesCategoryDocRefExt on DocumentReference {
+  DocumentReference<ServicesCategory> withServicesCategoryConverter() {
     return withConverter(
       fromFirestore: (snapshot, options) {
         final data = snapshot.data()!;

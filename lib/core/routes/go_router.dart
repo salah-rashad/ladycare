@@ -8,6 +8,8 @@ import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/reset_password_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/salon/data/models/salon.dart';
+import '../../features/salon/presentation/pages/salon_profile_page.dart';
 import '../../global/blocs/network_cubit/network_cubit.dart';
 import '../../global/widgets/status_snack_bar.dart';
 import '../../injection_container.dart';
@@ -58,6 +60,15 @@ class AppRouter {
         path: Routes.SIGN_UP.path,
         name: Routes.SIGN_UP.name,
         builder: (context, state) => const SignupPage(),
+      ),
+      GoRoute(
+        path: Routes.SALON_PROFILE.path,
+        name: Routes.SALON_PROFILE.name,
+        builder: (context, state) {
+          final salon = state.extra as Salon;
+          return SalonProfilePage(salon: salon)
+              ._wrapWithNetworkCheckerSnackBar();
+        },
       ),
     ],
     // errorBuilder: (context, state) => const NotFoundScreen(),

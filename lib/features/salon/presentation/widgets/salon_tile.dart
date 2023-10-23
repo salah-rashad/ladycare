@@ -40,7 +40,7 @@ class SalonTile extends StatelessWidget {
             child: Text(
               salon.name,
               style: context.textTheme.headlineSmall
-                  ?.apply(color: context.colors.primaryText),
+                  .apply(color: context.colors.primaryText),
             ),
           ),
           Row(
@@ -48,7 +48,7 @@ class SalonTile extends StatelessWidget {
               Text(
                 salon.ratingAverage.toString(),
                 style: context.textTheme.numbersXSmall
-                    ?.apply(color: context.colors.secondaryText),
+                    .apply(color: context.colors.secondaryText),
               ),
               Assets.solarIcons.bold.star(
                 color: context.colors.primary,
@@ -75,14 +75,14 @@ class SalonTile extends StatelessWidget {
                 Text(
                   salon.name,
                   style: context.textTheme.headlineSmall
-                      ?.apply(color: context.colors.primaryText),
+                      .apply(color: context.colors.primaryText),
                 ),
                 Row(
                   children: [
                     Text(
                       salon.ratingAverage.toString(),
                       style: context.textTheme.numbersXSmall
-                          ?.apply(color: context.colors.secondaryText),
+                          .apply(color: context.colors.secondaryText),
                     ),
                     Assets.solarIcons.bold.star(
                       color: context.colors.primary,
@@ -116,7 +116,7 @@ class SalonTile extends StatelessWidget {
                       child: Text(
                         salon.name,
                         style: context.textTheme.headlineSmall
-                            ?.apply(color: context.colors.primaryText),
+                            .apply(color: context.colors.primaryText),
                       ),
                     ),
                     Row(
@@ -124,7 +124,7 @@ class SalonTile extends StatelessWidget {
                         Text(
                           salon.ratingAverage.toString(),
                           style: context.textTheme.numbersXSmall
-                              ?.apply(color: context.colors.secondaryText),
+                              .apply(color: context.colors.secondaryText),
                         ),
                         Assets.solarIcons.bold.star(
                           color: context.colors.primary,

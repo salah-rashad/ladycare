@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:path/path.dart' as p;
 
 class Constants {
   Constants._();
@@ -14,6 +15,10 @@ class Constants {
 class FC {
   FC._();
   // TPL = Template
+  // c = Collection
+  // f = Field
+  // p = path
+
   static const String cTPLServiceCategories = "TPL_service_categories";
   static const String cTPLServices = "TPL_services";
   static const String cTPLAmenities = "TPL_amenities";
@@ -21,12 +26,15 @@ class FC {
   static const String cUsers = "users";
   static const String cHighlights = "highlights";
   static const String cSalons = "salons";
-  static const String cAmenities = "amenities";
   static const String cCustomerReviews = "customer_reviews";
   static const String cServiceCategories = "service_categories";
   static const String cServices = "services";
 
-  static const String fImages = "images";
-  static const String fSalons = "salons";
-  static const String fShots = "shots";
+  static const String fSalonAmenities = "amenities";
+  static const String fSalonServices = "services";
+  static const String fSalonShots = "shots";
+  static const String fSalonName = "name";
+
+  static String getSalonFolderPath(String salonId) =>
+      p.join("images", "salons", salonId);
 }

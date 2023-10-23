@@ -20,6 +20,7 @@ SalonAmenity _$SalonAmenityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SalonAmenity {
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get icon => throw _privateConstructorUsedError;
 
@@ -35,7 +36,7 @@ abstract class $SalonAmenityCopyWith<$Res> {
           SalonAmenity value, $Res Function(SalonAmenity) then) =
       _$SalonAmenityCopyWithImpl<$Res, SalonAmenity>;
   @useResult
-  $Res call({String name, String icon});
+  $Res call({String id, String name, String icon});
 }
 
 /// @nodoc
@@ -51,10 +52,15 @@ class _$SalonAmenityCopyWithImpl<$Res, $Val extends SalonAmenity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? icon = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -75,7 +81,7 @@ abstract class _$$_SalonAmenityCopyWith<$Res>
       __$$_SalonAmenityCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String icon});
+  $Res call({String id, String name, String icon});
 }
 
 /// @nodoc
@@ -89,10 +95,15 @@ class __$$_SalonAmenityCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? icon = null,
   }) {
     return _then(_$_SalonAmenity(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -108,19 +119,23 @@ class __$$_SalonAmenityCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_SalonAmenity implements _SalonAmenity {
-  const _$_SalonAmenity({required this.name, required this.icon});
+  const _$_SalonAmenity({required this.id, this.name = "", this.icon = ""});
 
   factory _$_SalonAmenity.fromJson(Map<String, dynamic> json) =>
       _$$_SalonAmenityFromJson(json);
 
   @override
+  final String id;
+  @override
+  @JsonKey()
   final String name;
   @override
+  @JsonKey()
   final String icon;
 
   @override
   String toString() {
-    return 'SalonAmenity(name: $name, icon: $icon)';
+    return 'SalonAmenity(id: $id, name: $name, icon: $icon)';
   }
 
   @override
@@ -128,13 +143,14 @@ class _$_SalonAmenity implements _SalonAmenity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SalonAmenity &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.icon, icon) || other.icon == icon));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, icon);
+  int get hashCode => Object.hash(runtimeType, id, name, icon);
 
   @JsonKey(ignore: true)
   @override
@@ -152,12 +168,15 @@ class _$_SalonAmenity implements _SalonAmenity {
 
 abstract class _SalonAmenity implements SalonAmenity {
   const factory _SalonAmenity(
-      {required final String name,
-      required final String icon}) = _$_SalonAmenity;
+      {required final String id,
+      final String name,
+      final String icon}) = _$_SalonAmenity;
 
   factory _SalonAmenity.fromJson(Map<String, dynamic> json) =
       _$_SalonAmenity.fromJson;
 
+  @override
+  String get id;
   @override
   String get name;
   @override

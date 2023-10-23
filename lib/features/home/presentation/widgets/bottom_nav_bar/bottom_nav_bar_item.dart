@@ -73,7 +73,7 @@ class BottonNavBarItemWidget extends StatelessWidget {
               ),
               Text(
                 item.label,
-                style: context.textTheme.labelMedium?.apply(
+                style: context.textTheme.labelMedium.apply(
                   color: isSelected
                       ? iconSelectedColor ?? context.colors.primaryText
                       : iconUnselectedColor ?? context.colors.tertiaryText,

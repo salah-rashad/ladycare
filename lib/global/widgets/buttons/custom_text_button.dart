@@ -6,7 +6,7 @@ import '../../../core/utils/extensions.dart';
 
 class CustomTextButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color? foreground;
   final SvgGenImage? icon;
   final IconAlignment iconAlignment;
@@ -15,7 +15,7 @@ class CustomTextButton extends StatelessWidget {
   const CustomTextButton({
     super.key,
     required this.text,
-    required this.onPressed,
+    this.onPressed,
     this.foreground,
     this.wide = true,
   })  : icon = null,
@@ -25,7 +25,7 @@ class CustomTextButton extends StatelessWidget {
     super.key,
     required SvgGenImage this.icon,
     required this.text,
-    required this.onPressed,
+    this.onPressed,
     this.foreground,
     this.iconAlignment = IconAlignment.right,
     this.wide = true,

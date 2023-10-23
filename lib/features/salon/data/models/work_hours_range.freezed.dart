@@ -21,9 +21,9 @@ WorkHoursRange _$WorkHoursRangeFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$WorkHoursRange {
   @TimeOfDayConverter()
-  TimeOfDay get start => throw _privateConstructorUsedError;
+  TimeOfDay? get start => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
-  TimeOfDay get end => throw _privateConstructorUsedError;
+  TimeOfDay? get end => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,8 +38,8 @@ abstract class $WorkHoursRangeCopyWith<$Res> {
       _$WorkHoursRangeCopyWithImpl<$Res, WorkHoursRange>;
   @useResult
   $Res call(
-      {@TimeOfDayConverter() TimeOfDay start,
-      @TimeOfDayConverter() TimeOfDay end});
+      {@TimeOfDayConverter() TimeOfDay? start,
+      @TimeOfDayConverter() TimeOfDay? end});
 }
 
 /// @nodoc
@@ -55,18 +55,18 @@ class _$WorkHoursRangeCopyWithImpl<$Res, $Val extends WorkHoursRange>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? start = null,
-    Object? end = null,
+    Object? start = freezed,
+    Object? end = freezed,
   }) {
     return _then(_value.copyWith(
-      start: null == start
+      start: freezed == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
-              as TimeOfDay,
-      end: null == end
+              as TimeOfDay?,
+      end: freezed == end
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
-              as TimeOfDay,
+              as TimeOfDay?,
     ) as $Val);
   }
 }
@@ -80,8 +80,8 @@ abstract class _$$_WorkHoursRangeCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@TimeOfDayConverter() TimeOfDay start,
-      @TimeOfDayConverter() TimeOfDay end});
+      {@TimeOfDayConverter() TimeOfDay? start,
+      @TimeOfDayConverter() TimeOfDay? end});
 }
 
 /// @nodoc
@@ -95,18 +95,18 @@ class __$$_WorkHoursRangeCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? start = null,
-    Object? end = null,
+    Object? start = freezed,
+    Object? end = freezed,
   }) {
     return _then(_$_WorkHoursRange(
-      start: null == start
+      start: freezed == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
-              as TimeOfDay,
-      end: null == end
+              as TimeOfDay?,
+      end: freezed == end
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
-              as TimeOfDay,
+              as TimeOfDay?,
     ));
   }
 }
@@ -115,18 +115,17 @@ class __$$_WorkHoursRangeCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_WorkHoursRange implements _WorkHoursRange {
   const _$_WorkHoursRange(
-      {@TimeOfDayConverter() required this.start,
-      @TimeOfDayConverter() required this.end});
+      {@TimeOfDayConverter() this.start, @TimeOfDayConverter() this.end});
 
   factory _$_WorkHoursRange.fromJson(Map<String, dynamic> json) =>
       _$$_WorkHoursRangeFromJson(json);
 
   @override
   @TimeOfDayConverter()
-  final TimeOfDay start;
+  final TimeOfDay? start;
   @override
   @TimeOfDayConverter()
-  final TimeOfDay end;
+  final TimeOfDay? end;
 
   @override
   String toString() {
@@ -162,18 +161,18 @@ class _$_WorkHoursRange implements _WorkHoursRange {
 
 abstract class _WorkHoursRange implements WorkHoursRange {
   const factory _WorkHoursRange(
-      {@TimeOfDayConverter() required final TimeOfDay start,
-      @TimeOfDayConverter() required final TimeOfDay end}) = _$_WorkHoursRange;
+      {@TimeOfDayConverter() final TimeOfDay? start,
+      @TimeOfDayConverter() final TimeOfDay? end}) = _$_WorkHoursRange;
 
   factory _WorkHoursRange.fromJson(Map<String, dynamic> json) =
       _$_WorkHoursRange.fromJson;
 
   @override
   @TimeOfDayConverter()
-  TimeOfDay get start;
+  TimeOfDay? get start;
   @override
   @TimeOfDayConverter()
-  TimeOfDay get end;
+  TimeOfDay? get end;
   @override
   @JsonKey(ignore: true)
   _$$_WorkHoursRangeCopyWith<_$_WorkHoursRange> get copyWith =>

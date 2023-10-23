@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../core/error/failures.dart';
-import '../entities/user_data.dart';
+import '../../data/models/user_data.dart';
 import '../usecases/login_usecase.dart';
 import '../usecases/reset_password_usecase.dart';
 import '../usecases/signup_usecase.dart';

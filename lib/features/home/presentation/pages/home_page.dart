@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/gen/assets.gen.dart';
 import '../../../../injection_container.dart';
-import '../../../salon_search/presentation/pages/salon_search_page.dart';
+import '../../../salon/presentation/pages/salons_search_page.dart';
 import '../../../settings/presentation/pages/settings_page.dart';
 import '../bloc/home_cubit/home_cubit.dart';
 import '../widgets/bottom_nav_bar/bottom_nav_bar.dart';
@@ -30,6 +30,7 @@ class HomePage extends StatelessWidget {
           body: PageView(
             controller: homeCubit.pageController,
             onPageChanged: homeCubit.onPageChanged,
+            physics: const NeverScrollableScrollPhysics(),
             children: const [
               HomeView(),
               SalonSearchPage(),

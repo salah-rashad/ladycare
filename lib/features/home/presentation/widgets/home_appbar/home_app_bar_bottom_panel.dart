@@ -49,13 +49,13 @@ class HomeAppBarBottomPanel extends StatelessWidget {
                   Text(
                     "نقاطك",
                     style: context.textTheme.labelLarge
-                        ?.apply(color: Colors.white),
+                        .apply(color: Colors.white),
                   ),
                   Flexible(
                     child: Text(
                       "12 مكافأة ، 2 عرض ، 3 بطاقة إهداء",
                       style: context.textTheme.labelMedium
-                          ?.apply(color: Colors.white70),
+                          .apply(color: Colors.white70),
                       maxLines: 2,
                       overflow: TextOverflow.visible,
                     ),

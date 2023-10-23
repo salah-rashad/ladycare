@@ -8,18 +8,33 @@ part 'salon_service.g.dart';
 class SalonService with _$SalonService {
   const factory SalonService({
     required String id,
-    required String name,
-    required String description,
-    required double price,
-    required Duration duration,
+    @Default("") String name,
+    @Default("") String description,
+    @Default(Duration.zero) Duration duration,
+    @Default(0.0) double price,
+    @Default("") String category,
+    dynamic salon,
   }) = _SalonService;
 
   factory SalonService.fromJson(Map<String, dynamic> json) =>
       _$SalonServiceFromJson(json);
 }
 
-extension SalonServiceColRefExt on CollectionReference<Map<String, dynamic>> {
+extension SalonServiceColRefExt on CollectionReference {
   CollectionReference<SalonService> withSalonServiceConverter() {
+    return withConverter(
+      fromFirestore: (snapshot, options) {
+        final data = snapshot.data()!;
+        data['id'] = snapshot.id;
+        return SalonService.fromJson(data);
+      },
+      toFirestore: (value, options) => value.toJson(),
+    );
+  }
+}
+
+extension SalonServiceDocRefExt on DocumentReference {
+  DocumentReference<SalonService> withSalonServiceConverter() {
     return withConverter(
       fromFirestore: (snapshot, options) {
         final data = snapshot.data()!;

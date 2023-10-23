@@ -34,6 +34,14 @@ class AppTheme {
       filledButtonTheme: filledButtonTheme(colors, textTheme),
       textButtonTheme: textButtonTheme(colors, textTheme),
       textSelectionTheme: textSelectionTheme(colors, textTheme),
+      popupMenuTheme: popupMenuTheme(colors, textTheme),
+      dropdownMenuTheme: dropDownMenuTheme(colors, textTheme),
+      menuTheme: menuTheme(colors, textTheme),
+      chipTheme: chipTheme(colors, textTheme),
+      cardTheme: cardTheme(colors, textTheme),
+      dialogTheme: dialogTheme(colors, textTheme),
+      bottomSheetTheme: bottomSheetTheme(colors, textTheme),
+      floatingActionButtonTheme: floatingActionButtonTheme(colors, textTheme),
     );
   }
 

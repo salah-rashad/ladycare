@@ -12,7 +12,7 @@ final class TopSalonsInitial extends TopSalonsState {}
 final class TopSalonsLoading extends TopSalonsState {}
 
 final class TopSalonsSucceed extends TopSalonsState {
-  final List<SalonGroup> salons;
+  final List<Salon> salons;
   const TopSalonsSucceed({required this.salons});
 
   @override

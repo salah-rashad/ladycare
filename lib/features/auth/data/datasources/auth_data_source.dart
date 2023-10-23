@@ -8,13 +8,13 @@ import '../../../../core/error/exceptions.dart';
 import '../../domain/usecases/login_usecase.dart';
 import '../../domain/usecases/reset_password_usecase.dart';
 import '../../domain/usecases/signup_usecase.dart';
-import '../models/user_data_model.dart';
+import '../models/user_data.dart';
 
 abstract class AuthDataSource {
   Future<UserCredential> login(LoginParams params);
   Future<UserCredential> createAccount(SignupParams params);
   Future<Unit> logout();
-  Future<UserDataModel> getUserProfile();
+  Future<UserData> getUserProfile();
   Future<String> sendPasswordResetEmail(ResetPasswordParams params);
 }
 
@@ -22,10 +22,10 @@ class AuthDataSourceImpl implements AuthDataSource {
   final FirebaseAuth auth;
   final FirebaseFirestore db;
 
-  AuthDataSourceImpl(this.auth, this.db);
+  const AuthDataSourceImpl(this.auth, this.db);
 
-  CollectionReference<UserDataModel> get usersCollectionRef =>
-      db.collection(FC.cUsers).withUserDataModelConverter();
+  CollectionReference<UserData> get usersCollectionRef =>
+      db.collection(FC.cUsers).withUserDataConverter();
 
   @override
   Future<UserCredential> login(LoginParams params) async {
@@ -55,12 +55,12 @@ class AuthDataSourceImpl implements AuthDataSource {
       final docRef = usersCollectionRef.doc(uid);
 
       // write user data to cloud firestore
-      final user = UserDataModel(
+      final user = UserData(
         id: uid!,
         firstName: params.firstName,
         lastName: params.lastName,
         email: params.email,
-        profilePictureUrl: null,
+        profilePictureUrl: "",
         phoneNumber: params.phoneNumber,
         dateOfBirth: params.dateOfBirth,
       );
@@ -76,7 +76,7 @@ class AuthDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  Future<UserDataModel> getUserProfile() async {
+  Future<UserData> getUserProfile() async {
     try {
       final uid = auth.currentUser?.uid;
       final docRef = usersCollectionRef.doc(uid);

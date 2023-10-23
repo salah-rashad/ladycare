@@ -120,7 +120,7 @@ class __$$_ServicesCategoryCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ServicesCategory implements _ServicesCategory {
   const _$_ServicesCategory(
-      {required this.id, required this.name, required this.iconUrl});
+      {required this.id, this.name = "", this.iconUrl = ""});
 
   factory _$_ServicesCategory.fromJson(Map<String, dynamic> json) =>
       _$$_ServicesCategoryFromJson(json);
@@ -128,8 +128,10 @@ class _$_ServicesCategory implements _ServicesCategory {
   @override
   final String id;
   @override
+  @JsonKey()
   final String name;
   @override
+  @JsonKey()
   final String iconUrl;
 
   @override
@@ -168,8 +170,8 @@ class _$_ServicesCategory implements _ServicesCategory {
 abstract class _ServicesCategory implements ServicesCategory {
   const factory _ServicesCategory(
       {required final String id,
-      required final String name,
-      required final String iconUrl}) = _$_ServicesCategory;
+      final String name,
+      final String iconUrl}) = _$_ServicesCategory;
 
   factory _ServicesCategory.fromJson(Map<String, dynamic> json) =
       _$_ServicesCategory.fromJson;

@@ -5,7 +5,7 @@ import '../../../../core/constants/failure_messages.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/network/network_helper.dart';
-import '../../domain/entities/user_data.dart';
+import '../models/user_data.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../domain/usecases/login_usecase.dart';
 import '../../domain/usecases/reset_password_usecase.dart';

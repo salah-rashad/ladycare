@@ -23,8 +23,10 @@ mixin _$SalonService {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
   Duration get duration => throw _privateConstructorUsedError;
+  double get price => throw _privateConstructorUsedError;
+  String get category => throw _privateConstructorUsedError;
+  dynamic get salon => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,8 +44,10 @@ abstract class $SalonServiceCopyWith<$Res> {
       {String id,
       String name,
       String description,
+      Duration duration,
       double price,
-      Duration duration});
+      String category,
+      dynamic salon});
 }
 
 /// @nodoc
@@ -62,8 +66,10 @@ class _$SalonServiceCopyWithImpl<$Res, $Val extends SalonService>
     Object? id = null,
     Object? name = null,
     Object? description = null,
-    Object? price = null,
     Object? duration = null,
+    Object? price = null,
+    Object? category = null,
+    Object? salon = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -78,14 +84,22 @@ class _$SalonServiceCopyWithImpl<$Res, $Val extends SalonService>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double,
       duration: null == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as Duration,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      salon: freezed == salon
+          ? _value.salon
+          : salon // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -102,8 +116,10 @@ abstract class _$$_SalonServiceCopyWith<$Res>
       {String id,
       String name,
       String description,
+      Duration duration,
       double price,
-      Duration duration});
+      String category,
+      dynamic salon});
 }
 
 /// @nodoc
@@ -120,8 +136,10 @@ class __$$_SalonServiceCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? description = null,
-    Object? price = null,
     Object? duration = null,
+    Object? price = null,
+    Object? category = null,
+    Object? salon = freezed,
   }) {
     return _then(_$_SalonService(
       id: null == id
@@ -136,14 +154,22 @@ class __$$_SalonServiceCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double,
       duration: null == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as Duration,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      salon: freezed == salon
+          ? _value.salon
+          : salon // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
@@ -153,10 +179,12 @@ class __$$_SalonServiceCopyWithImpl<$Res>
 class _$_SalonService implements _SalonService {
   const _$_SalonService(
       {required this.id,
-      required this.name,
-      required this.description,
-      required this.price,
-      required this.duration});
+      this.name = "",
+      this.description = "",
+      this.duration = Duration.zero,
+      this.price = 0.0,
+      this.category = "",
+      this.salon});
 
   factory _$_SalonService.fromJson(Map<String, dynamic> json) =>
       _$$_SalonServiceFromJson(json);
@@ -164,17 +192,26 @@ class _$_SalonService implements _SalonService {
   @override
   final String id;
   @override
+  @JsonKey()
   final String name;
   @override
+  @JsonKey()
   final String description;
   @override
+  @JsonKey()
+  final Duration duration;
+  @override
+  @JsonKey()
   final double price;
   @override
-  final Duration duration;
+  @JsonKey()
+  final String category;
+  @override
+  final dynamic salon;
 
   @override
   String toString() {
-    return 'SalonService(id: $id, name: $name, description: $description, price: $price, duration: $duration)';
+    return 'SalonService(id: $id, name: $name, description: $description, duration: $duration, price: $price, category: $category, salon: $salon)';
   }
 
   @override
@@ -186,15 +223,18 @@ class _$_SalonService implements _SalonService {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.price, price) || other.price == price) &&
             (identical(other.duration, duration) ||
-                other.duration == duration));
+                other.duration == duration) &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            const DeepCollectionEquality().equals(other.salon, salon));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, description, price, duration);
+  int get hashCode => Object.hash(runtimeType, id, name, description, duration,
+      price, category, const DeepCollectionEquality().hash(salon));
 
   @JsonKey(ignore: true)
   @override
@@ -213,10 +253,12 @@ class _$_SalonService implements _SalonService {
 abstract class _SalonService implements SalonService {
   const factory _SalonService(
       {required final String id,
-      required final String name,
-      required final String description,
-      required final double price,
-      required final Duration duration}) = _$_SalonService;
+      final String name,
+      final String description,
+      final Duration duration,
+      final double price,
+      final String category,
+      final dynamic salon}) = _$_SalonService;
 
   factory _SalonService.fromJson(Map<String, dynamic> json) =
       _$_SalonService.fromJson;
@@ -228,9 +270,13 @@ abstract class _SalonService implements SalonService {
   @override
   String get description;
   @override
+  Duration get duration;
+  @override
   double get price;
   @override
-  Duration get duration;
+  String get category;
+  @override
+  dynamic get salon;
   @override
   @JsonKey(ignore: true)
   _$$_SalonServiceCopyWith<_$_SalonService> get copyWith =>

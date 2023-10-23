@@ -283,13 +283,13 @@ class __$$_WorkDaysCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_WorkDays implements _WorkDays {
   const _$_WorkDays(
-      {required this.sunday,
-      required this.monday,
-      required this.tuesday,
-      required this.wednesday,
-      required this.thursday,
-      required this.friday,
-      required this.saturday});
+      {this.sunday,
+      this.monday,
+      this.tuesday,
+      this.wednesday,
+      this.thursday,
+      this.friday,
+      this.saturday});
 
   factory _$_WorkDays.fromJson(Map<String, dynamic> json) =>
       _$$_WorkDaysFromJson(json);
@@ -352,13 +352,13 @@ class _$_WorkDays implements _WorkDays {
 
 abstract class _WorkDays implements WorkDays {
   const factory _WorkDays(
-      {required final WorkHoursRange? sunday,
-      required final WorkHoursRange? monday,
-      required final WorkHoursRange? tuesday,
-      required final WorkHoursRange? wednesday,
-      required final WorkHoursRange? thursday,
-      required final WorkHoursRange? friday,
-      required final WorkHoursRange? saturday}) = _$_WorkDays;
+      {final WorkHoursRange? sunday,
+      final WorkHoursRange? monday,
+      final WorkHoursRange? tuesday,
+      final WorkHoursRange? wednesday,
+      final WorkHoursRange? thursday,
+      final WorkHoursRange? friday,
+      final WorkHoursRange? saturday}) = _$_WorkDays;
 
   factory _WorkDays.fromJson(Map<String, dynamic> json) = _$_WorkDays.fromJson;
 

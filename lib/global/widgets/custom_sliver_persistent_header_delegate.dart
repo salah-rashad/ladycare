@@ -10,7 +10,8 @@ class CustomSliverPersistentHeaderDelegate
     extends SliverPersistentHeaderDelegate {
   final ExtrapoFactorWidget topPanel;
   final ExtrapoFactorWidget bottomPanel;
-  final ImageProvider<Object> background;
+  final ImageProvider<Object>? image;
+  final Color? background;
   final EdgeInsets? paddingExpanded;
   final EdgeInsets? paddingCollapsed;
 
@@ -23,16 +24,20 @@ class CustomSliverPersistentHeaderDelegate
   @override
   final FloatingHeaderSnapConfiguration? snapConfiguration;
 
+  static const _defaultMinExtent = 80.0;
+  static const _defaultMaxExtent = 80.0;
+
   const CustomSliverPersistentHeaderDelegate({
     required this.topPanel,
     required this.bottomPanel,
-    required this.background,
+    this.image,
+    this.background,
     double? minExtent,
     double? maxExtent,
     this.paddingExpanded,
     this.paddingCollapsed,
-  })  : minExtent = minExtent ?? 80.0,
-        maxExtent = maxExtent ?? 260.0,
+  })  : minExtent = minExtent ?? _defaultMinExtent,
+        maxExtent = maxExtent ?? _defaultMaxExtent,
         vsync = null,
         snapConfiguration = null;
 
@@ -41,13 +46,14 @@ class CustomSliverPersistentHeaderDelegate
     required this.snapConfiguration,
     required this.topPanel,
     required this.bottomPanel,
-    required this.background,
+    this.image,
+    this.background,
     double? minExtent,
     double? maxExtent,
     this.paddingExpanded,
     this.paddingCollapsed,
-  })  : minExtent = minExtent ?? 80.0,
-        maxExtent = maxExtent ?? 260.0;
+  })  : minExtent = minExtent ?? _defaultMinExtent,
+        maxExtent = maxExtent ?? _defaultMaxExtent;
 
   @override
   Widget build(
@@ -57,41 +63,53 @@ class CustomSliverPersistentHeaderDelegate
     return Align(
       child: Container(
         padding: EdgeInsets.lerp(
-            paddingExpanded, paddingCollapsed, _t(shrinkOffset, 1.0)),
+          paddingExpanded,
+          paddingCollapsed,
+          _t(shrinkOffset, 0.5),
+        ),
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: background,
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-              Color.lerp(
-                    overlayColor,
-                    context.colors.surface,
-                    _t(shrinkOffset, 0.7),
-                  ) ??
-                  overlayColor,
-              BlendMode.srcATop,
-            ),
-          ),
+          color: background,
+          image: image != null
+              ? DecorationImage(
+                  image: image!,
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                    Color.lerp(
+                          overlayColor,
+                          context.colors.surface,
+                          _t(shrinkOffset, 0.7),
+                        ) ??
+                        overlayColor,
+                    BlendMode.srcATop,
+                  ),
+                )
+              : null,
         ),
         // height: shrinkOffset,
         // width: double.infinity,
         child: Stack(
           fit: StackFit.expand,
           children: [
-            //~ bottom panel ~ //
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Opacity(
-                opacity: 1 - _t(shrinkOffset, 0.3),
-                child: bottomPanel((time) => _t(shrinkOffset, time)),
-              ),
-            ),
-            // ~ top panel ~ //
+            // ~ ⏫ top panel ~ //
             Align(
               alignment: Alignment.topCenter,
               child: topPanel((time) => _t(shrinkOffset, time)),
             ),
-          ],
+
+            //~ ⏬  bottom panel ~ //
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Opacity(
+                opacity: 1 - _t(shrinkOffset, 0.3),
+                child: SingleChildScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  child: bottomPanel(
+                    (time) => _t(shrinkOffset, time),
+                  ),
+                ),
+              ),
+            ),
+          ].reversed.toList(),
         ),
       ),
     );
@@ -108,6 +126,7 @@ class CustomSliverPersistentHeaderDelegate
       oldDelegate.minExtent != minExtent ||
       oldDelegate.maxExtent != maxExtent ||
       oldDelegate.background != background ||
+      oldDelegate.image != image ||
       oldDelegate.topPanel != topPanel ||
       oldDelegate.bottomPanel != bottomPanel ||
       oldDelegate.paddingExpanded != paddingExpanded ||

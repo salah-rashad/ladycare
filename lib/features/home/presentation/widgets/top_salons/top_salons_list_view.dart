@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/gen/assets.gen.dart';
 import '../../../../../core/utils/extensions.dart';
-import '../../../../salon/domain/entities/salon_group.dart';
 import '../../../../../global/widgets/errors_list.dart';
 import '../../../../../injection_container.dart';
+import '../../../../salon/data/models/salon.dart';
 import '../../../../salon/presentation/widgets/salon_card.dart';
 import '../../../../salon/presentation/widgets/salon_shimmer.dart';
 import '../../bloc/top_salons_cubit/top_salons_cubit.dart';
@@ -68,7 +68,7 @@ class TopSalonsListView extends StatelessWidget {
     );
   }
 
-  Widget _salonsListView(BuildContext context, List<SalonGroup>? salons) {
+  Widget _salonsListView(BuildContext context, List<Salon>? salons) {
     return ListView.separated(
       shrinkWrap: true,
       itemCount: salons != null ? salons.length : 5,
@@ -77,7 +77,7 @@ class TopSalonsListView extends StatelessWidget {
       itemBuilder: (context, index) {
         if (salons != null) {
           final item = salons[index];
-          return SalonCard(salonGroup: item);
+          return SalonCard(salon: item);
         } else {
           return const SalonShimmer();
         }

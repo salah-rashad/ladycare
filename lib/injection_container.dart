@@ -31,6 +31,8 @@ import 'features/salon/data/repositories/salon_repository_impl.dart';
 import 'features/salon/domain/repositories/salon_repository.dart';
 import 'features/salon/domain/usecases/get_salons_usecase.dart';
 import 'features/salon/domain/usecases/get_top_rated_salons_usecase.dart';
+import 'features/salon/domain/usecases/search_salons_usecase.dart';
+import 'features/salon/presentation/bloc/salon_search_cubit/salon_search_cubit.dart';
 import 'global/blocs/network_cubit/network_cubit.dart';
 import 'global/blocs/theme_mode_cubit/theme_mode_cubit.dart';
 
@@ -107,10 +109,12 @@ Future<void> init() async {
   // ~~~~~~~~ Features - Salon ~~~~~~~~ //
 
   // Blocs
+  sl.registerLazySingleton(() => SalonSearchCubit(sl()));
 
   // Usecases
   sl.registerLazySingleton(() => GetSalonsUsecase(sl()));
   sl.registerLazySingleton(() => GetTopRatedSalonsUsecase(sl()));
+  sl.registerLazySingleton(() => SearchSalonsUsecase(sl()));
 
   // Repositories
   sl.registerLazySingleton<SalonRepository>(

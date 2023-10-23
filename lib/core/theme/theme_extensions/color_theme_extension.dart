@@ -22,7 +22,7 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
   final Color secondaryText;
   final Color tertiaryText;
 
-  // Background+on Colors
+  // Background Colors
   final Color background;
   final Color surface;
   final Color receiptBackground;

@@ -10,16 +10,26 @@ part 'work_hours_range.g.dart';
 @freezed
 class WorkHoursRange with _$WorkHoursRange {
   const factory WorkHoursRange({
-    @TimeOfDayConverter() required TimeOfDay start,
-    @TimeOfDayConverter() required TimeOfDay end,
+    @TimeOfDayConverter() TimeOfDay? start,
+    @TimeOfDayConverter() TimeOfDay? end,
   }) = _WorkHoursRange;
 
   factory WorkHoursRange.fromJson(Map<String, dynamic> json) =>
       _$WorkHoursRangeFromJson(json);
 }
 
-extension WorkHoursRangeColRefExt on CollectionReference<Map<String, dynamic>> {
+extension WorkHoursRangeColRefExt on CollectionReference {
   CollectionReference<WorkHoursRange> withWorkHoursRangeConverter() {
+    return withConverter(
+      fromFirestore: (snapshot, options) =>
+          WorkHoursRange.fromJson(snapshot.data()!),
+      toFirestore: (value, options) => value.toJson(),
+    );
+  }
+}
+
+extension WorkHoursRangeDocRefExt on DocumentReference {
+  DocumentReference<WorkHoursRange> withWorkHoursRangeConverter() {
     return withConverter(
       fromFirestore: (snapshot, options) =>
           WorkHoursRange.fromJson(snapshot.data()!),

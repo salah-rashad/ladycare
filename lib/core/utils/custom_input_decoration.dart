@@ -79,14 +79,9 @@ class CustomInputDecoration extends InputDecoration {
   @override
   Widget? get suffixIcon {
     if (_sufIcon == null) return super.suffixIcon;
-    return GestureDetector(
-      onTap: onSuffixIconPressed,
-      child: Container(
-        width: 24.0,
-        height: 24.0,
-        alignment: Alignment.center,
-        child: _sufIcon?.call(color: prefixIconColor ?? Colors.grey),
-      ),
+    return IconButton(
+      onPressed: onSuffixIconPressed,
+      icon: _sufIcon!.call(color: suffixIconColor ?? Colors.grey),
     );
   }
 

@@ -49,7 +49,7 @@ class HighlightCard extends StatelessWidget {
                   children: [
                     Text(
                       highlight.label,
-                      style: context.textTheme.headlineSmall?.apply(
+                      style: context.textTheme.headlineSmall.apply(
                         color: context.colors.white,
                         shadows: [
                           const Shadow(

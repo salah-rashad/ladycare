@@ -70,13 +70,42 @@ extension WidgetExt on Widget {
 }
 
 extension SvgGenImageExt on SvgGenImage {
-  SvgPicture call({Color? color, Size? size}) {
-    return this.svg(
-      colorFilter:
-          color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
-      width: size?.width ?? 24.0,
-      height: size?.height ?? 24.0,
-    );
+  Widget call({
+    Color? color,
+    Size? size,
+    bool matchTextDirection = false,
+    AssetBundle? bundle,
+    String? package,
+    BoxFit fit = BoxFit.contain,
+    AlignmentGeometry alignment = Alignment.center,
+    bool allowDrawingOutsideViewBox = false,
+    WidgetBuilder? placeholderBuilder,
+    String? semanticsLabel,
+    bool excludeFromSemantics = false,
+    SvgTheme theme = const SvgTheme(),
+    Clip clipBehavior = Clip.hardEdge,
+  }) {
+    return Builder(builder: (context) {
+      final iconColor = color ?? IconTheme.of(context).color;
+      return this.svg(
+        colorFilter: iconColor != null
+            ? ColorFilter.mode(iconColor, BlendMode.srcIn)
+            : null,
+        width: size?.width ?? 24.0,
+        height: size?.height ?? 24.0,
+        matchTextDirection: matchTextDirection,
+        bundle: bundle,
+        package: package,
+        fit: fit,
+        alignment: alignment,
+        allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+        placeholderBuilder: placeholderBuilder,
+        semanticsLabel: semanticsLabel,
+        excludeFromSemantics: excludeFromSemantics,
+        theme: theme,
+        clipBehavior: clipBehavior,
+      );
+    });
   }
 }
 

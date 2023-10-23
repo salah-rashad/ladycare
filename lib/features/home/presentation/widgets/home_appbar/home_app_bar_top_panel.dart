@@ -10,7 +10,7 @@ import '../../../../../../../injection_container.dart';
 import '../../../../../global/blocs/theme_mode_cubit/theme_mode_cubit.dart';
 import '../../../../../global/widgets/custom_sliver_persistent_header_delegate.dart';
 import '../../../../../global/widgets/red_dot_indicator.dart';
-import '../../../../auth/domain/entities/user_data.dart';
+import '../../../../auth/data/models/user_data.dart';
 import '../../../../auth/presentation/bloc/auth_cubit/auth_cubit.dart';
 import '../../bloc/home_cubit/home_cubit.dart';
 
@@ -24,11 +24,11 @@ class HomeAppBarTopPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<AuthCubit, AuthState, UserData>(
+    return BlocSelector<AuthCubit, AuthState, UserData?>(
       bloc: sl<AuthCubit>(),
       selector: (state) {
         if (state is Authenticated) return state.userData;
-        return UserData.empty();
+        return null;
       },
       builder: (context, userData) {
         return Row(
@@ -43,7 +43,7 @@ class HomeAppBarTopPanel extends StatelessWidget {
     );
   }
 
-  Widget _profileImage(BuildContext context, UserData userData) {
+  Widget _profileImage(BuildContext context, UserData? userData) {
     final homeCubit = context.read<HomeCubit>();
     return SizedBox.square(
       dimension: 45.0,
@@ -67,7 +67,7 @@ class HomeAppBarTopPanel extends StatelessWidget {
         child: InkWell(
           onTap: homeCubit.goToSettings,
           child: CachedNetworkImage(
-            imageUrl: userData.profilePictureUrl ?? "",
+            imageUrl: userData?.profilePictureUrl ?? "",
             fit: BoxFit.cover,
             errorWidget: (context, url, error) {
               return Assets.images.userPlaceholder.image(fit: BoxFit.cover);
@@ -78,12 +78,12 @@ class HomeAppBarTopPanel extends StatelessWidget {
     );
   }
 
-  Expanded _nameText(BuildContext context, UserData userData) {
+  Expanded _nameText(BuildContext context, UserData? userData) {
     const textShadows = [
       Shadow(color: Colors.black, offset: Offset(1, 1), blurRadius: 5),
       Shadow(color: Colors.black, offset: Offset(-1, -1), blurRadius: 5),
     ];
-    final nameTextStyleExpanded = context.textTheme.headlineMedium?.apply(
+    final nameTextStyleExpanded = context.textTheme.headlineMedium.apply(
       shadows: textShadows,
       color: Colors.white,
     );
@@ -101,7 +101,7 @@ class HomeAppBarTopPanel extends StatelessWidget {
               opacity: 1 - t(0.2),
               child: Text(
                 "أهــلاً",
-                style: context.textTheme.labelLarge?.apply(
+                style: context.textTheme.labelLarge.apply(
                   shadows: textShadows,
                   color: const Color(0xFFE2E2E2),
                 ),
@@ -109,7 +109,7 @@ class HomeAppBarTopPanel extends StatelessWidget {
             ),
           ),
           Text(
-            "${userData.firstName} ${userData.lastName}",
+            "${userData?.firstName ?? ''} ${userData?.lastName ?? ''}",
             style: TextStyle.lerp(
                 nameTextStyleExpanded, nameTextStyleCollapsed, t(0.5)),
           ),

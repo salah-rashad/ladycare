@@ -1,25 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:logger/logger.dart';
-import 'package:path/path.dart' as p;
 
 import '../../../../core/constants/constants.dart';
-import '../../domain/entities/salon_group.dart';
+import '../../../../core/models/order_by.dart';
 import '../../domain/usecases/get_salons_usecase.dart';
 import '../../domain/usecases/get_top_rated_salons_usecase.dart';
+import '../../domain/usecases/search_salons_usecase.dart';
 import '../models/salon.dart';
 import '../models/salon_amenity.dart';
+import '../models/salon_service.dart';
 import '../models/services_category.dart';
 
 abstract class SalonDataSource {
-  Future<List<SalonGroup>> getSalons([GetSalonsParams? params]);
-  Future<List<SalonGroup>> getTopRatedSalons([GetTopRatedSalonsParams? params]);
+  Future<List<Salon>> getSalons([GetSalonsParams? params]);
+  Future<List<Salon>> getTopRatedSalons([GetTopRatedSalonsParams? params]);
+  Future<List<ServicesCategory>> getTPLServiceCategories();
+  Future<List<SalonService>> getTPLServices();
+  Future<List<Salon>> search([SalonSearchParams? params]);
 }
 
 class SalonDataSourceImpl implements SalonDataSource {
   final FirebaseFirestore db;
   final FirebaseStorage storage;
-  SalonDataSourceImpl(this.db, this.storage);
+  const SalonDataSourceImpl(this.db, this.storage);
 
   Future<Query<Salon>> _filterSalons(
     Query<Salon> salonsColRef,
@@ -27,6 +31,7 @@ class SalonDataSourceImpl implements SalonDataSource {
   ) async {
     final limit = params?.limit;
     final orderBy = params?.orderBy;
+    final filters = params?.filters;
 
     if (orderBy != null) {
       salonsColRef = salonsColRef.orderBy(
@@ -38,20 +43,60 @@ class SalonDataSourceImpl implements SalonDataSource {
       salonsColRef = salonsColRef.limit(limit);
     }
 
+    if (filters != null) {
+      for (var filter in filters) {
+        salonsColRef = salonsColRef.where(
+          filter.field,
+          isEqualTo: filter.isEqualTo,
+          isNotEqualTo: filter.isNotEqualTo,
+          isLessThan: filter.isLessThan,
+          isLessThanOrEqualTo: filter.isLessThanOrEqualTo,
+          isGreaterThan: filter.isGreaterThan,
+          isGreaterThanOrEqualTo: filter.isGreaterThanOrEqualTo,
+          arrayContains: filter.arrayContains,
+          arrayContainsAny: filter.arrayContainsAny,
+          whereIn: filter.whereIn,
+          whereNotIn: filter.whereNotIn,
+          isNull: filter.isNull,
+        );
+      }
+    }
+
     return salonsColRef;
   }
 
-  Future<List<SalonAmenity>> _getSalonAmenities(
-      List<dynamic>? amenityDocs) async {
-    if (amenityDocs == null) return [];
+  Future<String> _getProfileImage(String imageName, String salonId) async {
+    final salonFolderPath = FC.getSalonFolderPath(salonId);
+    final salonFolderRef = storage.ref(salonFolderPath);
 
-    final amenities = amenityDocs.map((doc) {
-      return (doc as DocumentReference).withConverter(
-        fromFirestore: (snapshot, options) {
-          return SalonAmenity.fromJson(snapshot.data()!);
-        },
-        toFirestore: (value, options) => value.toJson(),
-      );
+    if (imageName.isNotEmpty) {
+      final imageRef = salonFolderRef.child(imageName);
+      return imageRef.getDownloadURL();
+    }
+
+    return "";
+  }
+
+  Future<List<String>> _getShots(String salonId) async {
+    final shots = <String>[];
+    final salonFolderPath = FC.getSalonFolderPath(salonId);
+    final salonFolderRef = storage.ref(salonFolderPath);
+
+    final list = await salonFolderRef.child(FC.fSalonShots).list();
+    for (var item in list.items) {
+      final imageUrl = await item.getDownloadURL();
+      shots.add(imageUrl);
+    }
+
+    return shots;
+  }
+
+  Future<List<SalonAmenity>> _getSalonAmenities(
+      List<dynamic>? docReferences) async {
+    if (docReferences == null) return [];
+
+    final amenities = docReferences.map((doc) {
+      return (doc as DocumentReference).withSalonAmenityConverter();
     }).toList();
 
     try {
@@ -69,76 +114,53 @@ class SalonDataSourceImpl implements SalonDataSource {
     }
   }
 
-  Future<List<ServicesCategory>> _getSalonServiceCategories(
-      String salonId) async {
-    final categoriesRef = db
-        .collection(FC.cSalons)
-        .doc(salonId)
-        .collection(FC.cServiceCategories)
-        .withServicesCategoryConverter();
-    try {
-      final snapshot = await categoriesRef.get();
+  Future<List<SalonService>> _getServices(List<dynamic>? docReferences) async {
+    if (docReferences == null) return [];
 
-      return List.generate(
-        snapshot.size,
-        (index) => snapshot.docs[index].data(),
+    final services = docReferences.map((doc) {
+      return (doc as DocumentReference).withSalonServiceConverter();
+    }).toList();
+
+    try {
+      final futures = List.generate(
+        services.length,
+        (index) async {
+          final doc = await services[index].get();
+          return doc.data()!;
+        },
       );
+      return Future.wait(futures);
     } catch (e, s) {
       Logger().e("Error", error: e, stackTrace: s);
       rethrow;
     }
   }
 
-  /// Processes a list of salons and their amenities concurrently.
-  ///
-  /// [salons] The list of salons to process.
-  ///
-  /// Returns a list of `SalonGroup` objects, where each `SalonGroup` object
-  /// contains a salon, its amenities, and its service categories.
-  Future<List<SalonGroup>> _processSalonsAndAmenitiesConcurrently(
-      Iterable<DocumentSnapshot<Salon>> salons) async {
+  Future<List<Salon>> _processSalons(QuerySnapshot<Salon> snapshot) async {
     // Create a list of `SalonGroup` objects.
-    final data = <SalonGroup>[];
+    final data = <Salon>[];
 
     // Iterate over the salons and process each one.
-    for (final salonDoc in salons) {
+    for (final salonDoc in snapshot.docs) {
       // Get the salon data.
-      Salon? salon = salonDoc.data();
-      if (salon == null) continue;
+      Salon salon = salonDoc.data();
 
-      // Get the salon's profile image URL.
-      final salonFolderPath = p.join(FC.fImages, FC.fSalons, salon.id);
-      final salonFolderRef = storage.ref(salonFolderPath);
       final profileImageName = salon.profileImageUrl;
-      if (profileImageName.isNotEmpty) {
-        final profileImage =
-            await salonFolderRef.child(profileImageName).getDownloadURL();
-        salon = salon.copyWith(profileImageUrl: profileImage);
-      }
-
-      // Get the salon's shots.
-      final shots = <String>[];
-      final shotsResult = await salonFolderRef.child(FC.fShots).list();
-      for (var item in shotsResult.items) {
-        final imageUrl = await item.getDownloadURL();
-        shots.add(imageUrl);
-      }
-      salon = salon.copyWith(shots: shots);
-
-      // Get the salon's amenities.
-      final amenities = await _getSalonAmenities(salonDoc.get(FC.cAmenities));
-
-      // Get the salon's service categories.
-      final serviceCategories = await _getSalonServiceCategories(salon.id);
+      final profileImage = await _getProfileImage(profileImageName, salon.id);
+      final shots = await _getShots(salon.id);
+      final amenities =
+          await _getSalonAmenities(salonDoc.get(FC.fSalonAmenities));
+      final services = await _getServices(salonDoc.get(FC.fSalonServices));
 
       // Add a `SalonGroup` object to the list.
-      data.add(
-        SalonGroup(
-          salon: salon,
-          amenities: amenities,
-          categories: serviceCategories,
-        ),
+      salon = salon.copyWith(
+        profileImageUrl: profileImage,
+        shots: shots,
+        amenities: amenities,
+        services: services,
       );
+
+      data.add(salon);
     }
 
     // Return the list of `SalonGroup` objects.
@@ -149,7 +171,7 @@ class SalonDataSourceImpl implements SalonDataSource {
   ///
   /// [params] Optional parameters for filtering the results.
   @override
-  Future<List<SalonGroup>> getSalons([GetSalonsParams? params]) async {
+  Future<List<Salon>> getSalons([GetSalonsParams? params]) async {
     try {
       // Get the collection reference for salons.
       Query<Salon> salonsColRef =
@@ -162,7 +184,7 @@ class SalonDataSourceImpl implements SalonDataSource {
       final snapshot = await salonsColRef.get();
 
       // Process the salons and amenities concurrently.
-      final data = await _processSalonsAndAmenitiesConcurrently(snapshot.docs);
+      final data = await _processSalons(snapshot);
 
       return data;
     } catch (e, s) {
@@ -172,8 +194,7 @@ class SalonDataSourceImpl implements SalonDataSource {
   }
 
   @override
-  Future<List<SalonGroup>> getTopRatedSalons(
-      [GetTopRatedSalonsParams? params]) {
+  Future<List<Salon>> getTopRatedSalons([GetTopRatedSalonsParams? params]) {
     try {
       final data = getSalons(
         GetSalonsParams(
@@ -187,5 +208,59 @@ class SalonDataSourceImpl implements SalonDataSource {
       Logger().e("Error", error: e, stackTrace: s);
       rethrow;
     }
+  }
+
+  @override
+  Future<List<ServicesCategory>> getTPLServiceCategories() async {
+    final collectionRef =
+        db.collection(FC.cTPLServiceCategories).withServicesCategoryConverter();
+    try {
+      final snapshot = await collectionRef.get();
+      return List.generate(
+          snapshot.size, (index) => snapshot.docs[index].data());
+    } catch (e, s) {
+      Logger().e("Error", error: e, stackTrace: s);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<SalonService>> getTPLServices() async {
+    final collectionRef =
+        db.collection(FC.cTPLServices).withSalonServiceConverter();
+    try {
+      final snapshot = await collectionRef.get();
+      return List.generate(
+          snapshot.size, (index) => snapshot.docs[index].data());
+    } catch (e, s) {
+      Logger().e("Error", error: e, stackTrace: s);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<Salon>> search([SalonSearchParams? params]) async {
+    // Create a query to fetch the salons from Firebase.
+    Query<Salon> query = db.collection(FC.cSalons).withSalonConverter();
+
+    // Add filters to the query based on the search parameters.
+    if (params?.name != null) {
+      query = query.where('name', isEqualTo: params?.name);
+    }
+    // if (params?.location != null) {
+    //   query = query.where('locations', arrayContains: params?.location);
+    // }
+    if (params?.minRating != null) {
+      query = query.where('rating_average',
+          isGreaterThanOrEqualTo: params?.minRating);
+    }
+    // if (params?.services != null) {
+    //   query = query.where('services', arrayContainsAny: params?.services);
+    // }
+
+    final snapshot = await query.get();
+    final salons = _processSalons(snapshot);
+
+    return salons;
   }
 }

@@ -19,6 +19,10 @@ class $AssetsImagesGen {
   AssetGenImage get homeBannerBackground =>
       const AssetGenImage('assets/images/home_banner_background.png');
 
+  /// File path: assets/images/location_icon.png
+  AssetGenImage get locationIcon =>
+      const AssetGenImage('assets/images/location_icon.png');
+
   /// File path: assets/images/logo_full_dark.png
   AssetGenImage get logoFullDark =>
       const AssetGenImage('assets/images/logo_full_dark.png');
@@ -39,6 +43,14 @@ class $AssetsImagesGen {
   AssetGenImage get pointsIcon =>
       const AssetGenImage('assets/images/points_icon.png');
 
+  /// File path: assets/images/rating_icon.png
+  AssetGenImage get ratingIcon =>
+      const AssetGenImage('assets/images/rating_icon.png');
+
+  /// File path: assets/images/services_icon.png
+  AssetGenImage get servicesIcon =>
+      const AssetGenImage('assets/images/services_icon.png');
+
   $AssetsImagesSvgGen get svg => const $AssetsImagesSvgGen();
 
   /// File path: assets/images/top_salons_icon.png
@@ -52,11 +64,14 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
         homeBannerBackground,
+        locationIcon,
         logoFullDark,
         logoFullLight,
         logoTpDark,
         logoTpLight,
         pointsIcon,
+        ratingIcon,
+        servicesIcon,
         topSalonsIcon,
         userPlaceholder
       ];

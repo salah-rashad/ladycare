@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../core/network/network_helper.dart';
 import '../../../../../core/routes/go_router.dart';
 import '../../../../../core/routes/routes.dart';
-import '../../../domain/entities/user_data.dart';
+import '../../../data/models/user_data.dart';
 import '../../../domain/usecases/get_user_profile_usecase.dart';
 import '../../../domain/usecases/logout_usecase.dart';
 

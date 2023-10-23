@@ -9,10 +9,14 @@ part of 'salon_service.dart';
 _$_SalonService _$$_SalonServiceFromJson(Map<String, dynamic> json) =>
     _$_SalonService(
       id: json['id'] as String,
-      name: json['name'] as String,
-      description: json['description'] as String,
-      price: (json['price'] as num).toDouble(),
-      duration: Duration(microseconds: json['duration'] as int),
+      name: json['name'] as String? ?? "",
+      description: json['description'] as String? ?? "",
+      duration: json['duration'] == null
+          ? Duration.zero
+          : Duration(microseconds: json['duration'] as int),
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      category: json['category'] as String? ?? "",
+      salon: json['salon'],
     );
 
 Map<String, dynamic> _$$_SalonServiceToJson(_$_SalonService instance) =>
@@ -20,6 +24,8 @@ Map<String, dynamic> _$$_SalonServiceToJson(_$_SalonService instance) =>
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
-      'price': instance.price,
       'duration': instance.duration.inMicroseconds,
+      'price': instance.price,
+      'category': instance.category,
+      'salon': instance.salon,
     };

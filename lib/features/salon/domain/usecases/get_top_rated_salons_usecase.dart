@@ -1,19 +1,23 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/failures.dart';
-import '../entities/salon_group.dart';
 import '../../../../core/utils/usecase.dart';
+import '../../data/models/salon.dart';
 import '../repositories/salon_repository.dart';
 
-typedef GetTopRatedSalonsParams = ({int limit});
+class GetTopRatedSalonsParams {
+  final int? limit;
+
+  const GetTopRatedSalonsParams({this.limit});
+}
 
 class GetTopRatedSalonsUsecase
-    extends Usecase<List<SalonGroup>, GetTopRatedSalonsParams> {
+    extends Usecase<List<Salon>, GetTopRatedSalonsParams> {
   final SalonRepository salonRepository;
-  GetTopRatedSalonsUsecase(this.salonRepository);
+  const GetTopRatedSalonsUsecase(this.salonRepository);
 
   @override
-  Future<Either<Failure, List<SalonGroup>>> call(
+  Future<Either<Failure, List<Salon>>> call(
       [GetTopRatedSalonsParams? params]) async {
     return salonRepository.getTopRatedSalons(params);
   }

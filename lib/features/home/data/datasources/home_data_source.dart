@@ -16,7 +16,7 @@ abstract class HomeDataSource {
 class HomeDataSourceImpl implements HomeDataSource {
   final FirebaseFirestore db;
   final FirebaseStorage storage;
-  HomeDataSourceImpl(this.db, this.storage);
+  const HomeDataSourceImpl(this.db, this.storage);
 
   @override
   Future<List<Highlight>> getHighlights() async {

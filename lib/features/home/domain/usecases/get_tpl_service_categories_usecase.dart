@@ -6,7 +6,6 @@ import '../repositories/home_repository.dart';
 
 class GetTplServiceCategoriesUsecase {
   final HomeRepository repository;
-
   GetTplServiceCategoriesUsecase(this.repository);
 
   Future<Either<Failure, List<ServicesCategory>>> call() async {

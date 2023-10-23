@@ -9,21 +9,30 @@ part 'work_days.g.dart';
 @freezed
 class WorkDays with _$WorkDays {
   const factory WorkDays({
-    required WorkHoursRange? sunday,
-    required WorkHoursRange? monday,
-    required WorkHoursRange? tuesday,
-    required WorkHoursRange? wednesday,
-    required WorkHoursRange? thursday,
-    required WorkHoursRange? friday,
-    required WorkHoursRange? saturday,
+    WorkHoursRange? sunday,
+    WorkHoursRange? monday,
+    WorkHoursRange? tuesday,
+    WorkHoursRange? wednesday,
+    WorkHoursRange? thursday,
+    WorkHoursRange? friday,
+    WorkHoursRange? saturday,
   }) = _WorkDays;
 
   factory WorkDays.fromJson(Map<String, dynamic> json) =>
       _$WorkDaysFromJson(json);
 }
 
-extension WorkDaysColRefExt on CollectionReference<Map<String, dynamic>> {
+extension WorkDaysColRefExt on CollectionReference {
   CollectionReference<WorkDays> withWorkDaysConverter() {
+    return withConverter(
+      fromFirestore: (snapshot, options) => WorkDays.fromJson(snapshot.data()!),
+      toFirestore: (value, options) => value.toJson(),
+    );
+  }
+}
+
+extension WorkDaysDocRefExt on DocumentReference {
+  DocumentReference<WorkDays> withWorkDaysConverter() {
     return withConverter(
       fromFirestore: (snapshot, options) => WorkDays.fromJson(snapshot.data()!),
       toFirestore: (value, options) => value.toJson(),

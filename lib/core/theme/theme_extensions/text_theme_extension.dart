@@ -9,7 +9,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
   const TextThemeExtension({this.colors});
 
   /// fontSize: 57 | fontWeight: w400 | fontFamily: Cairo
-  TextStyle? get displayLarge => TextStyle(
+  TextStyle get displayLarge => TextStyle(
         color: colors?.headingText,
         fontSize: 57.sp,
         fontFamily: FontFamily.cairo,
@@ -18,7 +18,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 45 | fontWeight: w400 | fontFamily: Cairo
-  TextStyle? get displayMedium => TextStyle(
+  TextStyle get displayMedium => TextStyle(
         color: colors?.headingText,
         fontSize: 45.sp,
         fontFamily: FontFamily.cairo,
@@ -27,7 +27,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 36 | fontWeight: w400 | fontFamily: Cairo
-  TextStyle? get displaySmall => TextStyle(
+  TextStyle get displaySmall => TextStyle(
         color: colors?.headingText,
         fontSize: 36.sp,
         fontFamily: FontFamily.cairo,
@@ -36,7 +36,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 24 | fontWeight: w700 | fontFamily: Cairo
-  TextStyle? get headlineLarge => TextStyle(
+  TextStyle get headlineLarge => TextStyle(
         color: colors?.headingText,
         fontSize: 24.sp,
         fontFamily: FontFamily.cairo,
@@ -44,7 +44,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 20 | fontWeight: w700 | fontFamily: Cairo
-  TextStyle? get headlineMedium => TextStyle(
+  TextStyle get headlineMedium => TextStyle(
         color: colors?.headingText,
         fontSize: 20.sp,
         fontFamily: FontFamily.cairo,
@@ -52,7 +52,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 16 | fontWeight: w700 | fontFamily: Cairo
-  TextStyle? get headlineSmall => TextStyle(
+  TextStyle get headlineSmall => TextStyle(
         color: colors?.headingText,
         fontSize: 16.sp,
         fontFamily: FontFamily.cairo,
@@ -60,7 +60,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 22 | fontWeight: w600 | fontFamily: Cairo
-  TextStyle? get titleLarge => TextStyle(
+  TextStyle get titleLarge => TextStyle(
         color: colors?.primaryText,
         fontSize: 22.sp,
         fontFamily: FontFamily.cairo,
@@ -69,7 +69,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 16 | fontWeight: w600 | fontFamily: Cairo
-  TextStyle? get titleMedium => TextStyle(
+  TextStyle get titleMedium => TextStyle(
         color: colors?.primaryText,
         fontSize: 16.sp,
         fontFamily: FontFamily.cairo,
@@ -78,7 +78,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 14 | fontWeight: w600 | fontFamily: Cairo
-  TextStyle? get titleSmall => TextStyle(
+  TextStyle get titleSmall => TextStyle(
         color: colors?.primaryText,
         fontSize: 14.sp,
         fontFamily: FontFamily.cairo,
@@ -87,7 +87,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 14 | fontWeight: w700 | fontFamily: Cairo
-  TextStyle? get labelLarge => TextStyle(
+  TextStyle get labelLarge => TextStyle(
         color: colors?.primaryText,
         fontSize: 14.sp,
         fontFamily: FontFamily.cairo,
@@ -95,7 +95,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 12 | fontWeight: w700 | fontFamily: Cairo
-  TextStyle? get labelMedium => TextStyle(
+  TextStyle get labelMedium => TextStyle(
         color: colors?.primaryText,
         fontSize: 12.sp,
         fontFamily: FontFamily.cairo,
@@ -103,7 +103,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 10 | fontWeight: w700 | fontFamily: Cairo
-  TextStyle? get labelSmall => TextStyle(
+  TextStyle get labelSmall => TextStyle(
         color: colors?.primaryText,
         fontSize: 10.sp,
         fontFamily: FontFamily.cairo,
@@ -111,7 +111,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 16 | fontWeight: w400 | fontFamily: Cairo
-  TextStyle? get bodyLarge => TextStyle(
+  TextStyle get bodyLarge => TextStyle(
         color: colors?.primaryText,
         fontSize: 16.sp,
         fontFamily: FontFamily.cairo,
@@ -119,7 +119,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 14 | fontWeight: w400 | fontFamily: Cairo
-  TextStyle? get bodyMedium => TextStyle(
+  TextStyle get bodyMedium => TextStyle(
         color: colors?.primaryText,
         fontSize: 14.sp,
         fontFamily: FontFamily.cairo,
@@ -127,7 +127,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 12 | fontWeight: w400 | fontFamily: Cairo
-  TextStyle? get bodySmall => TextStyle(
+  TextStyle get bodySmall => TextStyle(
         color: colors?.primaryText,
         fontSize: 12.sp,
         fontFamily: FontFamily.cairo,
@@ -135,7 +135,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 12 | fontWeight: w700 | fontFamily: Montserrat
-  TextStyle? get numbersXSmall => TextStyle(
+  TextStyle get numbersXSmall => TextStyle(
         color: colors?.primaryText,
         fontSize: 12.sp,
         fontFamily: FontFamily.montserrat,
@@ -143,7 +143,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 16 | fontWeight: w700 | fontFamily: Montserrat
-  TextStyle? get numbersSmall => TextStyle(
+  TextStyle get numbersSmall => TextStyle(
         color: colors?.primaryText,
         fontSize: 16.sp,
         fontFamily: FontFamily.montserrat,
@@ -151,7 +151,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 20 | fontWeight: w700 | fontFamily: Montserrat
-  TextStyle? get numbersMedium => TextStyle(
+  TextStyle get numbersMedium => TextStyle(
         color: colors?.primaryText,
         fontSize: 20.sp,
         fontFamily: FontFamily.montserrat,
@@ -159,7 +159,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 32 | fontWeight: w700 | fontFamily: Montserrat
-  TextStyle? get numbersSemiLarge => TextStyle(
+  TextStyle get numbersSemiLarge => TextStyle(
         color: colors?.primaryText,
         fontSize: 32.sp,
         fontFamily: FontFamily.montserrat,
@@ -167,7 +167,7 @@ class TextThemeExtension extends ThemeExtension<TextThemeExtension> {
       );
 
   /// fontSize: 64 | fontWeight: w700 | fontFamily: Montserrat
-  TextStyle? get numbersLarge => TextStyle(
+  TextStyle get numbersLarge => TextStyle(
         color: colors?.primaryText,
         fontSize: 64.sp,
         fontFamily: FontFamily.montserrat,

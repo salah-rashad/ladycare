@@ -14,6 +14,7 @@ class CustomInputDecorationTheme extends InputDecorationTheme {
     required this.colors,
     required this.textTheme,
   });
+  
 
   InputColorScheme get inputColorScheme =>
       colors.inputColorScheme(tintColor: tint);
@@ -31,7 +32,10 @@ class CustomInputDecorationTheme extends InputDecorationTheme {
       OutlineInputBorder(borderRadius: BorderRadius.circular(12.0));
   @override
   TextStyle? get labelStyle =>
-      textTheme.titleSmall?.apply(color: colors.tertiaryText);
+      textTheme.titleSmall.apply(color: colors.tertiaryText);
+  @override
+  TextStyle? get hintStyle =>
+      textTheme.titleSmall.apply(color: colors.tertiaryText);
   @override
   Color? get prefixIconColor => colors.tertiaryText;
 

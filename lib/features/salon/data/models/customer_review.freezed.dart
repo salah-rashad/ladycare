@@ -21,11 +21,11 @@ CustomerReview _$CustomerReviewFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CustomerReview {
   String get id => throw _privateConstructorUsedError;
-  String get salonId => throw _privateConstructorUsedError;
-  String get customerId => throw _privateConstructorUsedError;
+  dynamic get salon => throw _privateConstructorUsedError;
+  dynamic get customer => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
   String get comment => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,11 +41,11 @@ abstract class $CustomerReviewCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String salonId,
-      String customerId,
+      dynamic salon,
+      dynamic customer,
       double rating,
       String comment,
-      DateTime createdAt});
+      DateTime? createdAt});
 }
 
 /// @nodoc
@@ -62,25 +62,25 @@ class _$CustomerReviewCopyWithImpl<$Res, $Val extends CustomerReview>
   @override
   $Res call({
     Object? id = null,
-    Object? salonId = null,
-    Object? customerId = null,
+    Object? salon = freezed,
+    Object? customer = freezed,
     Object? rating = null,
     Object? comment = null,
-    Object? createdAt = null,
+    Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      salonId: null == salonId
-          ? _value.salonId
-          : salonId // ignore: cast_nullable_to_non_nullable
-              as String,
-      customerId: null == customerId
-          ? _value.customerId
-          : customerId // ignore: cast_nullable_to_non_nullable
-              as String,
+      salon: freezed == salon
+          ? _value.salon
+          : salon // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      customer: freezed == customer
+          ? _value.customer
+          : customer // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -89,10 +89,10 @@ class _$CustomerReviewCopyWithImpl<$Res, $Val extends CustomerReview>
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -107,11 +107,11 @@ abstract class _$$_CustomerReviewCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String salonId,
-      String customerId,
+      dynamic salon,
+      dynamic customer,
       double rating,
       String comment,
-      DateTime createdAt});
+      DateTime? createdAt});
 }
 
 /// @nodoc
@@ -126,25 +126,25 @@ class __$$_CustomerReviewCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? salonId = null,
-    Object? customerId = null,
+    Object? salon = freezed,
+    Object? customer = freezed,
     Object? rating = null,
     Object? comment = null,
-    Object? createdAt = null,
+    Object? createdAt = freezed,
   }) {
     return _then(_$_CustomerReview(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      salonId: null == salonId
-          ? _value.salonId
-          : salonId // ignore: cast_nullable_to_non_nullable
-              as String,
-      customerId: null == customerId
-          ? _value.customerId
-          : customerId // ignore: cast_nullable_to_non_nullable
-              as String,
+      salon: freezed == salon
+          ? _value.salon
+          : salon // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      customer: freezed == customer
+          ? _value.customer
+          : customer // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -153,10 +153,10 @@ class __$$_CustomerReviewCopyWithImpl<$Res>
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
     ));
   }
 }
@@ -165,32 +165,37 @@ class __$$_CustomerReviewCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CustomerReview implements _CustomerReview {
   const _$_CustomerReview(
-      {required this.id,
-      required this.salonId,
-      required this.customerId,
-      required this.rating,
-      required this.comment,
-      required this.createdAt});
+      {this.id = "",
+      this.salon = null,
+      this.customer = null,
+      this.rating = 0.0,
+      this.comment = "",
+      this.createdAt});
 
   factory _$_CustomerReview.fromJson(Map<String, dynamic> json) =>
       _$$_CustomerReviewFromJson(json);
 
   @override
+  @JsonKey()
   final String id;
   @override
-  final String salonId;
+  @JsonKey()
+  final dynamic salon;
   @override
-  final String customerId;
+  @JsonKey()
+  final dynamic customer;
   @override
+  @JsonKey()
   final double rating;
   @override
+  @JsonKey()
   final String comment;
   @override
-  final DateTime createdAt;
+  final DateTime? createdAt;
 
   @override
   String toString() {
-    return 'CustomerReview(id: $id, salonId: $salonId, customerId: $customerId, rating: $rating, comment: $comment, createdAt: $createdAt)';
+    return 'CustomerReview(id: $id, salon: $salon, customer: $customer, rating: $rating, comment: $comment, createdAt: $createdAt)';
   }
 
   @override
@@ -199,9 +204,8 @@ class _$_CustomerReview implements _CustomerReview {
         (other.runtimeType == runtimeType &&
             other is _$_CustomerReview &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.salonId, salonId) || other.salonId == salonId) &&
-            (identical(other.customerId, customerId) ||
-                other.customerId == customerId) &&
+            const DeepCollectionEquality().equals(other.salon, salon) &&
+            const DeepCollectionEquality().equals(other.customer, customer) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.comment, comment) || other.comment == comment) &&
             (identical(other.createdAt, createdAt) ||
@@ -211,7 +215,13 @@ class _$_CustomerReview implements _CustomerReview {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, salonId, customerId, rating, comment, createdAt);
+      runtimeType,
+      id,
+      const DeepCollectionEquality().hash(salon),
+      const DeepCollectionEquality().hash(customer),
+      rating,
+      comment,
+      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -229,12 +239,12 @@ class _$_CustomerReview implements _CustomerReview {
 
 abstract class _CustomerReview implements CustomerReview {
   const factory _CustomerReview(
-      {required final String id,
-      required final String salonId,
-      required final String customerId,
-      required final double rating,
-      required final String comment,
-      required final DateTime createdAt}) = _$_CustomerReview;
+      {final String id,
+      final dynamic salon,
+      final dynamic customer,
+      final double rating,
+      final String comment,
+      final DateTime? createdAt}) = _$_CustomerReview;
 
   factory _CustomerReview.fromJson(Map<String, dynamic> json) =
       _$_CustomerReview.fromJson;
@@ -242,15 +252,15 @@ abstract class _CustomerReview implements CustomerReview {
   @override
   String get id;
   @override
-  String get salonId;
+  dynamic get salon;
   @override
-  String get customerId;
+  dynamic get customer;
   @override
   double get rating;
   @override
   String get comment;
   @override
-  DateTime get createdAt;
+  DateTime? get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$_CustomerReviewCopyWith<_$_CustomerReview> get copyWith =>

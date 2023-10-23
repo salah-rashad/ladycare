@@ -2,20 +2,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+import 'app.dart';
 import 'app_bloc_observer.dart';
 import 'core/constants/constants.dart';
-import 'core/routes/go_router.dart';
-import 'core/theme/app_theme.dart';
-import 'core/theme/light_app_theme.dart';
-import 'core/utils/extensions.dart';
 import 'firebase_options.dart';
-import 'global/blocs/theme_mode_cubit/theme_mode_cubit.dart';
 import 'injection_container.dart' as di;
-import 'providers.dart';
 
 part 'init.dart';
 
@@ -30,62 +23,5 @@ void main() async {
   _setTransparentStatusbarColor();
   _setPreferredOrientations();
 
-  runApp(const Main());
-}
-
-class Main extends StatelessWidget {
-  const Main({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: providers,
-        child: ScreenUtilInit(
-          designSize: Constants.designSize,
-          child: BlocBuilder<ThemeModeCubit, ThemeModeState>(
-            bloc: di.sl<ThemeModeCubit>(),
-            builder: (context, state) {
-              return MaterialApp.router(
-                title: Constants.appName,
-                debugShowCheckedModeBanner: false,
-                routerConfig: AppRouter.router,
-                themeMode: state.mode, // ThemeMode.light,
-                theme: AppTheme().light,
-                darkTheme: AppTheme().dark,
-                locale: Constants.defaultLocale,
-                color: LightAppThemeExtensions().colors.primary,
-                localizationsDelegates: const [
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: const [
-                  Locale('ar'),
-                  // Locale('en'),
-                ],
-                builder: _routeBuilder,
-              );
-            },
-          ),
-        ));
-  }
-
-  Widget _routeBuilder(BuildContext context, Widget? child) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: child ?? _initialView(context),
-    );
-  }
-
-  Material _initialView(BuildContext context) {
-    return Material(
-      color: context.colors.surface,
-      child: Center(
-        child: ConstrainedBox(
-          constraints: BoxConstraints.loose(const Size.square(120.0)),
-          child: context.images.logo.image(),
-        ),
-      ),
-    );
-  }
+  runApp(const LadyCareApp());
 }

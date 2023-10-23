@@ -6,21 +6,23 @@ import '../../../../core/utils/extensions.dart';
 class SalonImage extends StatelessWidget {
   final String url;
   final double radius;
-  const SalonImage({super.key, required this.url, this.radius = 12.0});
+  final Size size;
+  const SalonImage({
+    super.key,
+    required this.url,
+    this.radius = 12.0,
+    this.size = const Size.square(48.0),
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          width: 48,
-          height: 48,
+          width: size.width,
+          height: size.height,
           clipBehavior: Clip.hardEdge,
           decoration: ShapeDecoration(
-            // image: DecorationImage(
-            //   image: CachedNetworkImageProvider(url),
-            //   fit: BoxFit.cover,
-            // ),
             color: context.colors.surface,
             shape: RoundedRectangleBorder(
               side: const BorderSide(
