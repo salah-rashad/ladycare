@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'app.dart';
-import 'app_bloc_observer.dart';
+import 'core/observer/app_bloc_observer.dart';
 import 'core/constants/constants.dart';
 import 'firebase_options.dart';
 import 'injection_container.dart' as di;
