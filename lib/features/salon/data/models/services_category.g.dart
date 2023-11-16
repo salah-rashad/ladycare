@@ -11,6 +11,7 @@ _$_ServicesCategory _$$_ServicesCategoryFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       name: json['name'] as String? ?? "",
       iconUrl: json['icon_url'] as String? ?? "",
+      salonId: json['salon_id'] as int,
     );
 
 Map<String, dynamic> _$$_ServicesCategoryToJson(_$_ServicesCategory instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$_ServicesCategoryToJson(_$_ServicesCategory instance) =>
       'id': instance.id,
       'name': instance.name,
       'icon_url': instance.iconUrl,
+      'salon_id': instance.salonId,
     };

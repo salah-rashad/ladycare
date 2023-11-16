@@ -23,6 +23,7 @@ mixin _$ServicesCategory {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get iconUrl => throw _privateConstructorUsedError;
+  int get salonId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,7 @@ abstract class $ServicesCategoryCopyWith<$Res> {
           ServicesCategory value, $Res Function(ServicesCategory) then) =
       _$ServicesCategoryCopyWithImpl<$Res, ServicesCategory>;
   @useResult
-  $Res call({String id, String name, String iconUrl});
+  $Res call({String id, String name, String iconUrl, int salonId});
 }
 
 /// @nodoc
@@ -55,6 +56,7 @@ class _$ServicesCategoryCopyWithImpl<$Res, $Val extends ServicesCategory>
     Object? id = null,
     Object? name = null,
     Object? iconUrl = null,
+    Object? salonId = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -69,6 +71,10 @@ class _$ServicesCategoryCopyWithImpl<$Res, $Val extends ServicesCategory>
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      salonId: null == salonId
+          ? _value.salonId
+          : salonId // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -81,7 +87,7 @@ abstract class _$$_ServicesCategoryCopyWith<$Res>
       __$$_ServicesCategoryCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String iconUrl});
+  $Res call({String id, String name, String iconUrl, int salonId});
 }
 
 /// @nodoc
@@ -98,6 +104,7 @@ class __$$_ServicesCategoryCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? iconUrl = null,
+    Object? salonId = null,
   }) {
     return _then(_$_ServicesCategory(
       id: null == id
@@ -112,6 +119,10 @@ class __$$_ServicesCategoryCopyWithImpl<$Res>
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      salonId: null == salonId
+          ? _value.salonId
+          : salonId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -120,7 +131,10 @@ class __$$_ServicesCategoryCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ServicesCategory implements _ServicesCategory {
   const _$_ServicesCategory(
-      {required this.id, this.name = "", this.iconUrl = ""});
+      {required this.id,
+      this.name = "",
+      this.iconUrl = "",
+      required this.salonId});
 
   factory _$_ServicesCategory.fromJson(Map<String, dynamic> json) =>
       _$$_ServicesCategoryFromJson(json);
@@ -133,10 +147,12 @@ class _$_ServicesCategory implements _ServicesCategory {
   @override
   @JsonKey()
   final String iconUrl;
+  @override
+  final int salonId;
 
   @override
   String toString() {
-    return 'ServicesCategory(id: $id, name: $name, iconUrl: $iconUrl)';
+    return 'ServicesCategory(id: $id, name: $name, iconUrl: $iconUrl, salonId: $salonId)';
   }
 
   @override
@@ -146,12 +162,13 @@ class _$_ServicesCategory implements _ServicesCategory {
             other is _$_ServicesCategory &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl));
+            (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
+            (identical(other.salonId, salonId) || other.salonId == salonId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, iconUrl);
+  int get hashCode => Object.hash(runtimeType, id, name, iconUrl, salonId);
 
   @JsonKey(ignore: true)
   @override
@@ -171,7 +188,8 @@ abstract class _ServicesCategory implements ServicesCategory {
   const factory _ServicesCategory(
       {required final String id,
       final String name,
-      final String iconUrl}) = _$_ServicesCategory;
+      final String iconUrl,
+      required final int salonId}) = _$_ServicesCategory;
 
   factory _ServicesCategory.fromJson(Map<String, dynamic> json) =
       _$_ServicesCategory.fromJson;
@@ -182,6 +200,8 @@ abstract class _ServicesCategory implements ServicesCategory {
   String get name;
   @override
   String get iconUrl;
+  @override
+  int get salonId;
   @override
   @JsonKey(ignore: true)
   _$$_ServicesCategoryCopyWith<_$_ServicesCategory> get copyWith =>

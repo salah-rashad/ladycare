@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'services_category.dart';
+
 part 'salon_service.freezed.dart';
 part 'salon_service.g.dart';
 
@@ -12,8 +14,8 @@ class SalonService with _$SalonService {
     @Default("") String description,
     @Default(Duration.zero) Duration duration,
     @Default(0.0) double price,
-    @Default("") String category,
-    dynamic salon,
+    ServicesCategory? category,
+    required int salonId,
   }) = _SalonService;
 
   factory SalonService.fromJson(Map<String, dynamic> json) =>

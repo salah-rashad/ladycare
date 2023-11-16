@@ -4,7 +4,8 @@ import '../../../../../core/gen/assets.gen.dart';
 import '../../../../../core/utils/extensions.dart';
 import '../../data/models/salon.dart';
 import '../../data/models/salon_amenity.dart';
-import 'salon_image.dart';
+import 'salon_logo.dart';
+
 
 enum SalonTileType { comfortable, compact, withAmenities }
 
@@ -35,7 +36,7 @@ class SalonTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SalonImage(url: salon.profileImageUrl),
+          SalonLogo(url: salon.logo),
           Expanded(
             child: Text(
               salon.name,
@@ -67,7 +68,7 @@ class SalonTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SalonImage(url: salon.profileImageUrl),
+          SalonLogo(url: salon.logo),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +105,7 @@ class SalonTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SalonImage(url: salon.profileImageUrl),
+          SalonLogo(url: salon.logo),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -7,7 +7,7 @@ abstract class NetworkHelper {
 
   void onNetworkStateChanged({
     required VoidCallback onConnected,
-    required VoidCallback onDisonnected,
+    required VoidCallback onDisconnected,
   });
 }
 
@@ -22,7 +22,7 @@ class InternetConnectionNetworkHelperImpl implements NetworkHelper {
   @override
   void onNetworkStateChanged({
     required VoidCallback onConnected,
-    required VoidCallback onDisonnected,
+    required VoidCallback onDisconnected,
   }) =>
       internetConnection.onStatusChange.listen(
         (event) {
@@ -31,7 +31,7 @@ class InternetConnectionNetworkHelperImpl implements NetworkHelper {
               onConnected();
               break;
             case InternetConnectionStatus.disconnected:
-              onDisonnected();
+              onDisconnected();
               break;
           }
         },
@@ -51,13 +51,13 @@ class ConnectivityNetworkHelperImpl implements NetworkHelper {
   @override
   void onNetworkStateChanged({
     required VoidCallback onConnected,
-    required VoidCallback onDisonnected,
+    required VoidCallback onDisconnected,
   }) {
     connectivity.onConnectivityChanged.listen((event) {
       if (event != ConnectivityResult.none) {
         onConnected();
       } else {
-        onDisonnected();
+        onDisconnected();
       }
     });
   }

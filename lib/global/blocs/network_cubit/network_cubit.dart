@@ -26,7 +26,7 @@ class NetworkCubit extends Cubit<NetworkState> {
       onConnected: () {
         emit(NetworkConnected());
       },
-      onDisonnected: () {
+      onDisconnected: () {
         emit(NetworkDisconnected());
       },
     );

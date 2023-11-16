@@ -20,11 +20,8 @@
         ".flutter-plugins": true,
         ".flutter-plugins-dependencies": true,
         ".metadata": true,
-        /********************************
-         * BUILD RUNNER GENERATED FILES *
-         ********************************/
         "**/*.g.dart": true,
-        "**/*.freezed.dart": true,
+        "**/*.freezed.dart": true
     },
     "LineCount.includes": [
         "lib/**/*.dart"
@@ -33,4 +30,5 @@
         "lib/core/gen",
         "lib/**/*.g.dart"
     ],
+    "hide-files.files": [],
 }

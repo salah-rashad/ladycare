@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/gen/assets.gen.dart';
 import '../../../../core/utils/extensions.dart';
 
 class LadyCareLogoFull extends StatelessWidget {
@@ -8,14 +7,9 @@ class LadyCareLogoFull extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = context.isDarkMode;
-
     return Padding(
       padding: const EdgeInsets.only(top: 32.0),
-      child: (isDarkMode
-              ? Assets.images.logoFullDark
-              : Assets.images.logoFullLight)
-          .image(
+      child: context.images.logoFull.image(
         fit: BoxFit.contain,
         height: 180,
         width: 180,

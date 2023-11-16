@@ -10,6 +10,7 @@ class ServicesCategory with _$ServicesCategory {
     required String id,
     @Default("") String name,
     @Default("") String iconUrl,
+    required int salonId,
   }) = _ServicesCategory;
 
   factory ServicesCategory.fromJson(Map<String, dynamic> json) =>

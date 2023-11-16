@@ -20,9 +20,9 @@ class SalonCard extends StatelessWidget {
     this.type = SalonCardType.compact,
   });
 
-  List<String> get categories => salon.services
+  List<String> get categoryNames => salon.services
       .groupListsBy<String>(
-        (element) => element.category,
+        (element) => element.category?.name ?? "غير مصنف",
       )
       .keys
       .toList()
@@ -68,7 +68,7 @@ class SalonCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
-        children: categories
+        children: categoryNames
             .map((category) {
               return SalonCategoryChip(label: category);
             })

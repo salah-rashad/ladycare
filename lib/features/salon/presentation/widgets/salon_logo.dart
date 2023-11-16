@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/utils/extensions.dart';
 
-class SalonImage extends StatelessWidget {
+class SalonLogo extends StatelessWidget {
   final String url;
   final double radius;
   final Size size;
-  const SalonImage({
+  const SalonLogo({
     super.key,
     required this.url,
     this.radius = 12.0,

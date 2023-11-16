@@ -57,7 +57,7 @@ class AuthCubit extends Cubit<AuthState> {
       onConnected: () {
         _fetchUserProfile();
       },
-      onDisonnected: () {},
+      onDisconnected: () {},
     );
   }
 

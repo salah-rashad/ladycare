@@ -25,8 +25,8 @@ mixin _$SalonService {
   String get description => throw _privateConstructorUsedError;
   Duration get duration => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
-  String get category => throw _privateConstructorUsedError;
-  dynamic get salon => throw _privateConstructorUsedError;
+  ServicesCategory? get category => throw _privateConstructorUsedError;
+  int get salonId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,8 +46,10 @@ abstract class $SalonServiceCopyWith<$Res> {
       String description,
       Duration duration,
       double price,
-      String category,
-      dynamic salon});
+      ServicesCategory? category,
+      int salonId});
+
+  $ServicesCategoryCopyWith<$Res>? get category;
 }
 
 /// @nodoc
@@ -68,8 +70,8 @@ class _$SalonServiceCopyWithImpl<$Res, $Val extends SalonService>
     Object? description = null,
     Object? duration = null,
     Object? price = null,
-    Object? category = null,
-    Object? salon = freezed,
+    Object? category = freezed,
+    Object? salonId = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -92,15 +94,27 @@ class _$SalonServiceCopyWithImpl<$Res, $Val extends SalonService>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
-      category: null == category
+      category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String,
-      salon: freezed == salon
-          ? _value.salon
-          : salon // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as ServicesCategory?,
+      salonId: null == salonId
+          ? _value.salonId
+          : salonId // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ServicesCategoryCopyWith<$Res>? get category {
+    if (_value.category == null) {
+      return null;
+    }
+
+    return $ServicesCategoryCopyWith<$Res>(_value.category!, (value) {
+      return _then(_value.copyWith(category: value) as $Val);
+    });
   }
 }
 
@@ -118,8 +132,11 @@ abstract class _$$_SalonServiceCopyWith<$Res>
       String description,
       Duration duration,
       double price,
-      String category,
-      dynamic salon});
+      ServicesCategory? category,
+      int salonId});
+
+  @override
+  $ServicesCategoryCopyWith<$Res>? get category;
 }
 
 /// @nodoc
@@ -138,8 +155,8 @@ class __$$_SalonServiceCopyWithImpl<$Res>
     Object? description = null,
     Object? duration = null,
     Object? price = null,
-    Object? category = null,
-    Object? salon = freezed,
+    Object? category = freezed,
+    Object? salonId = null,
   }) {
     return _then(_$_SalonService(
       id: null == id
@@ -162,14 +179,14 @@ class __$$_SalonServiceCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
-      category: null == category
+      category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String,
-      salon: freezed == salon
-          ? _value.salon
-          : salon // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as ServicesCategory?,
+      salonId: null == salonId
+          ? _value.salonId
+          : salonId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -183,8 +200,8 @@ class _$_SalonService implements _SalonService {
       this.description = "",
       this.duration = Duration.zero,
       this.price = 0.0,
-      this.category = "",
-      this.salon});
+      this.category,
+      required this.salonId});
 
   factory _$_SalonService.fromJson(Map<String, dynamic> json) =>
       _$$_SalonServiceFromJson(json);
@@ -204,14 +221,13 @@ class _$_SalonService implements _SalonService {
   @JsonKey()
   final double price;
   @override
-  @JsonKey()
-  final String category;
+  final ServicesCategory? category;
   @override
-  final dynamic salon;
+  final int salonId;
 
   @override
   String toString() {
-    return 'SalonService(id: $id, name: $name, description: $description, duration: $duration, price: $price, category: $category, salon: $salon)';
+    return 'SalonService(id: $id, name: $name, description: $description, duration: $duration, price: $price, category: $category, salonId: $salonId)';
   }
 
   @override
@@ -228,13 +244,13 @@ class _$_SalonService implements _SalonService {
             (identical(other.price, price) || other.price == price) &&
             (identical(other.category, category) ||
                 other.category == category) &&
-            const DeepCollectionEquality().equals(other.salon, salon));
+            (identical(other.salonId, salonId) || other.salonId == salonId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description, duration,
-      price, category, const DeepCollectionEquality().hash(salon));
+  int get hashCode => Object.hash(
+      runtimeType, id, name, description, duration, price, category, salonId);
 
   @JsonKey(ignore: true)
   @override
@@ -257,8 +273,8 @@ abstract class _SalonService implements SalonService {
       final String description,
       final Duration duration,
       final double price,
-      final String category,
-      final dynamic salon}) = _$_SalonService;
+      final ServicesCategory? category,
+      required final int salonId}) = _$_SalonService;
 
   factory _SalonService.fromJson(Map<String, dynamic> json) =
       _$_SalonService.fromJson;
@@ -274,9 +290,9 @@ abstract class _SalonService implements SalonService {
   @override
   double get price;
   @override
-  String get category;
+  ServicesCategory? get category;
   @override
-  dynamic get salon;
+  int get salonId;
   @override
   @JsonKey(ignore: true)
   _$$_SalonServiceCopyWith<_$_SalonService> get copyWith =>

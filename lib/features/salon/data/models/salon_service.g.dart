@@ -15,8 +15,10 @@ _$_SalonService _$$_SalonServiceFromJson(Map<String, dynamic> json) =>
           ? Duration.zero
           : Duration(microseconds: json['duration'] as int),
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
-      category: json['category'] as String? ?? "",
-      salon: json['salon'],
+      category: json['category'] == null
+          ? null
+          : ServicesCategory.fromJson(json['category'] as Map<String, dynamic>),
+      salonId: json['salon_id'] as int,
     );
 
 Map<String, dynamic> _$$_SalonServiceToJson(_$_SalonService instance) =>
@@ -26,6 +28,6 @@ Map<String, dynamic> _$$_SalonServiceToJson(_$_SalonService instance) =>
       'description': instance.description,
       'duration': instance.duration.inMicroseconds,
       'price': instance.price,
-      'category': instance.category,
-      'salon': instance.salon,
+      'category': instance.category?.toJson(),
+      'salon_id': instance.salonId,
     };

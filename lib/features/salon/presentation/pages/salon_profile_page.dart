@@ -5,7 +5,7 @@ import '../../../../core/gen/assets.gen.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../../global/widgets/custom_app_bar.dart';
 import '../../data/models/salon.dart';
-import '../widgets/salon_image.dart';
+import '../widgets/salon_logo.dart';
 
 class SalonProfilePage extends StatelessWidget {
   final Salon salon;
@@ -56,8 +56,8 @@ class SalonProfilePage extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SalonImage(
-                url: salon.profileImageUrl,
+              SalonLogo(
+                url: salon.logo,
                 size: const Size.square(80.0),
               ),
               Column(
@@ -74,17 +74,17 @@ class SalonProfilePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SalonStatsItem(
-                label: "${salon.locations.length} فروع",
+                label: "${salon.branches.length} فروع",
                 icon:
                     Assets.images.locationIcon.image(width: 32.0, height: 32.0),
               ),
               SalonStatsItem(
-                label: "${salon.locations.length} فروع",
+                label: "${salon.branches.length} فروع",
                 icon:
                     Assets.images.locationIcon.image(width: 32.0, height: 32.0),
               ),
               SalonStatsItem(
-                label: "${salon.locations.length} تعليق",
+                label: "${salon.branches.length} تعليق",
                 icon:
                     Assets.images.locationIcon.image(width: 32.0, height: 32.0),
               ),

@@ -145,17 +145,17 @@ class SalonDataSourceImpl implements SalonDataSource {
       // Get the salon data.
       Salon salon = salonDoc.data();
 
-      final profileImageName = salon.profileImageUrl;
+      final profileImageName = salon.logo;
       final profileImage = await _getProfileImage(profileImageName, salon.id);
-      final shots = await _getShots(salon.id);
+      final images = await _getShots(salon.id);
       final amenities =
           await _getSalonAmenities(salonDoc.get(FC.fSalonAmenities));
       final services = await _getServices(salonDoc.get(FC.fSalonServices));
 
       // Add a `SalonGroup` object to the list.
       salon = salon.copyWith(
-        profileImageUrl: profileImage,
-        shots: shots,
+        logo: profileImage,
+        images: images,
         amenities: amenities,
         services: services,
       );
